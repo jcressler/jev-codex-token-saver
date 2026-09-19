@@ -1,0 +1,351 @@
+{
+  "schemaVersion": 1,
+  "createdAt": "2026-09-19T20:17:08.637Z",
+  "status": "complete",
+  "manifest": {
+    "codex": {
+      "path": "codex.exe",
+      "version": "codex-cli 0.155.0-alpha.9.2",
+      "sha256": "bc45017e8239dc150258f69309ced9df6bbcdf5b8e4f346decf780ac0999e226"
+    },
+    "model": "gpt-5.6-sol",
+    "effort": "high",
+    "arms": [
+      "stock",
+      "local",
+      "jev"
+    ],
+    "maxCodexExecutions": 3,
+    "fixtureHash": "ff3ef0a4616397f0a59a2c35cdd985c9d9e0e0032332e8890fe1740abe280622",
+    "fixtureFiles": [
+      ".codex-plugin/plugin.json",
+      "README.md",
+      "package.json",
+      "scripts/investigate.mjs",
+      "skills/jev-codex-token-saver/SKILL.md",
+      "src/investigator.mjs",
+      "tests/investigator.test.mjs"
+    ]
+  },
+  "task": {
+    "query": "Why do failed Jev requests underreport request-size telemetry? Identify the causal code path and the minimal safe fix.",
+    "requirements": [
+      "where the request size is known before the failure",
+      "where failure handling loses or overwrites that size",
+      "how the public metric receives the incorrect value",
+      "the regression test that should catch the defect"
+    ],
+    "passingScore": 8
+  },
+  "selectors": {
+    "local": {
+      "mode": "local",
+      "query": "Why do failed Jev requests underreport request-size telemetry? Identify the causal code path and the minimal safe fix.",
+      "requirements": [
+        "where the request size is known before the failure",
+        "where failure handling loses or overwrites that size",
+        "how the public metric receives the incorrect value",
+        "the regression test that should catch the defect"
+      ],
+      "root": "<DISPOSABLE_FIXTURE>",
+      "evidence": [
+        {
+          "path": "src/investigator.mjs",
+          "lines": {
+            "start": 286,
+            "end": 398
+          },
+          "excerpt": "286: \n287: export async function rankWithJev(query, requirements, candidates, options = {}) {\n288:   if (!candidates.length) return { mode: 'jev', selected: [], requests: 0, requestChars: 0 };\n289:   const request = buildJevRankingRequest(query, requirements, candidates);\n290:   const ask = options.ask ?? (async (state, questions) => {\n…\n299:     });\n300:     const text = await response.text();\n301:     if (!response.ok) throw new Error(`Jev request failed (${response.status})`);\n302:     let parsed;\n303:     try { parsed = JSON.parse(text); } catch { throw new Error('Jev returned malformed JSON'); }\n…\n394:       estimatedCandidateTokens: Math.ceil(candidateChars / 4),\n395:       estimatedReturnedTokens: Math.ceil(returnedChars / 4),\n396:       jevRequests: ranking.requests,\n397:       jevRequestChars: ranking.requestChars,\n398:       ...(ranking.usage ? { jevUsage: ranking.usage } : {}),"
+        },
+        {
+          "path": "tests/investigator.test.mjs",
+          "lines": {
+            "start": 40,
+            "end": 100
+          },
+          "excerpt": "40:     { path: 'b.ts', lines: { start: 1, end: 1 }, excerpt: 'the causal evidence', matchedTerms: ['evidence'], localScore: 100 },\n41:   ];\n42:   const ranked = await rankWithJev('shared failure', ['causal evidence'], candidates, {\n43:     resultLimit: 1,\n44:     ask: async (_state, questions) => {\n…\n85: });\n86: \n87: test('Jev failure falls back to deterministic evidence and is visible', async () => {\n88:   const root = await fixture();\n89:   try {\n…\n96:     });\n97:     assert.equal(result.mode, 'local-fallback');\n98:     assert.equal(result.metrics.jevRequests, 1);\n99:     assert.equal(result.warning, 'synthetic outage');\n100:     assert.ok(result.evidence.length > 0);"
+        }
+      ],
+      "metrics": {
+        "filesVisited": 8,
+        "filesMatched": 8,
+        "bytesScanned": 31863,
+        "skippedSensitive": 0,
+        "skippedSymlinks": 0,
+        "skippedByLimit": 0,
+        "scanTruncated": false,
+        "candidatesConsidered": 6,
+        "evidenceReturned": 2,
+        "candidatePacketChars": 4540,
+        "returnedEvidenceChars": 1773,
+        "candidateContextReductionPercent": 60.9,
+        "estimatedCandidateTokens": 1135,
+        "estimatedReturnedTokens": 444,
+        "jevRequests": 0,
+        "jevRequestChars": 0,
+        "elapsedMs": 13
+      },
+      "measurementNote": "Reduction compares bounded candidate and returned evidence packets. It is not an end-to-end Codex token measurement."
+    },
+    "jev": {
+      "mode": "jev",
+      "query": "Why do failed Jev requests underreport request-size telemetry? Identify the causal code path and the minimal safe fix.",
+      "requirements": [
+        "where the request size is known before the failure",
+        "where failure handling loses or overwrites that size",
+        "how the public metric receives the incorrect value",
+        "the regression test that should catch the defect"
+      ],
+      "root": "<DISPOSABLE_FIXTURE>",
+      "evidence": [
+        {
+          "path": "src/investigator.mjs",
+          "lines": {
+            "start": 286,
+            "end": 398
+          },
+          "excerpt": "286: \n287: export async function rankWithJev(query, requirements, candidates, options = {}) {\n288:   if (!candidates.length) return { mode: 'jev', selected: [], requests: 0, requestChars: 0 };\n289:   const request = buildJevRankingRequest(query, requirements, candidates);\n290:   const ask = options.ask ?? (async (state, questions) => {\n…\n299:     });\n300:     const text = await response.text();\n301:     if (!response.ok) throw new Error(`Jev request failed (${response.status})`);\n302:     let parsed;\n303:     try { parsed = JSON.parse(text); } catch { throw new Error('Jev returned malformed JSON'); }\n…\n394:       estimatedCandidateTokens: Math.ceil(candidateChars / 4),\n395:       estimatedReturnedTokens: Math.ceil(returnedChars / 4),\n396:       jevRequests: ranking.requests,\n397:       jevRequestChars: ranking.requestChars,\n398:       ...(ranking.usage ? { jevUsage: ranking.usage } : {}),",
+          "jevRelevance": 0.6,
+          "requirementSupport": [
+            0.3,
+            0.3,
+            0.2,
+            0.2
+          ]
+        },
+        {
+          "path": "tests/investigator.test.mjs",
+          "lines": {
+            "start": 40,
+            "end": 100
+          },
+          "excerpt": "40:     { path: 'b.ts', lines: { start: 1, end: 1 }, excerpt: 'the causal evidence', matchedTerms: ['evidence'], localScore: 100 },\n41:   ];\n42:   const ranked = await rankWithJev('shared failure', ['causal evidence'], candidates, {\n43:     resultLimit: 1,\n44:     ask: async (_state, questions) => {\n…\n85: });\n86: \n87: test('Jev failure falls back to deterministic evidence and is visible', async () => {\n88:   const root = await fixture();\n89:   try {\n…\n96:     });\n97:     assert.equal(result.mode, 'local-fallback');\n98:     assert.equal(result.metrics.jevRequests, 1);\n99:     assert.equal(result.warning, 'synthetic outage');\n100:     assert.ok(result.evidence.length > 0);",
+          "jevRelevance": 0.3,
+          "requirementSupport": [
+            0.3,
+            0.3,
+            0.2,
+            0.2
+          ]
+        }
+      ],
+      "metrics": {
+        "filesVisited": 8,
+        "filesMatched": 8,
+        "bytesScanned": 31863,
+        "skippedSensitive": 0,
+        "skippedSymlinks": 0,
+        "skippedByLimit": 0,
+        "scanTruncated": false,
+        "candidatesConsidered": 6,
+        "evidenceReturned": 2,
+        "candidatePacketChars": 4540,
+        "returnedEvidenceChars": 1773,
+        "candidateContextReductionPercent": 60.9,
+        "estimatedCandidateTokens": 1135,
+        "estimatedReturnedTokens": 444,
+        "jevRequests": 1,
+        "jevRequestChars": 13737,
+        "jevUsage": {
+          "input_tokens": 3721,
+          "output_tokens": 652
+        },
+        "elapsedMs": 498
+      },
+      "jevModel": "jev-1.13.0",
+      "measurementNote": "Reduction compares bounded candidate and returned evidence packets. It is not an end-to-end Codex token measurement."
+    }
+  },
+  "runs": [
+    {
+      "arm": "stock",
+      "status": "completed",
+      "elapsedMs": 73404,
+      "promptChars": 585,
+      "packetChars": 0,
+      "responseChars": 2291,
+      "toolCalls": 5,
+      "failedToolCalls": 1,
+      "usage": {
+        "input_tokens": 106144,
+        "cached_input_tokens": 78848,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 3417,
+        "reasoning_output_tokens": 2009
+      },
+      "apiEquivalentUsd": 0.2090632,
+      "quality": {
+        "score": 10,
+        "passed": true,
+        "facts": {
+          "requestKnownBeforeFailure": true,
+          "fallbackHardcodesZero": true,
+          "publicMetricPropagation": true,
+          "viableFix": true,
+          "regressionTest": true,
+          "locations": true
+        }
+      },
+      "answer": {
+        "cause": "`rankWithJev` builds the bounded request and computes its exact UTF-8 size before calling the Jev adapter. If the adapter or response validation throws, control exits before the successful ranking object can return `request.bytes`. `investigate` catches the error and constructs a replacement fallback object with `requestChars: 0`, discarding the already-known size. The public `metrics.jevRequestChars` then copies that zero. Executable reproduction produced 5,746 actual bytes but published 0.",
+        "codeLocations": [
+          "src/investigator.mjs:214-215 defines the UTF-8 byte calculation; src/investigator.mjs:250-251 stores it as `request.bytes`.",
+          "src/investigator.mjs:287-309 builds the request before invoking `ask`, so its size exists when the synthetic or network request fails.",
+          "src/investigator.mjs:317-323 correctly returns `request.bytes` on success, but this return is bypassed by an exception.",
+          "src/investigator.mjs:350-359 catches the failure and overwrites the unavailable ranking result with hard-coded `requestChars: 0`.",
+          "src/investigator.mjs:387-398 exposes `ranking.requestChars` publicly as `metrics.jevRequestChars`, propagating the incorrect zero.",
+          "tests/investigator.test.mjs:87-104 exercises the fallback path but asserts only mode, request count, warning, and evidence—not `jevRequestChars`. All five current tests therefore pass despite the defect."
+        ],
+        "minimalFix": "Preserve `request.bytes` across the exception boundary: after request construction, wrap/rethrow ranking failures in an internal error carrying `requestChars: request.bytes` while preserving the original message/cause; in the `investigate` catch, use that carried value instead of literal zero. Default to zero only for failures occurring before a request was successfully constructed. This leaves success, empty-candidate, and pre-construction behavior unchanged.",
+        "testGap": "Extend the existing failure test at tests/investigator.test.mjs:87-104 (or add a focused regression test) so its throwing `ask(state, questions)` computes `Buffer.byteLength(JSON.stringify({ state, questions }), 'utf8')`, then assert that `result.metrics.jevRequestChars` equals that nonzero value while mode remains `local-fallback`, `jevRequests` remains 1, and the original warning is preserved.",
+        "confidence": 0.99
+      },
+      "preAuditQuality": {
+        "score": 5,
+        "passed": false,
+        "facts": {
+          "requestKnownBeforeFailure": false,
+          "fallbackHardcodesZero": false,
+          "publicMetricPropagation": false,
+          "viableFix": true,
+          "regressionTest": true,
+          "locations": true
+        }
+      }
+    },
+    {
+      "arm": "local",
+      "status": "completed",
+      "elapsedMs": 84240,
+      "promptChars": 2486,
+      "packetChars": 1773,
+      "responseChars": 2348,
+      "toolCalls": 4,
+      "failedToolCalls": 0,
+      "usage": {
+        "input_tokens": 109340,
+        "cached_input_tokens": 82688,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 3927,
+        "reasoning_output_tokens": 2106
+      },
+      "apiEquivalentUsd": 0.2182232,
+      "quality": {
+        "score": 10,
+        "passed": true,
+        "facts": {
+          "requestKnownBeforeFailure": true,
+          "fallbackHardcodesZero": true,
+          "publicMetricPropagation": true,
+          "viableFix": true,
+          "regressionTest": true,
+          "locations": true
+        }
+      },
+      "answer": {
+        "cause": "`buildJevRankingRequest` calculates the bounded UTF-8 payload size as `request.bytes` before any Jev call (`src/investigator.mjs:214-215`, `src/investigator.mjs:250-251`, `src/investigator.mjs:289`). On success, `rankWithJev` exposes it as `requestChars` (`src/investigator.mjs:309-321`). If `ask`, HTTP handling, JSON parsing, or answer validation throws, execution never reaches that return. The outer handler then fabricates the fallback ranking with `requestChars: 0`, discarding the already-known size (`src/investigator.mjs:341-359`). The public result copies that zero directly into `metrics.jevRequestChars` (`src/investigator.mjs:396-397`), which the CLI serializes unchanged (`scripts/investigate.mjs:54`). Executable reproduction produced 4,476 built bytes but reported `jevRequestChars: 0` with `jevRequests: 1`.",
+        "codeLocations": [
+          "src/investigator.mjs:214-215 — computes UTF-8 request bytes",
+          "src/investigator.mjs:250-251 — stores the bounded size on the request",
+          "src/investigator.mjs:289-321 — builds before `ask`, but returns telemetry only after successful response processing",
+          "src/investigator.mjs:341-359 — catches the failure and overwrites request size with zero",
+          "src/investigator.mjs:396-397 — publishes the incorrect fallback value",
+          "scripts/investigate.mjs:54 — emits the public result",
+          "tests/investigator.test.mjs:87-100 — existing failure test omits the request-size assertion"
+        ],
+        "minimalFix": "Preserve `request.bytes` across post-build failures and use it in the fallback instead of literal zero. A small safe implementation is to throw a structured/wrapped ranking error carrying `requestChars: request.bytes`, then read that field in `investigate` with a zero default for failures occurring before request construction. Avoid rebuilding only inside the catch, because that catch also covers request-construction failures.",
+        "testGap": "Extend `Jev failure falls back to deterministic evidence and is visible` (`tests/investigator.test.mjs:87-100`). In its injected `ask(state, questions)`, record `Buffer.byteLength(JSON.stringify({ state, questions }), 'utf8')`, then throw. Assert the recorded size is positive and `result.metrics.jevRequestChars` equals it. The current assertions cover fallback mode, request count, warning, and evidence, so the zero-value regression passes unnoticed.",
+        "confidence": 0.99
+      },
+      "preAuditQuality": {
+        "score": 5,
+        "passed": false,
+        "facts": {
+          "requestKnownBeforeFailure": false,
+          "fallbackHardcodesZero": true,
+          "publicMetricPropagation": false,
+          "viableFix": true,
+          "regressionTest": false,
+          "locations": true
+        }
+      }
+    },
+    {
+      "arm": "jev",
+      "status": "completed",
+      "elapsedMs": 64785,
+      "promptChars": 2486,
+      "packetChars": 1773,
+      "responseChars": 2314,
+      "toolCalls": 3,
+      "failedToolCalls": 0,
+      "usage": {
+        "input_tokens": 77503,
+        "cached_input_tokens": 53888,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 2655,
+        "reasoning_output_tokens": 1351
+      },
+      "apiEquivalentUsd": 0.1691152,
+      "quality": {
+        "score": 10,
+        "passed": true,
+        "facts": {
+          "requestKnownBeforeFailure": true,
+          "fallbackHardcodesZero": true,
+          "publicMetricPropagation": true,
+          "viableFix": true,
+          "regressionTest": true,
+          "locations": true
+        }
+      },
+      "answer": {
+        "cause": "`rankWithJev` builds the complete bounded payload and knows its UTF-8 size as `request.bytes` before calling `ask` (`src/investigator.mjs:289`, computed at `src/investigator.mjs:214-215` and `src/investigator.mjs:250-251`). On success it returns that value as `requestChars` (`src/investigator.mjs:317-323`). If `ask` or subsequent response processing throws (`src/investigator.mjs:309-315`), control moves to `investigate`'s catch, where the size is discarded and replaced with `requestChars: 0` (`src/investigator.mjs:350-359`). The public metric then copies this fabricated zero from `ranking.requestChars` into `metrics.jevRequestChars` (`src/investigator.mjs:387-400`), underreporting every failure occurring after request construction.",
+        "codeLocations": [
+          "src/investigator.mjs:214-215 — computes the serialized request's UTF-8 byte size",
+          "src/investigator.mjs:218-253 — builds the bounded request and exposes its size as `bytes`",
+          "src/investigator.mjs:289-309 — request size is available before the potentially failing `ask` call",
+          "src/investigator.mjs:317-323 — successful calls preserve the size as `requestChars`",
+          "src/investigator.mjs:350-359 — fallback handling overwrites the known size with zero",
+          "src/investigator.mjs:396-398 — public telemetry publishes the overwritten value",
+          "tests/investigator.test.mjs:87-100 — existing failure test omits a request-size assertion"
+        ],
+        "minimalFix": "Preserve `request.bytes` when a failure occurs after request construction and pass it into the fallback ranking record; retain zero only when no payload was constructed. The safest small design is structured failure telemetry from `rankWithJev` (or an internal request-built callback) so `investigate` can use the captured byte count without rebuilding the request or changing the fallback behavior.",
+        "testGap": "Extend `Jev failure falls back to deterministic evidence and is visible` in `tests/investigator.test.mjs:87-100`. In its throwing `ask(state, questions)`, record `Buffer.byteLength(JSON.stringify({ state, questions }), 'utf8')`, then assert `result.metrics.jevRequestChars` equals that recorded nonzero value. The current test checks mode, request count, warning, and evidence only, so the hard-coded zero passes. The existing suite passes all five tests despite the defect.",
+        "confidence": 0.99
+      },
+      "preAuditQuality": {
+        "score": 10,
+        "passed": true,
+        "facts": {
+          "requestKnownBeforeFailure": true,
+          "fallbackHardcodesZero": true,
+          "publicMetricPropagation": true,
+          "viableFix": true,
+          "regressionTest": true,
+          "locations": true
+        }
+      }
+    }
+  ],
+  "caveats": [
+    "One execution per arm.",
+    "Native counters are telemetry, not subscription usage.",
+    "API-equivalent prices are illustrative.",
+    "Jev input price is recorded separately and output price is not assumed."
+  ],
+  "audit": {
+    "regradedAt": "2026-09-19T20:20:06.794Z",
+    "reason": "The original regex grader rejected semantically correct paraphrases in the stock and local answers.",
+    "packetsIdentical": true,
+    "assistedPromptsIdentical": true,
+    "localPacketSha256": "90929d226f74ba5cf45b977e7f9160132ab8e31d4592c2d068019176e152457c",
+    "jevPacketSha256": "90929d226f74ba5cf45b977e7f9160132ab8e31d4592c2d068019176e152457c",
+    "invalidPreflightRunsExcluded": [
+      "One Sol High stock attempt timed out after the Windows read-only sandbox rejected the bundled PowerShell process; no turn.completed usage was available.",
+      "One runner attempt exited during CLI argument parsing before starting Codex.",
+      "A second Sol High stock attempt timed out after the same Windows read-only sandbox rejection; no turn.completed usage was available.",
+      "One Luna Low read-only diagnostic verified the replacement danger-full-access command path and is not part of the comparison."
+    ]
+  }
+}

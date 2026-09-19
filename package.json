@@ -17,15 +17,18 @@
   "files": [
     ".codex-plugin",
     ".agents",
+    "benchmarks",
     "docs",
     "skills",
     "scripts",
     "src",
+    "tests",
     "README.md",
     "LICENSE"
   ],
   "scripts": {
     "test": "node --test",
-    "check": "node --check scripts/investigate.mjs && node --check src/investigator.mjs && npm test"
+    "check": "node --check scripts/investigate.mjs && node --check src/investigator.mjs && node --check benchmarks/paired-pilot.mjs && npm test",
+    "pilot:paired": "node benchmarks/paired-pilot.mjs"
   }
 }

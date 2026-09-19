@@ -90,4 +90,13 @@ The first real API smoke test and its identical local control are documented in
 the live integration and shows that Jev changed the evidence selection; it does
 not establish end-to-end Codex token savings or general superiority.
 
+A subsequent [Sol High paired pilot](benchmarks/results/PAIRED-PILOT-2026-09-19.md)
+compared stock Codex with local- and Jev-selected evidence on one real defect.
+All answers passed the audited grader. Local and Jev produced byte-for-byte
+identical evidence, so their differing Codex usage cannot be credited to Jev.
+Together, the two identical evidence-assisted observations averaged 12% fewer
+total input tokens than stock, with wide single-run variance. The frozen
+[protocol](benchmarks/PAIRED-PILOT.md) and JSON evidence are published alongside
+the result.
+
 MIT licensed. Independent community project; not affiliated with OpenAI or TypeSafe.
