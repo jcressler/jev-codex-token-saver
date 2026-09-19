@@ -1,0 +1,30 @@
+{
+  "name": "jev-codex-token-saver",
+  "version": "0.1.0",
+  "description": "Bounded Jev evidence selection for token-efficient Codex investigations.",
+  "type": "module",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22.12"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jcressler/jev-codex-token-saver.git"
+  },
+  "bin": {
+    "jev-codex-investigate": "./scripts/investigate.mjs"
+  },
+  "files": [
+    ".codex-plugin",
+    ".agents",
+    "skills",
+    "scripts",
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node --test",
+    "check": "node --check scripts/investigate.mjs && node --check src/investigator.mjs && npm test"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "name": "jev-codex-token-saver",
+  "interface": {
+    "displayName": "Jev Codex Token Saver"
+  },
+  "plugins": [
+    {
+      "name": "jev-codex-token-saver",
+      "source": {
+        "source": "local",
+        "path": "./"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}
