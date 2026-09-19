@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 2,
+  "createdAt": "2026-09-19T22:03:07.426Z",
+  "status": "complete",
+  "sourceCommit": "c26295c0238cee83b55d22acc13313f9924a3f89",
+  "manifestSha256": "52bcc1db0f566c4eabc51743edf91c7957ce07ca56a8da971c9002c51aeb8506",
+  "model": "gpt-5.6-sol",
+  "effort": "high",
+  "design": {
+    "tasks": 2,
+    "repetitionsPerTaskAndArm": 2,
+    "arms": ["stock", "local", "jev"],
+    "measuredExecutions": 12,
+    "smokeExecutions": 1,
+    "armOrder": "seeded balanced rotation",
+    "automaticRetries": 0
+  },
+  "executionAudit": {
+    "completedExecutions": 12,
+    "processTimeouts": 0,
+    "nonzeroProcessExits": 0,
+    "fixtureMutations": 0,
+    "jevFallbacks": 0,
+    "rawStdoutArtifacts": 12,
+    "rawStderrArtifacts": 12,
+    "credentialMatchesInArtifacts": 0,
+    "failedToolCalls": { "stock": 5, "local": 3, "jev": 2 }
+  },
+  "codexOnlyAggregates": {
+    "stock": {
+      "executions": 4,
+      "inputTokens": 317625,
+      "cachedInputTokens": 278144,
+      "uncachedInputTokens": 39481,
+      "outputTokens": 11969,
+      "toolCalls": 22,
+      "elapsedMs": 292589,
+      "apiEquivalentUsd": 0.5085616
+    },
+    "local": {
+      "executions": 4,
+      "inputTokens": 354637,
+      "cachedInputTokens": 292480,
+      "uncachedInputTokens": 62157,
+      "outputTokens": 9953,
+      "toolCalls": 26,
+      "elapsedMs": 268000,
+      "apiEquivalentUsd": 0.56468
+    },
+    "jev": {
+      "executions": 4,
+      "inputTokens": 303005,
+      "cachedInputTokens": 254208,
+      "uncachedInputTokens": 48797,
+      "outputTokens": 9188,
+      "toolCalls": 17,
+      "elapsedMs": 232774,
+      "apiEquivalentUsd": 0.4806312
+    }
+  },
+  "jevSelector": {
+    "requests": 2,
+    "inputTokens": 6547,
+    "outputTokens": 1304,
+    "searchElapsedMs": 11,
+    "rankingElapsedMs": 715,
+    "usd": 0.000274974
+  },
+  "jevEndToEndCampaign": {
+    "codexPlusJevInputTokens": 309552,
+    "codexPlusJevOutputTokens": 10492,
+    "elapsedMsIncludingSearchAndRanking": 233500,
+    "apiEquivalentUsdIncludingJev": 0.480906174,
+    "versusStock": {
+      "codexInputTokensPercentLess": 4.6029122393,
+      "codexOutputTokensPercentLess": 23.2350238115,
+      "toolCallsPercentLess": 22.7272727273,
+      "endToEndElapsedPercentLess": 20.1952226502,
+      "apiEquivalentCostPercentLess": 5.4379697563
+    },
+    "versusLocal": {
+      "codexInputTokensPercentLess": 14.5591125573,
+      "codexOutputTokensPercentLess": 7.6861247865,
+      "toolCallsPercentLess": 34.6153846154,
+      "endToEndElapsedPercentLess": 12.8767102843,
+      "apiEquivalentCostPercentLess": 14.8356283205
+    }
+  },
+  "taskAggregates": {
+    "webhook-raw-body-signature": {
+      "stock": { "inputTokens": 193366, "outputTokens": 7410, "toolCalls": 12, "elapsedMs": 178965 },
+      "local": { "inputTokens": 212839, "outputTokens": 6764, "toolCalls": 19, "elapsedMs": 173074 },
+      "jev": { "inputTokens": 177337, "outputTokens": 6068, "toolCalls": 11, "elapsedMs": 141731 },
+      "selectionDifference": "Jev selected docs/provider.md plus src/signature.mjs; local selected docs/provider.md plus docs/json-normalization.md."
+    },
+    "tenant-cache-isolation": {
+      "stock": { "inputTokens": 124259, "outputTokens": 4559, "toolCalls": 10, "elapsedMs": 113624 },
+      "local": { "inputTokens": 141798, "outputTokens": 3189, "toolCalls": 7, "elapsedMs": 94926 },
+      "jev": { "inputTokens": 125668, "outputTokens": 3120, "toolCalls": 6, "elapsedMs": 91043 },
+      "selectionDifference": "Local and Jev selected the same two excerpts in reverse order; this task cannot isolate a Jev content-selection benefit."
+    }
+  },
+  "quality": {
+    "originalAutomated": {
+      "stock": { "passes": 4, "executions": 4, "meanScore": 9.5 },
+      "local": { "passes": 4, "executions": 4, "meanScore": 9.0 },
+      "jev": { "passes": 3, "executions": 4, "meanScore": 8.0 }
+    },
+    "postRunSemanticAudit": {
+      "stock": { "passes": 4, "executions": 4, "meanScore": 10.0 },
+      "local": { "passes": 4, "executions": 4, "meanScore": 10.0 },
+      "jev": { "passes": 4, "executions": 4, "meanScore": 10.0 }
+    },
+    "auditReason": "The frozen matcher over-escaped JSON.parse and rejected concrete equivalent regression tests that omitted exact trigger phrases. Raw scores remain preserved.",
+    "auditLimitation": "The semantic audit was applied uniformly to all sub-10 answers after arm labels were known and is not an independent blinded review."
+  },
+  "caveats": [
+    "Two small controlled tasks with two repetitions per arm are directional evidence, not a general performance estimate.",
+    "One task changed evidence content; the other changed only excerpt order.",
+    "Run-to-run variance remained material.",
+    "Native token counters are telemetry; API-equivalent prices do not measure Codex subscription or weekly-limit usage.",
+    "Jev tokens and Codex tokens are reported separately because they come from different model systems."
+  ]
+}

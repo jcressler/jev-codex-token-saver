@@ -104,4 +104,9 @@ new tasks, balanced arm ordering, two repetitions, durable raw artifacts,
 per-execution fixture hashes, strict launch caps, and fail-closed smoke and
 budget gates. Its live stage is deliberately separate from offline preparation.
 
+The completed [evaluation v2 result](benchmarks/results/EVALUATION-V2-2026-09-19.md)
+ran all 12 frozen Sol High executions. Jev had the lowest aggregate Codex input,
+output, tool use, elapsed time, and API-equivalent cost after its selector cost;
+the report preserves the grader correction and the limits of the small sample.
+
 MIT licensed. Independent community project; not affiliated with OpenAI or TypeSafe.
