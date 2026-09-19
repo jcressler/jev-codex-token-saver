@@ -87,17 +87,46 @@ test('investigation reports packet reduction without calling it Codex savings', 
 test('Jev failure falls back to deterministic evidence and is visible', async () => {
   const root = await fixture();
   try {
+    let expectedRequestChars = 0;
     const result = await investigate({
       root,
       query: 'checkout',
       useJev: true,
       allowNetwork: true,
-      ask: async () => { throw new Error('synthetic outage'); },
+      ask: async (state, questions) => {
+        expectedRequestChars = Buffer.byteLength(JSON.stringify({ state, questions }), 'utf8');
+        throw new Error('synthetic outage');
+      },
     });
     assert.equal(result.mode, 'local-fallback');
     assert.equal(result.metrics.jevRequests, 1);
+    assert.ok(expectedRequestChars > 0);
+    assert.equal(result.metrics.jevRequestChars, expectedRequestChars);
     assert.equal(result.warning, 'synthetic outage');
     assert.ok(result.evidence.length > 0);
+  } finally {
+    await rm(root, { recursive: true, force: true });
+  }
+});
+
+test('Jev authentication and malformed answers fail visibly with request accounting', async () => {
+  const root = await fixture();
+  try {
+    const authentication = await investigate({
+      root, query: 'checkout', useJev: true, allowNetwork: true,
+      ask: async () => { throw new Error('Jev request failed (401)'); },
+    });
+    assert.equal(authentication.mode, 'local-fallback');
+    assert.equal(authentication.warning, 'Jev request failed (401)');
+    assert.ok(authentication.metrics.jevRequestChars > 0);
+
+    const malformed = await investigate({
+      root, query: 'checkout', useJev: true, allowNetwork: true,
+      ask: async () => ({ answers: {} }),
+    });
+    assert.equal(malformed.mode, 'local-fallback');
+    assert.match(malformed.warning, /invalid Jev answer/);
+    assert.ok(malformed.metrics.jevRequestChars > 0);
   } finally {
     await rm(root, { recursive: true, force: true });
   }

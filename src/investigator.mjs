@@ -306,22 +306,36 @@ export async function rankWithJev(query, requirements, candidates, options = {})
     }
     return parsed;
   });
-  const response = await ask(request.state, request.questions);
-  const scored = candidates.map((candidate, index) => ({
-    candidate,
-    index,
-    relevance: probability(response.answers, `relevance_${index}`),
-    requirementSupport: requirements.map((_requirement, requirementIndex) => probability(response.answers, `requirement_${requirementIndex}_${index}`)),
-  }));
-  const resultLimit = boundedInteger(options.resultLimit, DEFAULTS.resultLimit, 1, 8, 'resultLimit');
-  return {
-    mode: 'jev',
-    selected: selectByCoverage(scored, requirements.length, resultLimit),
-    requests: 1,
-    requestChars: request.bytes,
-    model: response.model ?? options.model ?? DEFAULT_JEV_MODEL,
-    ...(response.usage ? { usage: response.usage } : {}),
-  };
+  try {
+    await options.onRequest?.({
+      model: options.model ?? DEFAULT_JEV_MODEL,
+      state: request.state,
+      questions: request.questions,
+      bytes: request.bytes,
+    });
+    const response = await ask(request.state, request.questions);
+    await options.onResponse?.(response);
+    const scored = candidates.map((candidate, index) => ({
+      candidate,
+      index,
+      relevance: probability(response.answers, `relevance_${index}`),
+      requirementSupport: requirements.map((_requirement, requirementIndex) => probability(response.answers, `requirement_${requirementIndex}_${index}`)),
+    }));
+    const resultLimit = boundedInteger(options.resultLimit, DEFAULTS.resultLimit, 1, 8, 'resultLimit');
+    return {
+      mode: 'jev',
+      selected: selectByCoverage(scored, requirements.length, resultLimit),
+      requests: 1,
+      requestChars: request.bytes,
+      model: response.model ?? options.model ?? DEFAULT_JEV_MODEL,
+      ...(response.usage ? { usage: response.usage } : {}),
+    };
+  } catch (error) {
+    const failure = new Error(error instanceof Error ? error.message : 'Jev ranking failed', { cause: error });
+    failure.name = 'JevRankingError';
+    failure.requestChars = request.bytes;
+    throw failure;
+  }
 }
 
 function packetChars(candidates) {
@@ -346,6 +360,8 @@ export async function investigate({ root, query, requirements = [], useJev = fal
         timeoutMs: rawOptions.timeoutMs,
         resultLimit: search.options.resultLimit,
         ask: rawOptions.ask,
+        onRequest: rawOptions.onRequest,
+        onResponse: rawOptions.onResponse,
       });
     } catch (error) {
       ranking = {
@@ -354,7 +370,7 @@ export async function investigate({ root, query, requirements = [], useJev = fal
           candidate, index, relevance: undefined, requirementSupport: [],
         })),
         requests: 1,
-        requestChars: 0,
+        requestChars: Number.isInteger(error?.requestChars) ? error.requestChars : 0,
         fallbackReason: error instanceof Error ? error.message : 'Jev ranking failed',
       };
     }

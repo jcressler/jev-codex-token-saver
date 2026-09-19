@@ -99,4 +99,9 @@ total input tokens than stock, with wide single-run variance. The frozen
 [protocol](benchmarks/PAIRED-PILOT.md) and JSON evidence are published alongside
 the result.
 
+The replacement [evaluation v2 protocol](benchmarks/EVALUATION-V2.md) freezes two
+new tasks, balanced arm ordering, two repetitions, durable raw artifacts,
+per-execution fixture hashes, strict launch caps, and fail-closed smoke and
+budget gates. Its live stage is deliberately separate from offline preparation.
+
 MIT licensed. Independent community project; not affiliated with OpenAI or TypeSafe.

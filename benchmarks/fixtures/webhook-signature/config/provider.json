@@ -1,0 +1,5 @@
+{
+  "signatureHeader": "x-provider-signature",
+  "algorithm": "sha256",
+  "maximumBodyBytes": 1048576
+}

@@ -1,0 +1,5 @@
+{
+  "catalogPriceTtlSeconds": 300,
+  "maximumEntries": 10000,
+  "metricsByTenant": true
+}

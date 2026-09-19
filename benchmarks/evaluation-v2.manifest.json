@@ -1,0 +1,109 @@
+{
+  "schemaVersion": 2,
+  "status": "frozen",
+  "frozenAt": "2026-09-19T21:47:17.4838028Z",
+  "seed": "jev-codex-evaluation-v2-2026-09-19",
+  "model": "gpt-5.6-sol",
+  "effort": "high",
+  "codex": {
+    "path": "C:\\Users\\James\\AppData\\Local\\OpenAI\\Codex\\bin\\247581e40ee272fb\\codex.exe",
+    "version": "codex-cli 0.155.0-alpha.9.2",
+    "sha256": "bc45017e8239dc150258f69309ced9df6bbcdf5b8e4f346decf780ac0999e226"
+  },
+  "campaign": {
+    "arms": ["stock", "local", "jev"],
+    "repetitions": 2,
+    "maxSmokeExecutions": 1,
+    "maxMeasuredExecutions": 12,
+    "timeoutMsPerExecution": 300000,
+    "budgets": {
+      "maxCodexInputTokens": 1800000,
+      "maxCodexOutputTokens": 80000,
+      "maxCodexToolCalls": 100,
+      "maxJevInputTokens": 100000,
+      "maxJevRequests": 2
+    }
+  },
+  "pricing": {
+    "codexApiEquivalent": {
+      "inputUsdPerMillion": 4,
+      "cachedInputUsdPerMillion": 0.4,
+      "outputUsdPerMillion": 20,
+      "source": "https://developers.openai.com/api/docs/models/gpt-5.6-sol"
+    },
+    "jev": {
+      "inputUsdPerMillion": 0.042,
+      "outputUsdPerMillion": 0,
+      "source": "https://typesafe.ai/blog/introducing-system-one-models-and-jev"
+    }
+  },
+  "tasks": [
+    {
+      "id": "tenant-cache-isolation",
+      "fixture": "benchmarks/fixtures/tenant-cache",
+      "fixtureFiles": {
+        "config/cache-policy.json": "1adeab4050faab067253d6c224d5667ffe2ed8cc279ba8fb376e32e75d524aa6",
+        "docs/cache-policy.md": "e5be32bf262b1ac26f67b3b48c5d8109d6eee78e6b07c53cb0b7836c748600a4",
+        "docs/performance.md": "fd2409dfaa07f5bd5128854796e568ac794ebf5679a4a541f9431a5276e403ef",
+        "src/cache.mjs": "8cfb495d3eb5804b0a2960440e41a1c8c14b3e8252507b7255fd152a61d3f301",
+        "src/catalog.mjs": "e585260e7877223afa56cb580e48a9f768eacd6ff6896a64420c517307d5d27e",
+        "src/invalidation.mjs": "2af79cf142a88dbd5eed0dd9a29a0d5621717be81675eac312058c74f3dc8514",
+        "tests/cache.test.mjs": "4a19c4a3225e189dbabd572b58afc34ad57334aefe73ea593f57a38078ea90cf",
+        "tests/invalidation.test.mjs": "3ed6a433f4770b697587c6d5d4ef03878ed9108dc2a37e0ce9673ca7b58e9325"
+      },
+      "query": "Why can one tenant receive another tenant's cached catalog price? Identify the causal code path and the minimal safe fix.",
+      "requirements": [
+        "where tenant identity is lost from the cache key",
+        "how the shared cached value reaches a later tenant request",
+        "the minimal tenant-safe cache-key fix",
+        "the regression test that proves tenant isolation"
+      ],
+      "candidateLimit": 6,
+      "resultLimit": 2,
+      "rubric": {
+        "passingScore": 8,
+        "facts": [
+          { "id": "key-omits-tenant", "field": "cause", "weight": 2, "all": ["tenant", "productId|product", "key|map", "omit|ignore|discard|only"] },
+          { "id": "cross-tenant-flow", "field": "cause", "weight": 2, "all": ["cache|cached", "tenant", "return|receive|reuse|hit"] },
+          { "id": "minimal-fix", "field": "minimalFix", "weight": 2, "all": ["tenant", "product", "key|map"] },
+          { "id": "regression-test", "field": "testGap", "weight": 2, "all": ["test|assert|expect", "two|different|distinct", "tenant", "same product|productId|product"] },
+          { "id": "locations", "field": "codeLocations", "weight": 2, "all": ["src/cache\\.mjs", "tests/cache\\.test\\.mjs|src/catalog\\.mjs"] }
+        ]
+      }
+    },
+    {
+      "id": "webhook-raw-body-signature",
+      "fixture": "benchmarks/fixtures/webhook-signature",
+      "fixtureFiles": {
+        "config/provider.json": "e202d8ee59fd3835d17b12b406b494506b1ce493119a49de4fa15426e61fd783",
+        "docs/json-normalization.md": "4346791d709979dcb0cc4690bbe5c87b94d93789a6219657ced3e9ba9c85d72a",
+        "docs/provider.md": "5ab98822d33a4fce69f9f9fb86d4291b4406c17e86737343e1762f558786e494",
+        "src/body-parser.mjs": "237b3a2e3d75ef7fc6b095166cefe3c8ce47c943a3ac5e65b547c3b99f6fcfdf",
+        "src/delivery-log.mjs": "6fd6b96f647779b0c83552f66eb34f6743b919045ff07b5f1debd3d7688ad0e0",
+        "src/route.mjs": "405ad71882cd2d7a277904a399fea5658c374275b078e19cc31866c519c9b4a8",
+        "src/signature.mjs": "76cc1ca88de4b456e29fb8e2bb186051f421aeb742e72a3fc81d860aa3d7ef7b",
+        "tests/body-parser.test.mjs": "1cd30c5b0dafcf52c46154d03921babc73286b05e130d0264726dfde9d66aabe",
+        "tests/signature.test.mjs": "79ef094a6f783688ea4c24c25fcc68bc2f11a1cd24c09a7e3a8ea31e134c6e4a"
+      },
+      "query": "Why do valid provider webhooks fail signature verification when their JSON contains harmless whitespace or a different property order? Identify the causal path and the minimal safe fix.",
+      "requirements": [
+        "where the original request bytes are changed",
+        "why JSON reserialization changes the HMAC input",
+        "the minimal raw-body verification fix",
+        "the regression test that covers semantically identical JSON bytes"
+      ],
+      "candidateLimit": 6,
+      "resultLimit": 2,
+      "rubric": {
+        "passingScore": 8,
+        "facts": [
+          { "id": "raw-body-lost", "field": "cause", "weight": 2, "all": ["raw|original", "JSON\\.parse|pars", "byte|body"] },
+          { "id": "reserialization", "field": "cause", "weight": 2, "all": ["JSON\\.stringify|reserial", "HMAC|signature", "whitespace|property order|bytes"] },
+          { "id": "minimal-fix", "field": "minimalFix", "weight": 2, "all": ["raw|original", "byte|buffer|body", "verify|HMAC|signature", "before|prior"] },
+          { "id": "regression-test", "field": "testGap", "weight": 2, "all": ["test|assert|expect", "whitespace|property order", "raw|exact|byte"] },
+          { "id": "locations", "field": "codeLocations", "weight": 2, "all": ["src/signature\\.mjs", "src/body-parser\\.mjs|src/route\\.mjs|tests/signature\\.test\\.mjs"] }
+        ]
+      }
+    }
+  ]
+}
