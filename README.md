@@ -85,4 +85,9 @@ requests. A useful next evaluation is a small paired Codex trial comparing the
 same investigation with ordinary search output and with this evidence packet,
 holding the Codex model, reasoning effort, task, and grader constant.
 
+The first real API smoke test and its identical local control are documented in
+[`docs/LIVE-SMOKE-2026-09-19.md`](docs/LIVE-SMOKE-2026-09-19.md). It verifies
+the live integration and shows that Jev changed the evidence selection; it does
+not establish end-to-end Codex token savings or general superiority.
+
 MIT licensed. Independent community project; not affiliated with OpenAI or TypeSafe.

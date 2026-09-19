@@ -17,6 +17,7 @@
   "files": [
     ".codex-plugin",
     ".agents",
+    "docs",
     "skills",
     "scripts",
     "src",
