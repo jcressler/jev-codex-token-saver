@@ -1,0 +1,2925 @@
+{
+  "schemaVersion": 1,
+  "complete": false,
+  "disagreements": [
+    "956c490120a1d1ec"
+  ],
+  "decisions": [
+    {
+      "id": "0298074dc0cfff91",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "0298074dc0cfff91",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Matches all rubric requirements."
+      },
+      "second": {
+        "id": "0298074dc0cfff91",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "04459805bb44adc4",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "04459805bb44adc4",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Correctly identifies the timeout/runtime mismatch, safe margin, and redelivery regression."
+      },
+      "second": {
+        "id": "04459805bb44adc4",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "0536477e87f81f8b",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "0536477e87f81f8b",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Matches all rubric requirements."
+      },
+      "second": {
+        "id": "0536477e87f81f8b",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "062dee2531afdfc4",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "062dee2531afdfc4",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Correct incident diagnosis, frames, token replacement, and bounded startup tests."
+      },
+      "second": {
+        "id": "062dee2531afdfc4",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "08935182befc12f6",
+      "agreed": true,
+      "pass": false,
+      "first": {
+        "id": "08935182befc12f6",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": false
+        },
+        "pass": false,
+        "note": "The fix identifies a positive pool size, but the proposed test does not clearly exercise zero/nonpositive and positive values."
+      },
+      "second": {
+        "id": "08935182befc12f6",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": false
+        },
+        "pass": false,
+        "note": "The test proposal does not explicitly exercise the required zero/nonpositive pool-size boundary."
+      }
+    },
+    {
+      "id": "0a6302276c1de66b",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "0a6302276c1de66b",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Correct raw-byte HMAC diagnosis, ordering fix, and byte-distinct JSON tests."
+      },
+      "second": {
+        "id": "0a6302276c1de66b",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "123943b6648ab7e5",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "123943b6648ab7e5",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Matches the incident rubric, including invalid and positive startup cases."
+      },
+      "second": {
+        "id": "123943b6648ab7e5",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "16dfaf804bcbf040",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "16dfaf804bcbf040",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Matches all webhook verification requirements."
+      },
+      "second": {
+        "id": "16dfaf804bcbf040",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "186571a7acb2ae38",
+      "agreed": true,
+      "pass": false,
+      "first": {
+        "id": "186571a7acb2ae38",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": false,
+          "test": false
+        },
+        "pass": false,
+        "note": "Diagnosis and frames are correct, but neither the fix nor tests explicitly establish a positive, nonzero pool-size contract."
+      },
+      "second": {
+        "id": "186571a7acb2ae38",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": false,
+          "test": false
+        },
+        "pass": false,
+        "note": "The fix and test only say a value must be supported or valid; they omit the required positive, nonzero invariant and zero boundary."
+      }
+    },
+    {
+      "id": "1cbe4399c71cca6b",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "1cbe4399c71cca6b",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Correct scale mismatch, direct comparison fix, and deterministic 25-bucket coverage."
+      },
+      "second": {
+        "id": "1cbe4399c71cca6b",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "1f6d29404a4023b9",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "1f6d29404a4023b9",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Matches all rollout-contract requirements."
+      },
+      "second": {
+        "id": "1f6d29404a4023b9",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "2056571f3c8af890",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "2056571f3c8af890",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Matches all TTL regression requirements."
+      },
+      "second": {
+        "id": "2056571f3c8af890",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "20cf953356a6e3bd",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "20cf953356a6e3bd",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "The >= terminal check is an acceptable equivalent three-call implementation."
+      },
+      "second": {
+        "id": "20cf953356a6e3bd",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "The equivalent terminal-bound correction produces exactly three calls and preserves the final error."
+      }
+    },
+    {
+      "id": "220535f3d84b7069",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "220535f3d84b7069",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Correct one-based offset diagnosis, formula, and page-one regression."
+      },
+      "second": {
+        "id": "220535f3d84b7069",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "2283a65fcfa4c952",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "2283a65fcfa4c952",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Matches all rollout-contract requirements."
+      },
+      "second": {
+        "id": "2283a65fcfa4c952",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "24a52712840c7454",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "24a52712840c7454",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Correct precedence diagnosis, merge order, and 600-over-60 assertion."
+      },
+      "second": {
+        "id": "24a52712840c7454",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "266adb6876a300c7",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "266adb6876a300c7",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Matches the retry rubric; the equivalent terminal-bound fix preserves rejection."
+      },
+      "second": {
+        "id": "266adb6876a300c7",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "The equivalent terminal-bound correction is semantically valid."
+      }
+    },
+    {
+      "id": "26b5ffd7336fb9a1",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "26b5ffd7336fb9a1",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Matches all retry requirements."
+      },
+      "second": {
+        "id": "26b5ffd7336fb9a1",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "The equivalent terminal-bound correction is semantically valid."
+      }
+    },
+    {
+      "id": "2d65e42fca92b7ba",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "2d65e42fca92b7ba",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Correct regional cache-collision path, composite identity fix, and isolation test."
+      },
+      "second": {
+        "id": "2d65e42fca92b7ba",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "2da94d728b07d62f",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "2da94d728b07d62f",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Matches all configuration-precedence requirements."
+      },
+      "second": {
+        "id": "2da94d728b07d62f",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "3052b95031c56984",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "3052b95031c56984",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Correct retry boundary and exact-call rejection test."
+      },
+      "second": {
+        "id": "3052b95031c56984",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "The equivalent terminal-bound correction is semantically valid."
+      }
+    },
+    {
+      "id": "30b58f1c240545c9",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "30b58f1c240545c9",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Correct organization-scope cache diagnosis, fix, and cross-organization test."
+      },
+      "second": {
+        "id": "30b58f1c240545c9",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "328fd7e37e16b0b1",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "328fd7e37e16b0b1",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Matches all permission-cache requirements."
+      },
+      "second": {
+        "id": "328fd7e37e16b0b1",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "348daffabd50127a",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "348daffabd50127a",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Correct raw-byte verification path and exact-byte regressions."
+      },
+      "second": {
+        "id": "348daffabd50127a",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "34a478879d4c5036",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "34a478879d4c5036",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Matches all pricing-token incident requirements."
+      },
+      "second": {
+        "id": "34a478879d4c5036",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "365ec9ed99f91c2f",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "365ec9ed99f91c2f",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Correct incident cause, frames, configuration repair, and startup tests."
+      },
+      "second": {
+        "id": "365ec9ed99f91c2f",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "384f986605a74675",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "384f986605a74675",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Matches all webhook-byte requirements."
+      },
+      "second": {
+        "id": "384f986605a74675",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "3bb7c2fbc330cee7",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "3bb7c2fbc330cee7",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Correct scale diagnosis and deterministic cutoff-boundary coverage."
+      },
+      "second": {
+        "id": "3bb7c2fbc330cee7",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "The deterministic bucket test covers both sides of the 25% cutoff."
+      }
+    },
+    {
+      "id": "3e5c17ee445e4c7a",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "3e5c17ee445e4c7a",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Matches all retry requirements."
+      },
+      "second": {
+        "id": "3e5c17ee445e4c7a",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "The equivalent terminal-bound correction is semantically valid."
+      }
+    },
+    {
+      "id": "46f3ee31778f3890",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "46f3ee31778f3890",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Correct seconds-to-milliseconds diagnosis, fix, and 60000 ms test."
+      },
+      "second": {
+        "id": "46f3ee31778f3890",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "470a80c1aba4cbb2",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "470a80c1aba4cbb2",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Matches all pagination requirements."
+      },
+      "second": {
+        "id": "470a80c1aba4cbb2",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "4d3eacba4d5b8919",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "4d3eacba4d5b8919",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Correct off-by-one expression, location, formula, and regression."
+      },
+      "second": {
+        "id": "4d3eacba4d5b8919",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "4dfac5f324f22c0c",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "4dfac5f324f22c0c",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Matches all pricing-token incident requirements."
+      },
+      "second": {
+        "id": "4dfac5f324f22c0c",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "4fa7b3087ca0d89f",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "4fa7b3087ca0d89f",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Correct unit mismatch and boundary-focused representative test."
+      },
+      "second": {
+        "id": "4fa7b3087ca0d89f",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "The representative population and 24/25 cutoff assertions satisfy the boundary requirement."
+      }
+    },
+    {
+      "id": "53e2830cb775e62a",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "53e2830cb775e62a",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Matches all queue-visibility requirements."
+      },
+      "second": {
+        "id": "53e2830cb775e62a",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "57a72b179da1a50c",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "57a72b179da1a50c",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Correct precedence cause, locations, merge repair, and end-to-end assertion."
+      },
+      "second": {
+        "id": "57a72b179da1a50c",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "593c17f82f3ad730",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "593c17f82f3ad730",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Correct timeout mismatch, safe configuration, and no-redelivery test."
+      },
+      "second": {
+        "id": "593c17f82f3ad730",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "5b226d0fcfff1ffc",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "5b226d0fcfff1ffc",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Matches all raw-byte HMAC requirements."
+      },
+      "second": {
+        "id": "5b226d0fcfff1ffc",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "5b75f7a6a90d24e8",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "5b75f7a6a90d24e8",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Correct pricing-feed configuration incident response."
+      },
+      "second": {
+        "id": "5b75f7a6a90d24e8",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "5ba030dfd5b258c8",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "5ba030dfd5b258c8",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Correct permission cache path, collision-safe key, and cross-organization test."
+      },
+      "second": {
+        "id": "5ba030dfd5b258c8",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "610b145a971b5018",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "610b145a971b5018",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Matches all environment-precedence requirements."
+      },
+      "second": {
+        "id": "610b145a971b5018",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "61480c21504033c7",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "61480c21504033c7",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Equivalent terminal comparison fix correctly yields three calls and rejection."
+      },
+      "second": {
+        "id": "61480c21504033c7",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "The equivalent terminal-bound correction is semantically valid."
+      }
+    },
+    {
+      "id": "654837a72f3f9965",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "654837a72f3f9965",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Matches all rollout-unit requirements."
+      },
+      "second": {
+        "id": "654837a72f3f9965",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "68cf209f1b46736f",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "68cf209f1b46736f",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Correct pagination diagnosis, formula, and page-one test."
+      },
+      "second": {
+        "id": "68cf209f1b46736f",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "68d1a4f5ebf23ad1",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "68d1a4f5ebf23ad1",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Matches all TTL requirements."
+      },
+      "second": {
+        "id": "68d1a4f5ebf23ad1",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "6966c99c25befb16",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "6966c99c25befb16",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Correct TTL conversion and exact scheduled-delay test."
+      },
+      "second": {
+        "id": "6966c99c25befb16",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "6aced1b75967eca7",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "6aced1b75967eca7",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Matches all pagination requirements."
+      },
+      "second": {
+        "id": "6aced1b75967eca7",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "6b031754a43f930b",
+      "agreed": true,
+      "pass": false,
+      "first": {
+        "id": "6b031754a43f930b",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": false,
+          "test": false
+        },
+        "pass": false,
+        "note": "Cause and frames are correct, but the fix and tests do not explicitly require and exercise positive/nonzero versus zero-invalid pool sizes."
+      },
+      "second": {
+        "id": "6b031754a43f930b",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": false,
+          "test": false
+        },
+        "pass": false,
+        "note": "The answer does not state that the corrected pool size must be positive and nonzero, and its test omits that explicit boundary."
+      }
+    },
+    {
+      "id": "6b0f723ab2af8516",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "6b0f723ab2af8516",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Matches all TTL requirements."
+      },
+      "second": {
+        "id": "6b0f723ab2af8516",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "6bd638e4c4f033c2",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "6bd638e4c4f033c2",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Correct byte-normalization cause, locations, ordering fix, and exact-byte tests."
+      },
+      "second": {
+        "id": "6bd638e4c4f033c2",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "6e93038bc4b55d3e",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "6e93038bc4b55d3e",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Matches all rollout-unit requirements."
+      },
+      "second": {
+        "id": "6e93038bc4b55d3e",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "The full 0–99 bucket sweep includes the threshold boundary."
+      }
+    },
+    {
+      "id": "6fb0c6dba6470388",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "6fb0c6dba6470388",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Correct organization cache collision and isolation regression."
+      },
+      "second": {
+        "id": "6fb0c6dba6470388",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "70669a133ce0b8cd",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "70669a133ce0b8cd",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Matches all queue-visibility requirements."
+      },
+      "second": {
+        "id": "70669a133ce0b8cd",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "735222ef42956a67",
+      "agreed": true,
+      "pass": false,
+      "first": {
+        "id": "735222ef42956a67",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": false,
+          "test": false
+        },
+        "pass": false,
+        "note": "Cause and frames are correct, but 'a valid value' does not state the required positive/nonzero contract, and the test omits explicit zero/invalid versus positive cases."
+      },
+      "second": {
+        "id": "735222ef42956a67",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": false,
+          "test": false
+        },
+        "pass": false,
+        "note": "The proposed fix and test use generic valid-value language without establishing the required positive, nonzero batch-size invariant or zero boundary."
+      }
+    },
+    {
+      "id": "77adc6af7364dca9",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "77adc6af7364dca9",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Matches all TTL requirements."
+      },
+      "second": {
+        "id": "77adc6af7364dca9",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "78bdd07977f66d2e",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "78bdd07977f66d2e",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Correctly requires a positive integer and tests zero/invalid and positive startup behavior."
+      },
+      "second": {
+        "id": "78bdd07977f66d2e",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "7d60cca6cc59fa2f",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "7d60cca6cc59fa2f",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Correct pagination expression, fix, and boundary test."
+      },
+      "second": {
+        "id": "7d60cca6cc59fa2f",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "8275d2f99907f555",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "8275d2f99907f555",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Matches all TTL regression requirements."
+      },
+      "second": {
+        "id": "8275d2f99907f555",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "84543109f7e391e4",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "84543109f7e391e4",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Correct environment/default ordering diagnosis and regression."
+      },
+      "second": {
+        "id": "84543109f7e391e4",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "86061242d220c520",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "86061242d220c520",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Matches all session-cache scope requirements."
+      },
+      "second": {
+        "id": "86061242d220c520",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "8b3f1cc378ccb8c2",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "8b3f1cc378ccb8c2",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Positive integer repair and invalid/positive startup coverage satisfy the rubric."
+      },
+      "second": {
+        "id": "8b3f1cc378ccb8c2",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "9191958f072d0ba2",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "9191958f072d0ba2",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Matches all queue-visibility requirements."
+      },
+      "second": {
+        "id": "9191958f072d0ba2",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "9280b6ae34e4c3f7",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "9280b6ae34e4c3f7",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Correct one-based pagination diagnosis and tests."
+      },
+      "second": {
+        "id": "9280b6ae34e4c3f7",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "950214165342abb1",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "950214165342abb1",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Correct scale mismatch, direct comparison, representative population, and boundaries."
+      },
+      "second": {
+        "id": "950214165342abb1",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "The additional quantization caveat does not undermine the correctly identified scale mismatch."
+      }
+    },
+    {
+      "id": "956c490120a1d1ec",
+      "agreed": false,
+      "pass": null,
+      "first": {
+        "id": "956c490120a1d1ec",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Explicit positive/nonzero repair and zero, invalid, and positive tests match the rubric."
+      },
+      "second": {
+        "id": "956c490120a1d1ec",
+        "criteria": {
+          "cause": true,
+          "locations": false,
+          "fix": true,
+          "test": true
+        },
+        "pass": false,
+        "note": "The answer omits the required application-frame column numbers, giving only src/db.ts:119 and src/sync.ts:207."
+      }
+    },
+    {
+      "id": "9755dbddd8b938b4",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "9755dbddd8b938b4",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Matches all webhook-byte verification requirements."
+      },
+      "second": {
+        "id": "9755dbddd8b938b4",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "98116b4894004d60",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "98116b4894004d60",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Correct pagination path and loader-level regression."
+      },
+      "second": {
+        "id": "98116b4894004d60",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "9c7ce2119c3f388e",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "9c7ce2119c3f388e",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Explicit positive batch-size repair and zero/invalid plus valid startup tests satisfy the rubric."
+      },
+      "second": {
+        "id": "9c7ce2119c3f388e",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "9d4aab75aeb2e63e",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "9d4aab75aeb2e63e",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Matches all session-cache scope requirements."
+      },
+      "second": {
+        "id": "9d4aab75aeb2e63e",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "a9e3494619238af9",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "a9e3494619238af9",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Correct cross-organization cache leakage diagnosis, fix, and test."
+      },
+      "second": {
+        "id": "a9e3494619238af9",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "ab5aac186a6d7c44",
+      "agreed": true,
+      "pass": false,
+      "first": {
+        "id": "ab5aac186a6d7c44",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": false,
+          "test": false
+        },
+        "pass": false,
+        "note": "Cause and frames are correct, but the repair and tests do not state the required positive/nonzero batch-size boundary."
+      },
+      "second": {
+        "id": "ab5aac186a6d7c44",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": false,
+          "test": false
+        },
+        "pass": false,
+        "note": "The fix and test do not state or exercise the required positive, nonzero batch-size boundary."
+      }
+    },
+    {
+      "id": "abb84a1ddd0c56fb",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "abb84a1ddd0c56fb",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Matches all pagination requirements."
+      },
+      "second": {
+        "id": "abb84a1ddd0c56fb",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "ac55324dd1bcb392",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "ac55324dd1bcb392",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Correct cache identity defect, two-part key, and regional isolation regression."
+      },
+      "second": {
+        "id": "ac55324dd1bcb392",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "ad5251d7636f42ea",
+      "agreed": true,
+      "pass": false,
+      "first": {
+        "id": "ad5251d7636f42ea",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": false,
+          "test": false
+        },
+        "pass": false,
+        "note": "The diagnosis and frames are correct, but the fix does not establish positivity/nonzero and the test lacks a positive successful-start case."
+      },
+      "second": {
+        "id": "ad5251d7636f42ea",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": false,
+          "test": false
+        },
+        "pass": false,
+        "note": "The fix omits the positive, nonzero constraint, and the proposed test has no valid positive startup-success case."
+      }
+    },
+    {
+      "id": "afa880257370f8dc",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "afa880257370f8dc",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Matches all permission-cache scope requirements."
+      },
+      "second": {
+        "id": "afa880257370f8dc",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "afff948f0968b7f3",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "afff948f0968b7f3",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Correct retry off-by-one diagnosis and equivalent safe fix."
+      },
+      "second": {
+        "id": "afff948f0968b7f3",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "The equivalent terminal-bound correction is semantically valid."
+      }
+    },
+    {
+      "id": "b0c625715caf6ab6",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "b0c625715caf6ab6",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Matches all session-cache requirements."
+      },
+      "second": {
+        "id": "b0c625715caf6ab6",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "b18ec18d508d8449",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "b18ec18d508d8449",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Equivalent >= terminal fix correctly preserves the terminal error."
+      },
+      "second": {
+        "id": "b18ec18d508d8449",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "The equivalent terminal-bound correction is semantically valid."
+      }
+    },
+    {
+      "id": "b25cf000b48314fe",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "b25cf000b48314fe",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Correct organization/user identity repair and cross-organization decisions test."
+      },
+      "second": {
+        "id": "b25cf000b48314fe",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "b311212694bbfad3",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "b311212694bbfad3",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Matches all environment-precedence requirements."
+      },
+      "second": {
+        "id": "b311212694bbfad3",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "b3895b67bf7a4b32",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "b3895b67bf7a4b32",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Correct timeout mismatch and duplicate-prevention regression."
+      },
+      "second": {
+        "id": "b3895b67bf7a4b32",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "b53486cdf06bd9eb",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "b53486cdf06bd9eb",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Matches all queue-visibility requirements."
+      },
+      "second": {
+        "id": "b53486cdf06bd9eb",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "b67e11a40bff8c29",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "b67e11a40bff8c29",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Correct visibility lease cause, margin fix, and no-redelivery test."
+      },
+      "second": {
+        "id": "b67e11a40bff8c29",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "b8a5b3a278ee9902",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "b8a5b3a278ee9902",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Matches all session-cache requirements."
+      },
+      "second": {
+        "id": "b8a5b3a278ee9902",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "b8db814190065fb3",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "b8db814190065fb3",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Correct raw-body verification fix and byte-distinct regression cases."
+      },
+      "second": {
+        "id": "b8db814190065fb3",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "bc1d9393431c1955",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "bc1d9393431c1955",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Matches all configuration-precedence requirements."
+      },
+      "second": {
+        "id": "bc1d9393431c1955",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "be837ba5994d3029",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "be837ba5994d3029",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Correct regional cache collision path and isolation test."
+      },
+      "second": {
+        "id": "be837ba5994d3029",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "c592ab00b87d4189",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "c592ab00b87d4189",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Positive integer fix and invalid-versus-positive startup coverage satisfy the rubric."
+      },
+      "second": {
+        "id": "c592ab00b87d4189",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "c86301251155a5d9",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "c86301251155a5d9",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Correct rollout scale mismatch, fix, representative distribution, and endpoints."
+      },
+      "second": {
+        "id": "c86301251155a5d9",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "The quantization caveat is accurate and the required scale mismatch remains correctly identified."
+      }
+    },
+    {
+      "id": "cf9a9371ba85ab6b",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "cf9a9371ba85ab6b",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Matches all session-cache scope requirements."
+      },
+      "second": {
+        "id": "cf9a9371ba85ab6b",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "d26b6532336ab8be",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "d26b6532336ab8be",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Correct TTL cause, locations, conversion, and exact timing test."
+      },
+      "second": {
+        "id": "d26b6532336ab8be",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "d9f643945c97c35f",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "d9f643945c97c35f",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Matches all pricing-token incident requirements."
+      },
+      "second": {
+        "id": "d9f643945c97c35f",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "db7a6821f2645197",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "db7a6821f2645197",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Correct positive pool-size fix and invalid/positive startup testing."
+      },
+      "second": {
+        "id": "db7a6821f2645197",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "dbcb7f000d070f0c",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "dbcb7f000d070f0c",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Correct retry cause and equivalent terminal-bound implementation."
+      },
+      "second": {
+        "id": "dbcb7f000d070f0c",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "The equivalent terminal-bound correction is semantically valid."
+      }
+    },
+    {
+      "id": "dff1852db061a869",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "dff1852db061a869",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Correct pricing-feed incident diagnosis and bounded startup tests."
+      },
+      "second": {
+        "id": "dff1852db061a869",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "e8cf083a31484d9e",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "e8cf083a31484d9e",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Matches all environment-precedence requirements."
+      },
+      "second": {
+        "id": "e8cf083a31484d9e",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "e8dd29ff4f07938e",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "e8dd29ff4f07938e",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Positive integer repair and invalid/valid startup coverage satisfy the rubric."
+      },
+      "second": {
+        "id": "e8dd29ff4f07938e",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "ebb7ed70effd867c",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "ebb7ed70effd867c",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Correct permission cache leakage, composite identity, and isolation test."
+      },
+      "second": {
+        "id": "ebb7ed70effd867c",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "edda654772c78c23",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "edda654772c78c23",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Matches all session-cache requirements."
+      },
+      "second": {
+        "id": "edda654772c78c23",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "eec791e7ab8f00ab",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "eec791e7ab8f00ab",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Correct precedence cause, merge order, and 600-over-60 regression."
+      },
+      "second": {
+        "id": "eec791e7ab8f00ab",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "efcb0ad80fe090bf",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "efcb0ad80fe090bf",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Matches all pricing-feed incident requirements."
+      },
+      "second": {
+        "id": "efcb0ad80fe090bf",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "f3cf5f7620566d2f",
+      "agreed": true,
+      "pass": false,
+      "first": {
+        "id": "f3cf5f7620566d2f",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": false,
+          "test": false
+        },
+        "pass": false,
+        "note": "Cause and frames are correct, but an unspecified accepted value and generic boundary test omit the required positive/nonzero and zero-invalid facts."
+      },
+      "second": {
+        "id": "f3cf5f7620566d2f",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": false,
+          "test": false
+        },
+        "pass": false,
+        "note": "The answer does not state that the batch size must be positive and nonzero, and its generic valid-boundary test does not explicitly exercise that requirement."
+      }
+    },
+    {
+      "id": "f7d6d4485c0193f4",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "f7d6d4485c0193f4",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Correct pricing-token cause, frames, replacement, and tests."
+      },
+      "second": {
+        "id": "f7d6d4485c0193f4",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "f83b2ef99e6831f5",
+      "agreed": true,
+      "pass": false,
+      "first": {
+        "id": "f83b2ef99e6831f5",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": false,
+          "test": false
+        },
+        "pass": false,
+        "note": "The diagnosis is correct, but 'valid supported integer' does not require positive/nonzero, and the test does not clearly cover zero versus a positive value."
+      },
+      "second": {
+        "id": "f83b2ef99e6831f5",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": false,
+          "test": false
+        },
+        "pass": false,
+        "note": "A generic supported integer is not the required explicit positive, nonzero constraint, and the test omits the zero-versus-positive boundary."
+      }
+    },
+    {
+      "id": "f8e9d964b5947471",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "f8e9d964b5947471",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Matches all permission-cache scope requirements."
+      },
+      "second": {
+        "id": "f8e9d964b5947471",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "fbba56a519a067af",
+      "agreed": true,
+      "pass": false,
+      "first": {
+        "id": "fbba56a519a067af",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": false,
+          "test": false
+        },
+        "pass": false,
+        "note": "Cause and frames are correct, but the fix omits the positive/nonzero requirement and the test omits explicit zero-invalid and positive batch-size cases."
+      },
+      "second": {
+        "id": "fbba56a519a067af",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": false,
+          "test": false
+        },
+        "pass": false,
+        "note": "The fix and test use generic valid-value wording without stating or exercising the required positive, nonzero batch size."
+      }
+    },
+    {
+      "id": "fcf0a43f302ba23b",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "fcf0a43f302ba23b",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Correct exact-byte HMAC diagnosis, ordering fix, and byte-distinct payload tests."
+      },
+      "second": {
+        "id": "fcf0a43f302ba23b",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    },
+    {
+      "id": "fd816df04a5067a3",
+      "agreed": true,
+      "pass": true,
+      "first": {
+        "id": "fd816df04a5067a3",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Positive pool-size repair and nonpositive/valid startup tests match the rubric."
+      },
+      "second": {
+        "id": "fd816df04a5067a3",
+        "criteria": {
+          "cause": true,
+          "locations": true,
+          "fix": true,
+          "test": true
+        },
+        "pass": true,
+        "note": "Meets all rubric criteria."
+      }
+    }
+  ]
+}

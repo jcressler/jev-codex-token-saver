@@ -1,0 +1,451 @@
+{
+  "status": "passed",
+  "completedAt": "2026-09-20T04:08:29.664Z",
+  "tasks": 12,
+  "rows": [
+    {
+      "taskId": "pricing-feed-token-incident",
+      "category": "noisy-log",
+      "promptLeaks": 0,
+      "local": {
+        "mode": "local-fallback",
+        "candidatesConsidered": 16,
+        "evidenceReturned": 6,
+        "candidatePacketChars": 79658,
+        "returnedEvidenceChars": 27235,
+        "estimatedCandidateTokens": 19915,
+        "estimatedReturnedTokens": 6809,
+        "jevRequests": 0,
+        "fileBytes": 231329,
+        "oracleEvidencePassed": true
+      },
+      "mockJev": {
+        "mode": "jev",
+        "candidatesConsidered": 16,
+        "evidenceReturned": 6,
+        "candidatePacketChars": 79658,
+        "returnedEvidenceChars": 27235,
+        "estimatedCandidateTokens": 19915,
+        "estimatedReturnedTokens": 6809,
+        "jevRequests": 1,
+        "jevUsage": {
+          "input_tokens": 1,
+          "output_tokens": 1
+        },
+        "jevLatencyMs": 0,
+        "fileBytes": 231329,
+        "oracleEvidencePassed": true
+      }
+    },
+    {
+      "taskId": "inventory-pool-incident",
+      "category": "noisy-log",
+      "promptLeaks": 0,
+      "local": {
+        "mode": "local-fallback",
+        "candidatesConsidered": 16,
+        "evidenceReturned": 6,
+        "candidatePacketChars": 77544,
+        "returnedEvidenceChars": 26503,
+        "estimatedCandidateTokens": 19386,
+        "estimatedReturnedTokens": 6626,
+        "jevRequests": 0,
+        "fileBytes": 224779,
+        "oracleEvidencePassed": true
+      },
+      "mockJev": {
+        "mode": "jev",
+        "candidatesConsidered": 16,
+        "evidenceReturned": 6,
+        "candidatePacketChars": 77544,
+        "returnedEvidenceChars": 26503,
+        "estimatedCandidateTokens": 19386,
+        "estimatedReturnedTokens": 6626,
+        "jevRequests": 1,
+        "jevUsage": {
+          "input_tokens": 1,
+          "output_tokens": 1
+        },
+        "jevLatencyMs": 0,
+        "fileBytes": 224779,
+        "oracleEvidencePassed": true
+      }
+    },
+    {
+      "taskId": "catalog-batch-incident",
+      "category": "noisy-log",
+      "promptLeaks": 0,
+      "local": {
+        "mode": "local-fallback",
+        "candidatesConsidered": 16,
+        "evidenceReturned": 6,
+        "candidatePacketChars": 77234,
+        "returnedEvidenceChars": 26204,
+        "estimatedCandidateTokens": 19309,
+        "estimatedReturnedTokens": 6551,
+        "jevRequests": 0,
+        "fileBytes": 223175,
+        "oracleEvidencePassed": true
+      },
+      "mockJev": {
+        "mode": "jev",
+        "candidatesConsidered": 16,
+        "evidenceReturned": 6,
+        "candidatePacketChars": 77234,
+        "returnedEvidenceChars": 26204,
+        "estimatedCandidateTokens": 19309,
+        "estimatedReturnedTokens": 6551,
+        "jevRequests": 1,
+        "jevUsage": {
+          "input_tokens": 1,
+          "output_tokens": 1
+        },
+        "jevLatencyMs": 0,
+        "fileBytes": 223175,
+        "oracleEvidencePassed": true
+      }
+    },
+    {
+      "taskId": "webhook-byte-verification",
+      "category": "large-repository",
+      "promptLeaks": 0,
+      "local": {
+        "mode": "local-fallback",
+        "candidatesConsidered": 16,
+        "evidenceReturned": 6,
+        "candidatePacketChars": 10647,
+        "returnedEvidenceChars": 2427,
+        "estimatedCandidateTokens": 2662,
+        "estimatedReturnedTokens": 607,
+        "jevRequests": 0,
+        "filesVisited": 185,
+        "filesMatched": 185,
+        "scanTruncated": false,
+        "oracleEvidencePassed": true
+      },
+      "mockJev": {
+        "mode": "jev",
+        "candidatesConsidered": 16,
+        "evidenceReturned": 5,
+        "candidatePacketChars": 10647,
+        "returnedEvidenceChars": 1605,
+        "estimatedCandidateTokens": 2662,
+        "estimatedReturnedTokens": 402,
+        "jevRequests": 1,
+        "jevUsage": {
+          "input_tokens": 1,
+          "output_tokens": 1
+        },
+        "jevLatencyMs": 0,
+        "filesVisited": 185,
+        "filesMatched": 185,
+        "scanTruncated": false,
+        "oracleEvidencePassed": true
+      }
+    },
+    {
+      "taskId": "session-cache-region-scope",
+      "category": "large-repository",
+      "promptLeaks": 0,
+      "local": {
+        "mode": "local-fallback",
+        "candidatesConsidered": 16,
+        "evidenceReturned": 6,
+        "candidatePacketChars": 11101,
+        "returnedEvidenceChars": 2881,
+        "estimatedCandidateTokens": 2776,
+        "estimatedReturnedTokens": 721,
+        "jevRequests": 0,
+        "filesVisited": 184,
+        "filesMatched": 184,
+        "scanTruncated": false,
+        "oracleEvidencePassed": true
+      },
+      "mockJev": {
+        "mode": "jev",
+        "candidatesConsidered": 16,
+        "evidenceReturned": 4,
+        "candidatePacketChars": 11101,
+        "returnedEvidenceChars": 1237,
+        "estimatedCandidateTokens": 2776,
+        "estimatedReturnedTokens": 310,
+        "jevRequests": 1,
+        "jevUsage": {
+          "input_tokens": 1,
+          "output_tokens": 1
+        },
+        "jevLatencyMs": 0,
+        "filesVisited": 184,
+        "filesMatched": 184,
+        "scanTruncated": false,
+        "oracleEvidencePassed": true
+      }
+    },
+    {
+      "taskId": "permission-cache-org-scope",
+      "category": "large-repository",
+      "promptLeaks": 0,
+      "local": {
+        "mode": "local-fallback",
+        "candidatesConsidered": 16,
+        "evidenceReturned": 6,
+        "candidatePacketChars": 11232,
+        "returnedEvidenceChars": 2892,
+        "estimatedCandidateTokens": 2808,
+        "estimatedReturnedTokens": 723,
+        "jevRequests": 0,
+        "filesVisited": 184,
+        "filesMatched": 184,
+        "scanTruncated": false,
+        "oracleEvidencePassed": true
+      },
+      "mockJev": {
+        "mode": "jev",
+        "candidatesConsidered": 16,
+        "evidenceReturned": 4,
+        "candidatePacketChars": 11232,
+        "returnedEvidenceChars": 1224,
+        "estimatedCandidateTokens": 2808,
+        "estimatedReturnedTokens": 306,
+        "jevRequests": 1,
+        "jevUsage": {
+          "input_tokens": 1,
+          "output_tokens": 1
+        },
+        "jevLatencyMs": 0,
+        "filesVisited": 184,
+        "filesMatched": 184,
+        "scanTruncated": false,
+        "oracleEvidencePassed": true
+      }
+    },
+    {
+      "taskId": "pagination-offset-regression",
+      "category": "failing-test",
+      "promptLeaks": 0,
+      "local": {
+        "mode": "local-fallback",
+        "candidatesConsidered": 16,
+        "evidenceReturned": 6,
+        "candidatePacketChars": 11995,
+        "returnedEvidenceChars": 3745,
+        "estimatedCandidateTokens": 2999,
+        "estimatedReturnedTokens": 937,
+        "jevRequests": 0,
+        "filesVisited": 184,
+        "filesMatched": 184,
+        "scanTruncated": false,
+        "oracleEvidencePassed": true
+      },
+      "mockJev": {
+        "mode": "jev",
+        "candidatesConsidered": 16,
+        "evidenceReturned": 2,
+        "candidatePacketChars": 11995,
+        "returnedEvidenceChars": 445,
+        "estimatedCandidateTokens": 2999,
+        "estimatedReturnedTokens": 112,
+        "jevRequests": 1,
+        "jevUsage": {
+          "input_tokens": 1,
+          "output_tokens": 1
+        },
+        "jevLatencyMs": 0,
+        "filesVisited": 184,
+        "filesMatched": 184,
+        "scanTruncated": false,
+        "oracleEvidencePassed": true
+      }
+    },
+    {
+      "taskId": "retry-max-attempts-regression",
+      "category": "failing-test",
+      "promptLeaks": 0,
+      "local": {
+        "mode": "local-fallback",
+        "candidatesConsidered": 16,
+        "evidenceReturned": 6,
+        "candidatePacketChars": 11280,
+        "returnedEvidenceChars": 3120,
+        "estimatedCandidateTokens": 2820,
+        "estimatedReturnedTokens": 780,
+        "jevRequests": 0,
+        "filesVisited": 183,
+        "filesMatched": 183,
+        "scanTruncated": false,
+        "oracleEvidencePassed": true
+      },
+      "mockJev": {
+        "mode": "jev",
+        "candidatesConsidered": 16,
+        "evidenceReturned": 3,
+        "candidatePacketChars": 11280,
+        "returnedEvidenceChars": 672,
+        "estimatedCandidateTokens": 2820,
+        "estimatedReturnedTokens": 168,
+        "jevRequests": 1,
+        "jevUsage": {
+          "input_tokens": 1,
+          "output_tokens": 1
+        },
+        "jevLatencyMs": 0,
+        "filesVisited": 183,
+        "filesMatched": 183,
+        "scanTruncated": false,
+        "oracleEvidencePassed": true
+      }
+    },
+    {
+      "taskId": "ttl-seconds-regression",
+      "category": "failing-test",
+      "promptLeaks": 0,
+      "local": {
+        "mode": "local-fallback",
+        "candidatesConsidered": 16,
+        "evidenceReturned": 6,
+        "candidatePacketChars": 10540,
+        "returnedEvidenceChars": 2410,
+        "estimatedCandidateTokens": 2635,
+        "estimatedReturnedTokens": 603,
+        "jevRequests": 0,
+        "filesVisited": 184,
+        "filesMatched": 184,
+        "scanTruncated": false,
+        "oracleEvidencePassed": true
+      },
+      "mockJev": {
+        "mode": "jev",
+        "candidatesConsidered": 16,
+        "evidenceReturned": 4,
+        "candidatePacketChars": 10540,
+        "returnedEvidenceChars": 784,
+        "estimatedCandidateTokens": 2635,
+        "estimatedReturnedTokens": 196,
+        "jevRequests": 1,
+        "jevUsage": {
+          "input_tokens": 1,
+          "output_tokens": 1
+        },
+        "jevLatencyMs": 0,
+        "filesVisited": 184,
+        "filesMatched": 184,
+        "scanTruncated": false,
+        "oracleEvidencePassed": true
+      }
+    },
+    {
+      "taskId": "queue-visibility-contract",
+      "category": "mixed-doc-config",
+      "promptLeaks": 0,
+      "local": {
+        "mode": "local-fallback",
+        "candidatesConsidered": 16,
+        "evidenceReturned": 6,
+        "candidatePacketChars": 10693,
+        "returnedEvidenceChars": 2413,
+        "estimatedCandidateTokens": 2674,
+        "estimatedReturnedTokens": 604,
+        "jevRequests": 0,
+        "filesVisited": 184,
+        "filesMatched": 184,
+        "scanTruncated": false,
+        "oracleEvidencePassed": true
+      },
+      "mockJev": {
+        "mode": "jev",
+        "candidatesConsidered": 16,
+        "evidenceReturned": 4,
+        "candidatePacketChars": 10693,
+        "returnedEvidenceChars": 757,
+        "estimatedCandidateTokens": 2674,
+        "estimatedReturnedTokens": 190,
+        "jevRequests": 1,
+        "jevUsage": {
+          "input_tokens": 1,
+          "output_tokens": 1
+        },
+        "jevLatencyMs": 0,
+        "filesVisited": 184,
+        "filesMatched": 184,
+        "scanTruncated": false,
+        "oracleEvidencePassed": true
+      }
+    },
+    {
+      "taskId": "environment-precedence-contract",
+      "category": "mixed-doc-config",
+      "promptLeaks": 0,
+      "local": {
+        "mode": "local-fallback",
+        "candidatesConsidered": 16,
+        "evidenceReturned": 6,
+        "candidatePacketChars": 12025,
+        "returnedEvidenceChars": 2700,
+        "estimatedCandidateTokens": 3007,
+        "estimatedReturnedTokens": 675,
+        "jevRequests": 0,
+        "filesVisited": 185,
+        "filesMatched": 185,
+        "scanTruncated": false,
+        "oracleEvidencePassed": false
+      },
+      "mockJev": {
+        "mode": "jev",
+        "candidatesConsidered": 16,
+        "evidenceReturned": 5,
+        "candidatePacketChars": 12025,
+        "returnedEvidenceChars": 1113,
+        "estimatedCandidateTokens": 3007,
+        "estimatedReturnedTokens": 279,
+        "jevRequests": 1,
+        "jevUsage": {
+          "input_tokens": 1,
+          "output_tokens": 1
+        },
+        "jevLatencyMs": 0,
+        "filesVisited": 185,
+        "filesMatched": 185,
+        "scanTruncated": false,
+        "oracleEvidencePassed": true
+      }
+    },
+    {
+      "taskId": "rollout-unit-contract",
+      "category": "mixed-doc-config",
+      "promptLeaks": 0,
+      "local": {
+        "mode": "local-fallback",
+        "candidatesConsidered": 16,
+        "evidenceReturned": 6,
+        "candidatePacketChars": 10215,
+        "returnedEvidenceChars": 1935,
+        "estimatedCandidateTokens": 2554,
+        "estimatedReturnedTokens": 484,
+        "jevRequests": 0,
+        "filesVisited": 185,
+        "filesMatched": 185,
+        "scanTruncated": false,
+        "oracleEvidencePassed": true
+      },
+      "mockJev": {
+        "mode": "jev",
+        "candidatesConsidered": 16,
+        "evidenceReturned": 5,
+        "candidatePacketChars": 10215,
+        "returnedEvidenceChars": 1107,
+        "estimatedCandidateTokens": 2554,
+        "estimatedReturnedTokens": 277,
+        "jevRequests": 1,
+        "jevUsage": {
+          "input_tokens": 1,
+          "output_tokens": 1
+        },
+        "jevLatencyMs": 0,
+        "filesVisited": 185,
+        "filesMatched": 185,
+        "scanTruncated": false,
+        "oracleEvidencePassed": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,1875 @@
+{
+  "schemaVersion": 1,
+  "complete": true,
+  "packetSha256": null,
+  "twoReviewerAgreement": 107,
+  "tieBreaks": 1,
+  "arms": {
+    "stock": {
+      "runs": 36,
+      "automaticPass": 24,
+      "semanticPass": 34,
+      "semanticRate": 0.9444444444444444
+    },
+    "local": {
+      "runs": 36,
+      "automaticPass": 23,
+      "semanticPass": 32,
+      "semanticRate": 0.8888888888888888
+    },
+    "jev": {
+      "runs": 36,
+      "automaticPass": 22,
+      "semanticPass": 33,
+      "semanticRate": 0.9166666666666666
+    }
+  },
+  "semanticCorrectnessNoRegression": false,
+  "decisions": [
+    {
+      "id": "0298074dc0cfff91",
+      "runId": "021-ttl-seconds-regression-r1-local",
+      "taskId": "ttl-seconds-regression",
+      "arm": "local",
+      "repetition": 1,
+      "reviewId": "0298074dc0cfff91",
+      "automaticPass": true,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "04459805bb44adc4",
+      "runId": "010-queue-visibility-contract-r1-stock",
+      "taskId": "queue-visibility-contract",
+      "arm": "stock",
+      "repetition": 1,
+      "reviewId": "04459805bb44adc4",
+      "automaticPass": false,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "0536477e87f81f8b",
+      "runId": "061-queue-visibility-contract-r2-local",
+      "taskId": "queue-visibility-contract",
+      "arm": "local",
+      "repetition": 2,
+      "reviewId": "0536477e87f81f8b",
+      "automaticPass": false,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "062dee2531afdfc4",
+      "runId": "104-pricing-feed-token-incident-r3-stock",
+      "taskId": "pricing-feed-token-incident",
+      "arm": "stock",
+      "repetition": 3,
+      "reviewId": "062dee2531afdfc4",
+      "automaticPass": true,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "08935182befc12f6",
+      "runId": "034-inventory-pool-incident-r1-local",
+      "taskId": "inventory-pool-incident",
+      "arm": "local",
+      "repetition": 1,
+      "reviewId": "08935182befc12f6",
+      "automaticPass": true,
+      "semanticPass": false,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": false
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "0a6302276c1de66b",
+      "runId": "096-webhook-byte-verification-r3-local",
+      "taskId": "webhook-byte-verification",
+      "arm": "local",
+      "repetition": 3,
+      "reviewId": "0a6302276c1de66b",
+      "automaticPass": true,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "123943b6648ab7e5",
+      "runId": "036-inventory-pool-incident-r1-stock",
+      "taskId": "inventory-pool-incident",
+      "arm": "stock",
+      "repetition": 1,
+      "reviewId": "123943b6648ab7e5",
+      "automaticPass": false,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "16dfaf804bcbf040",
+      "runId": "095-webhook-byte-verification-r3-stock",
+      "taskId": "webhook-byte-verification",
+      "arm": "stock",
+      "repetition": 3,
+      "reviewId": "16dfaf804bcbf040",
+      "automaticPass": true,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "186571a7acb2ae38",
+      "runId": "071-inventory-pool-incident-r2-stock",
+      "taskId": "inventory-pool-incident",
+      "arm": "stock",
+      "repetition": 2,
+      "reviewId": "186571a7acb2ae38",
+      "automaticPass": true,
+      "semanticPass": false,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": false,
+        "test": false
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "1cbe4399c71cca6b",
+      "runId": "032-rollout-unit-contract-r1-stock",
+      "taskId": "rollout-unit-contract",
+      "arm": "stock",
+      "repetition": 1,
+      "reviewId": "1cbe4399c71cca6b",
+      "automaticPass": true,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "1f6d29404a4023b9",
+      "runId": "057-rollout-unit-contract-r2-jev",
+      "taskId": "rollout-unit-contract",
+      "arm": "jev",
+      "repetition": 2,
+      "reviewId": "1f6d29404a4023b9",
+      "automaticPass": true,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "2056571f3c8af890",
+      "runId": "106-ttl-seconds-regression-r3-local",
+      "taskId": "ttl-seconds-regression",
+      "arm": "local",
+      "repetition": 3,
+      "reviewId": "2056571f3c8af890",
+      "automaticPass": true,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "20cf953356a6e3bd",
+      "runId": "030-retry-max-attempts-regression-r1-stock",
+      "taskId": "retry-max-attempts-regression",
+      "arm": "stock",
+      "repetition": 1,
+      "reviewId": "20cf953356a6e3bd",
+      "automaticPass": false,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "220535f3d84b7069",
+      "runId": "087-pagination-offset-regression-r3-local",
+      "taskId": "pagination-offset-regression",
+      "arm": "local",
+      "repetition": 3,
+      "reviewId": "220535f3d84b7069",
+      "automaticPass": false,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "2283a65fcfa4c952",
+      "runId": "031-rollout-unit-contract-r1-jev",
+      "taskId": "rollout-unit-contract",
+      "arm": "jev",
+      "repetition": 1,
+      "reviewId": "2283a65fcfa4c952",
+      "automaticPass": true,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "24a52712840c7454",
+      "runId": "075-environment-precedence-contract-r3-jev",
+      "taskId": "environment-precedence-contract",
+      "arm": "jev",
+      "repetition": 3,
+      "reviewId": "24a52712840c7454",
+      "automaticPass": true,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "266adb6876a300c7",
+      "runId": "029-retry-max-attempts-regression-r1-jev",
+      "taskId": "retry-max-attempts-regression",
+      "arm": "jev",
+      "repetition": 1,
+      "reviewId": "266adb6876a300c7",
+      "automaticPass": false,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "26b5ffd7336fb9a1",
+      "runId": "053-retry-max-attempts-regression-r2-stock",
+      "taskId": "retry-max-attempts-regression",
+      "arm": "stock",
+      "repetition": 2,
+      "reviewId": "26b5ffd7336fb9a1",
+      "automaticPass": false,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "2d65e42fca92b7ba",
+      "runId": "026-session-cache-region-scope-r1-jev",
+      "taskId": "session-cache-region-scope",
+      "arm": "jev",
+      "repetition": 1,
+      "reviewId": "2d65e42fca92b7ba",
+      "automaticPass": true,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "2da94d728b07d62f",
+      "runId": "074-environment-precedence-contract-r3-local",
+      "taskId": "environment-precedence-contract",
+      "arm": "local",
+      "repetition": 3,
+      "reviewId": "2da94d728b07d62f",
+      "automaticPass": true,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "3052b95031c56984",
+      "runId": "101-retry-max-attempts-regression-r3-local",
+      "taskId": "retry-max-attempts-regression",
+      "arm": "local",
+      "repetition": 3,
+      "reviewId": "3052b95031c56984",
+      "automaticPass": false,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "30b58f1c240545c9",
+      "runId": "041-permission-cache-org-scope-r2-local",
+      "taskId": "permission-cache-org-scope",
+      "arm": "local",
+      "repetition": 2,
+      "reviewId": "30b58f1c240545c9",
+      "automaticPass": true,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "328fd7e37e16b0b1",
+      "runId": "090-permission-cache-org-scope-r3-stock",
+      "taskId": "permission-cache-org-scope",
+      "arm": "stock",
+      "repetition": 3,
+      "reviewId": "328fd7e37e16b0b1",
+      "automaticPass": false,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "348daffabd50127a",
+      "runId": "016-webhook-byte-verification-r1-stock",
+      "taskId": "webhook-byte-verification",
+      "arm": "stock",
+      "repetition": 1,
+      "reviewId": "348daffabd50127a",
+      "automaticPass": true,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "34a478879d4c5036",
+      "runId": "046-pricing-feed-token-incident-r2-local",
+      "taskId": "pricing-feed-token-incident",
+      "arm": "local",
+      "repetition": 2,
+      "reviewId": "34a478879d4c5036",
+      "automaticPass": true,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "365ec9ed99f91c2f",
+      "runId": "047-pricing-feed-token-incident-r2-jev",
+      "taskId": "pricing-feed-token-incident",
+      "arm": "jev",
+      "repetition": 2,
+      "reviewId": "365ec9ed99f91c2f",
+      "automaticPass": true,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "384f986605a74675",
+      "runId": "017-webhook-byte-verification-r1-local",
+      "taskId": "webhook-byte-verification",
+      "arm": "local",
+      "repetition": 1,
+      "reviewId": "384f986605a74675",
+      "automaticPass": true,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "3bb7c2fbc330cee7",
+      "runId": "097-rollout-unit-contract-r3-local",
+      "taskId": "rollout-unit-contract",
+      "arm": "local",
+      "repetition": 3,
+      "reviewId": "3bb7c2fbc330cee7",
+      "automaticPass": true,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "3e5c17ee445e4c7a",
+      "runId": "100-retry-max-attempts-regression-r3-stock",
+      "taskId": "retry-max-attempts-regression",
+      "arm": "stock",
+      "repetition": 3,
+      "reviewId": "3e5c17ee445e4c7a",
+      "automaticPass": false,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "46f3ee31778f3890",
+      "runId": "019-ttl-seconds-regression-r1-jev",
+      "taskId": "ttl-seconds-regression",
+      "arm": "jev",
+      "repetition": 1,
+      "reviewId": "46f3ee31778f3890",
+      "automaticPass": true,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "470a80c1aba4cbb2",
+      "runId": "007-pagination-offset-regression-r1-stock",
+      "taskId": "pagination-offset-regression",
+      "arm": "stock",
+      "repetition": 1,
+      "reviewId": "470a80c1aba4cbb2",
+      "automaticPass": true,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "4d3eacba4d5b8919",
+      "runId": "086-pagination-offset-regression-r3-stock",
+      "taskId": "pagination-offset-regression",
+      "arm": "stock",
+      "repetition": 3,
+      "reviewId": "4d3eacba4d5b8919",
+      "automaticPass": false,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "4dfac5f324f22c0c",
+      "runId": "103-pricing-feed-token-incident-r3-jev",
+      "taskId": "pricing-feed-token-incident",
+      "arm": "jev",
+      "repetition": 3,
+      "reviewId": "4dfac5f324f22c0c",
+      "automaticPass": true,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "4fa7b3087ca0d89f",
+      "runId": "099-rollout-unit-contract-r3-stock",
+      "taskId": "rollout-unit-contract",
+      "arm": "stock",
+      "repetition": 3,
+      "reviewId": "4fa7b3087ca0d89f",
+      "automaticPass": true,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "53e2830cb775e62a",
+      "runId": "011-queue-visibility-contract-r1-local",
+      "taskId": "queue-visibility-contract",
+      "arm": "local",
+      "repetition": 1,
+      "reviewId": "53e2830cb775e62a",
+      "automaticPass": false,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "57a72b179da1a50c",
+      "runId": "073-environment-precedence-contract-r3-stock",
+      "taskId": "environment-precedence-contract",
+      "arm": "stock",
+      "repetition": 3,
+      "reviewId": "57a72b179da1a50c",
+      "automaticPass": true,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "593c17f82f3ad730",
+      "runId": "012-queue-visibility-contract-r1-jev",
+      "taskId": "queue-visibility-contract",
+      "arm": "jev",
+      "repetition": 1,
+      "reviewId": "593c17f82f3ad730",
+      "automaticPass": false,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "5b226d0fcfff1ffc",
+      "runId": "051-webhook-byte-verification-r2-stock",
+      "taskId": "webhook-byte-verification",
+      "arm": "stock",
+      "repetition": 2,
+      "reviewId": "5b226d0fcfff1ffc",
+      "automaticPass": true,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "5b75f7a6a90d24e8",
+      "runId": "002-pricing-feed-token-incident-r1-local",
+      "taskId": "pricing-feed-token-incident",
+      "arm": "local",
+      "repetition": 1,
+      "reviewId": "5b75f7a6a90d24e8",
+      "automaticPass": true,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "5ba030dfd5b258c8",
+      "runId": "089-permission-cache-org-scope-r3-jev",
+      "taskId": "permission-cache-org-scope",
+      "arm": "jev",
+      "repetition": 3,
+      "reviewId": "5ba030dfd5b258c8",
+      "automaticPass": false,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "610b145a971b5018",
+      "runId": "044-environment-precedence-contract-r2-stock",
+      "taskId": "environment-precedence-contract",
+      "arm": "stock",
+      "repetition": 2,
+      "reviewId": "610b145a971b5018",
+      "automaticPass": true,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "61480c21504033c7",
+      "runId": "028-retry-max-attempts-regression-r1-local",
+      "taskId": "retry-max-attempts-regression",
+      "arm": "local",
+      "repetition": 1,
+      "reviewId": "61480c21504033c7",
+      "automaticPass": false,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "654837a72f3f9965",
+      "runId": "098-rollout-unit-contract-r3-jev",
+      "taskId": "rollout-unit-contract",
+      "arm": "jev",
+      "repetition": 3,
+      "reviewId": "654837a72f3f9965",
+      "automaticPass": true,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "68cf209f1b46736f",
+      "runId": "008-pagination-offset-regression-r1-local",
+      "taskId": "pagination-offset-regression",
+      "arm": "local",
+      "repetition": 1,
+      "reviewId": "68cf209f1b46736f",
+      "automaticPass": false,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "68d1a4f5ebf23ad1",
+      "runId": "107-ttl-seconds-regression-r3-jev",
+      "taskId": "ttl-seconds-regression",
+      "arm": "jev",
+      "repetition": 3,
+      "reviewId": "68d1a4f5ebf23ad1",
+      "automaticPass": true,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "6966c99c25befb16",
+      "runId": "108-ttl-seconds-regression-r3-stock",
+      "taskId": "ttl-seconds-regression",
+      "arm": "stock",
+      "repetition": 3,
+      "reviewId": "6966c99c25befb16",
+      "automaticPass": true,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "6aced1b75967eca7",
+      "runId": "085-pagination-offset-regression-r3-jev",
+      "taskId": "pagination-offset-regression",
+      "arm": "jev",
+      "repetition": 3,
+      "reviewId": "6aced1b75967eca7",
+      "automaticPass": false,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "6b031754a43f930b",
+      "runId": "035-inventory-pool-incident-r1-jev",
+      "taskId": "inventory-pool-incident",
+      "arm": "jev",
+      "repetition": 1,
+      "reviewId": "6b031754a43f930b",
+      "automaticPass": false,
+      "semanticPass": false,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": false,
+        "test": false
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "6b0f723ab2af8516",
+      "runId": "020-ttl-seconds-regression-r1-stock",
+      "taskId": "ttl-seconds-regression",
+      "arm": "stock",
+      "repetition": 1,
+      "reviewId": "6b0f723ab2af8516",
+      "automaticPass": true,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "6bd638e4c4f033c2",
+      "runId": "050-webhook-byte-verification-r2-jev",
+      "taskId": "webhook-byte-verification",
+      "arm": "jev",
+      "repetition": 2,
+      "reviewId": "6bd638e4c4f033c2",
+      "automaticPass": true,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "6e93038bc4b55d3e",
+      "runId": "033-rollout-unit-contract-r1-local",
+      "taskId": "rollout-unit-contract",
+      "arm": "local",
+      "repetition": 1,
+      "reviewId": "6e93038bc4b55d3e",
+      "automaticPass": false,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "6fb0c6dba6470388",
+      "runId": "005-permission-cache-org-scope-r1-stock",
+      "taskId": "permission-cache-org-scope",
+      "arm": "stock",
+      "repetition": 1,
+      "reviewId": "6fb0c6dba6470388",
+      "automaticPass": false,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "70669a133ce0b8cd",
+      "runId": "063-queue-visibility-contract-r2-stock",
+      "taskId": "queue-visibility-contract",
+      "arm": "stock",
+      "repetition": 2,
+      "reviewId": "70669a133ce0b8cd",
+      "automaticPass": false,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "735222ef42956a67",
+      "runId": "080-catalog-batch-incident-r3-jev",
+      "taskId": "catalog-batch-incident",
+      "arm": "jev",
+      "repetition": 3,
+      "reviewId": "735222ef42956a67",
+      "automaticPass": true,
+      "semanticPass": false,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": false,
+        "test": false
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "77adc6af7364dca9",
+      "runId": "060-ttl-seconds-regression-r2-jev",
+      "taskId": "ttl-seconds-regression",
+      "arm": "jev",
+      "repetition": 2,
+      "reviewId": "77adc6af7364dca9",
+      "automaticPass": true,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "78bdd07977f66d2e",
+      "runId": "067-catalog-batch-incident-r2-stock",
+      "taskId": "catalog-batch-incident",
+      "arm": "stock",
+      "repetition": 2,
+      "reviewId": "78bdd07977f66d2e",
+      "automaticPass": true,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "7d60cca6cc59fa2f",
+      "runId": "038-pagination-offset-regression-r2-jev",
+      "taskId": "pagination-offset-regression",
+      "arm": "jev",
+      "repetition": 2,
+      "reviewId": "7d60cca6cc59fa2f",
+      "automaticPass": false,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "8275d2f99907f555",
+      "runId": "059-ttl-seconds-regression-r2-local",
+      "taskId": "ttl-seconds-regression",
+      "arm": "local",
+      "repetition": 2,
+      "reviewId": "8275d2f99907f555",
+      "automaticPass": true,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "84543109f7e391e4",
+      "runId": "024-environment-precedence-contract-r1-stock",
+      "taskId": "environment-precedence-contract",
+      "arm": "stock",
+      "repetition": 1,
+      "reviewId": "84543109f7e391e4",
+      "automaticPass": true,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "86061242d220c520",
+      "runId": "065-session-cache-region-scope-r2-stock",
+      "taskId": "session-cache-region-scope",
+      "arm": "stock",
+      "repetition": 2,
+      "reviewId": "86061242d220c520",
+      "automaticPass": true,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "8b3f1cc378ccb8c2",
+      "runId": "083-inventory-pool-incident-r3-local",
+      "taskId": "inventory-pool-incident",
+      "arm": "local",
+      "repetition": 3,
+      "reviewId": "8b3f1cc378ccb8c2",
+      "automaticPass": true,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "9191958f072d0ba2",
+      "runId": "093-queue-visibility-contract-r3-local",
+      "taskId": "queue-visibility-contract",
+      "arm": "local",
+      "repetition": 3,
+      "reviewId": "9191958f072d0ba2",
+      "automaticPass": false,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "9280b6ae34e4c3f7",
+      "runId": "009-pagination-offset-regression-r1-jev",
+      "taskId": "pagination-offset-regression",
+      "arm": "jev",
+      "repetition": 1,
+      "reviewId": "9280b6ae34e4c3f7",
+      "automaticPass": false,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "950214165342abb1",
+      "runId": "055-rollout-unit-contract-r2-stock",
+      "taskId": "rollout-unit-contract",
+      "arm": "stock",
+      "repetition": 2,
+      "reviewId": "950214165342abb1",
+      "automaticPass": true,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "956c490120a1d1ec",
+      "runId": "082-inventory-pool-incident-r3-stock",
+      "taskId": "inventory-pool-incident",
+      "arm": "stock",
+      "repetition": 3,
+      "reviewId": "956c490120a1d1ec",
+      "automaticPass": false,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "third-reviewer-tie-break"
+    },
+    {
+      "id": "9755dbddd8b938b4",
+      "runId": "094-webhook-byte-verification-r3-jev",
+      "taskId": "webhook-byte-verification",
+      "arm": "jev",
+      "repetition": 3,
+      "reviewId": "9755dbddd8b938b4",
+      "automaticPass": true,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "98116b4894004d60",
+      "runId": "039-pagination-offset-regression-r2-stock",
+      "taskId": "pagination-offset-regression",
+      "arm": "stock",
+      "repetition": 2,
+      "reviewId": "98116b4894004d60",
+      "automaticPass": false,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "9c7ce2119c3f388e",
+      "runId": "014-catalog-batch-incident-r1-stock",
+      "taskId": "catalog-batch-incident",
+      "arm": "stock",
+      "repetition": 1,
+      "reviewId": "9c7ce2119c3f388e",
+      "automaticPass": true,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "9d4aab75aeb2e63e",
+      "runId": "077-session-cache-region-scope-r3-local",
+      "taskId": "session-cache-region-scope",
+      "arm": "local",
+      "repetition": 3,
+      "reviewId": "9d4aab75aeb2e63e",
+      "automaticPass": true,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "a9e3494619238af9",
+      "runId": "040-permission-cache-org-scope-r2-stock",
+      "taskId": "permission-cache-org-scope",
+      "arm": "stock",
+      "repetition": 2,
+      "reviewId": "a9e3494619238af9",
+      "automaticPass": true,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "ab5aac186a6d7c44",
+      "runId": "079-catalog-batch-incident-r3-local",
+      "taskId": "catalog-batch-incident",
+      "arm": "local",
+      "repetition": 3,
+      "reviewId": "ab5aac186a6d7c44",
+      "automaticPass": true,
+      "semanticPass": false,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": false,
+        "test": false
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "abb84a1ddd0c56fb",
+      "runId": "037-pagination-offset-regression-r2-local",
+      "taskId": "pagination-offset-regression",
+      "arm": "local",
+      "repetition": 2,
+      "reviewId": "abb84a1ddd0c56fb",
+      "automaticPass": false,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "ac55324dd1bcb392",
+      "runId": "025-session-cache-region-scope-r1-local",
+      "taskId": "session-cache-region-scope",
+      "arm": "local",
+      "repetition": 1,
+      "reviewId": "ac55324dd1bcb392",
+      "automaticPass": false,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "ad5251d7636f42ea",
+      "runId": "081-catalog-batch-incident-r3-stock",
+      "taskId": "catalog-batch-incident",
+      "arm": "stock",
+      "repetition": 3,
+      "reviewId": "ad5251d7636f42ea",
+      "automaticPass": true,
+      "semanticPass": false,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": false,
+        "test": false
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "afa880257370f8dc",
+      "runId": "088-permission-cache-org-scope-r3-local",
+      "taskId": "permission-cache-org-scope",
+      "arm": "local",
+      "repetition": 3,
+      "reviewId": "afa880257370f8dc",
+      "automaticPass": false,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "afff948f0968b7f3",
+      "runId": "102-retry-max-attempts-regression-r3-jev",
+      "taskId": "retry-max-attempts-regression",
+      "arm": "jev",
+      "repetition": 3,
+      "reviewId": "afff948f0968b7f3",
+      "automaticPass": false,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "b0c625715caf6ab6",
+      "runId": "076-session-cache-region-scope-r3-stock",
+      "taskId": "session-cache-region-scope",
+      "arm": "stock",
+      "repetition": 3,
+      "reviewId": "b0c625715caf6ab6",
+      "automaticPass": true,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "b18ec18d508d8449",
+      "runId": "054-retry-max-attempts-regression-r2-local",
+      "taskId": "retry-max-attempts-regression",
+      "arm": "local",
+      "repetition": 2,
+      "reviewId": "b18ec18d508d8449",
+      "automaticPass": false,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "b25cf000b48314fe",
+      "runId": "004-permission-cache-org-scope-r1-jev",
+      "taskId": "permission-cache-org-scope",
+      "arm": "jev",
+      "repetition": 1,
+      "reviewId": "b25cf000b48314fe",
+      "automaticPass": false,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "b311212694bbfad3",
+      "runId": "022-environment-precedence-contract-r1-local",
+      "taskId": "environment-precedence-contract",
+      "arm": "local",
+      "repetition": 1,
+      "reviewId": "b311212694bbfad3",
+      "automaticPass": true,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "b3895b67bf7a4b32",
+      "runId": "092-queue-visibility-contract-r3-stock",
+      "taskId": "queue-visibility-contract",
+      "arm": "stock",
+      "repetition": 3,
+      "reviewId": "b3895b67bf7a4b32",
+      "automaticPass": false,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "b53486cdf06bd9eb",
+      "runId": "091-queue-visibility-contract-r3-jev",
+      "taskId": "queue-visibility-contract",
+      "arm": "jev",
+      "repetition": 3,
+      "reviewId": "b53486cdf06bd9eb",
+      "automaticPass": false,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "b67e11a40bff8c29",
+      "runId": "062-queue-visibility-contract-r2-jev",
+      "taskId": "queue-visibility-contract",
+      "arm": "jev",
+      "repetition": 2,
+      "reviewId": "b67e11a40bff8c29",
+      "automaticPass": false,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "b8a5b3a278ee9902",
+      "runId": "027-session-cache-region-scope-r1-stock",
+      "taskId": "session-cache-region-scope",
+      "arm": "stock",
+      "repetition": 1,
+      "reviewId": "b8a5b3a278ee9902",
+      "automaticPass": true,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "b8db814190065fb3",
+      "runId": "018-webhook-byte-verification-r1-jev",
+      "taskId": "webhook-byte-verification",
+      "arm": "jev",
+      "repetition": 1,
+      "reviewId": "b8db814190065fb3",
+      "automaticPass": true,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "bc1d9393431c1955",
+      "runId": "023-environment-precedence-contract-r1-jev",
+      "taskId": "environment-precedence-contract",
+      "arm": "jev",
+      "repetition": 1,
+      "reviewId": "bc1d9393431c1955",
+      "automaticPass": true,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "be837ba5994d3029",
+      "runId": "078-session-cache-region-scope-r3-jev",
+      "taskId": "session-cache-region-scope",
+      "arm": "jev",
+      "repetition": 3,
+      "reviewId": "be837ba5994d3029",
+      "automaticPass": true,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "c592ab00b87d4189",
+      "runId": "072-inventory-pool-incident-r2-local",
+      "taskId": "inventory-pool-incident",
+      "arm": "local",
+      "repetition": 2,
+      "reviewId": "c592ab00b87d4189",
+      "automaticPass": true,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "c86301251155a5d9",
+      "runId": "056-rollout-unit-contract-r2-local",
+      "taskId": "rollout-unit-contract",
+      "arm": "local",
+      "repetition": 2,
+      "reviewId": "c86301251155a5d9",
+      "automaticPass": true,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "cf9a9371ba85ab6b",
+      "runId": "064-session-cache-region-scope-r2-jev",
+      "taskId": "session-cache-region-scope",
+      "arm": "jev",
+      "repetition": 2,
+      "reviewId": "cf9a9371ba85ab6b",
+      "automaticPass": true,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "d26b6532336ab8be",
+      "runId": "058-ttl-seconds-regression-r2-stock",
+      "taskId": "ttl-seconds-regression",
+      "arm": "stock",
+      "repetition": 2,
+      "reviewId": "d26b6532336ab8be",
+      "automaticPass": true,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "d9f643945c97c35f",
+      "runId": "048-pricing-feed-token-incident-r2-stock",
+      "taskId": "pricing-feed-token-incident",
+      "arm": "stock",
+      "repetition": 2,
+      "reviewId": "d9f643945c97c35f",
+      "automaticPass": true,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "db7a6821f2645197",
+      "runId": "084-inventory-pool-incident-r3-jev",
+      "taskId": "inventory-pool-incident",
+      "arm": "jev",
+      "repetition": 3,
+      "reviewId": "db7a6821f2645197",
+      "automaticPass": true,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "dbcb7f000d070f0c",
+      "runId": "052-retry-max-attempts-regression-r2-jev",
+      "taskId": "retry-max-attempts-regression",
+      "arm": "jev",
+      "repetition": 2,
+      "reviewId": "dbcb7f000d070f0c",
+      "automaticPass": false,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "dff1852db061a869",
+      "runId": "001-pricing-feed-token-incident-r1-stock",
+      "taskId": "pricing-feed-token-incident",
+      "arm": "stock",
+      "repetition": 1,
+      "reviewId": "dff1852db061a869",
+      "automaticPass": true,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "e8cf083a31484d9e",
+      "runId": "043-environment-precedence-contract-r2-jev",
+      "taskId": "environment-precedence-contract",
+      "arm": "jev",
+      "repetition": 2,
+      "reviewId": "e8cf083a31484d9e",
+      "automaticPass": false,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "e8dd29ff4f07938e",
+      "runId": "013-catalog-batch-incident-r1-jev",
+      "taskId": "catalog-batch-incident",
+      "arm": "jev",
+      "repetition": 1,
+      "reviewId": "e8dd29ff4f07938e",
+      "automaticPass": true,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "ebb7ed70effd867c",
+      "runId": "042-permission-cache-org-scope-r2-jev",
+      "taskId": "permission-cache-org-scope",
+      "arm": "jev",
+      "repetition": 2,
+      "reviewId": "ebb7ed70effd867c",
+      "automaticPass": false,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "edda654772c78c23",
+      "runId": "066-session-cache-region-scope-r2-local",
+      "taskId": "session-cache-region-scope",
+      "arm": "local",
+      "repetition": 2,
+      "reviewId": "edda654772c78c23",
+      "automaticPass": true,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "eec791e7ab8f00ab",
+      "runId": "045-environment-precedence-contract-r2-local",
+      "taskId": "environment-precedence-contract",
+      "arm": "local",
+      "repetition": 2,
+      "reviewId": "eec791e7ab8f00ab",
+      "automaticPass": true,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "efcb0ad80fe090bf",
+      "runId": "105-pricing-feed-token-incident-r3-local",
+      "taskId": "pricing-feed-token-incident",
+      "arm": "local",
+      "repetition": 3,
+      "reviewId": "efcb0ad80fe090bf",
+      "automaticPass": true,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "f3cf5f7620566d2f",
+      "runId": "068-catalog-batch-incident-r2-local",
+      "taskId": "catalog-batch-incident",
+      "arm": "local",
+      "repetition": 2,
+      "reviewId": "f3cf5f7620566d2f",
+      "automaticPass": true,
+      "semanticPass": false,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": false,
+        "test": false
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "f7d6d4485c0193f4",
+      "runId": "003-pricing-feed-token-incident-r1-jev",
+      "taskId": "pricing-feed-token-incident",
+      "arm": "jev",
+      "repetition": 1,
+      "reviewId": "f7d6d4485c0193f4",
+      "automaticPass": true,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "f83b2ef99e6831f5",
+      "runId": "015-catalog-batch-incident-r1-local",
+      "taskId": "catalog-batch-incident",
+      "arm": "local",
+      "repetition": 1,
+      "reviewId": "f83b2ef99e6831f5",
+      "automaticPass": true,
+      "semanticPass": false,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": false,
+        "test": false
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "f8e9d964b5947471",
+      "runId": "006-permission-cache-org-scope-r1-local",
+      "taskId": "permission-cache-org-scope",
+      "arm": "local",
+      "repetition": 1,
+      "reviewId": "f8e9d964b5947471",
+      "automaticPass": false,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "fbba56a519a067af",
+      "runId": "069-catalog-batch-incident-r2-jev",
+      "taskId": "catalog-batch-incident",
+      "arm": "jev",
+      "repetition": 2,
+      "reviewId": "fbba56a519a067af",
+      "automaticPass": true,
+      "semanticPass": false,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": false,
+        "test": false
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "fcf0a43f302ba23b",
+      "runId": "049-webhook-byte-verification-r2-local",
+      "taskId": "webhook-byte-verification",
+      "arm": "local",
+      "repetition": 2,
+      "reviewId": "fcf0a43f302ba23b",
+      "automaticPass": true,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    },
+    {
+      "id": "fd816df04a5067a3",
+      "runId": "070-inventory-pool-incident-r2-jev",
+      "taskId": "inventory-pool-incident",
+      "arm": "jev",
+      "repetition": 2,
+      "reviewId": "fd816df04a5067a3",
+      "automaticPass": true,
+      "semanticPass": true,
+      "criteria": {
+        "cause": true,
+        "locations": true,
+        "fix": true,
+        "test": true
+      },
+      "resolution": "two-reviewer-agreement"
+    }
+  ],
+  "benchmarkCommit": "c593e3dcc9fb0ff2c84bd4b5e7c3c0b963b5e8bb",
+  "semanticProtocolCommit": "68b2aae03e98606421fbb0cc34a453f60ebe4054",
+  "evidenceSha256": {
+    "packet": "6fea582821f1252558297db7c9744308cab7e2df145c248ff74057a6606de74b",
+    "mapping": "3cad87e2d1c115c5fbf56609d5743b2dc0c50d2937d7c7169702d14a5686102f",
+    "reviewA": "7bb08249dcaac9f388a0d820754cd05ef6a0fc5855da101d37fc35e679f28b51",
+    "reviewB": "0ef1e66ffb33fe6a667c0cfba6c49c2584f90a5421a33f92a2cd4757234148ed",
+    "reviewC": "213a1029752af75ea9a0f06bf8eaafac4e3bfa99747f43fead7aac18d0773720"
+  }
+}

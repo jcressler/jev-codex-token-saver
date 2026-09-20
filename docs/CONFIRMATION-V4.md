@@ -1,6 +1,8 @@
 # Confirmation evaluation v4
 
-Status: prospective protocol implemented; no measured run has launched.
+Status: completed on 2026-09-20. See the
+[final 108-run result](CONFIRMATION-V4-FINAL-2026-09-20.md). This file preserves
+the protocol and decision rules used for the run.
 
 This evaluation supersedes v3 after an assisted follow-up requested a bounded
 range beyond a selected file's end. The answer was correct, but the strict read

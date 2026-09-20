@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "files": {
+    "manifest.json": "37d02a81f8fe4858671b57df74c086ef91356b465fd84159dff98ef3494f6f79",
+    "rehearsal.json": "294b07082c8a4e917c31873cb6896ee18197a568af0845b3c11c5fbb71014568",
+    "semantic-consensus.json": "270c50dfdbd176d222c62deacbc3754c93e112d055c411f7536d6f1ed56298cb",
+    "semantic-mapping.json": "3cad87e2d1c115c5fbf56609d5743b2dc0c50d2937d7c7169702d14a5686102f",
+    "semantic-packet.json": "6fea582821f1252558297db7c9744308cab7e2df145c248ff74057a6606de74b",
+    "semantic-review-a.json": "7bb08249dcaac9f388a0d820754cd05ef6a0fc5855da101d37fc35e679f28b51",
+    "semantic-review-b.json": "0ef1e66ffb33fe6a667c0cfba6c49c2584f90a5421a33f92a2cd4757234148ed",
+    "semantic-review-c.json": "213a1029752af75ea9a0f06bf8eaafac4e3bfa99747f43fead7aac18d0773720",
+    "summary.json": "41f934a2229e4b76cda3906fb640bceae5271b13ed55ef4757344d085e13a00e",
+    "two-reviewer-consensus.json": "ee9ba86552ae6e88cc2362d58fda7f03bf3a714d2ea034c9d7847add8290f3c0"
+  }
+}

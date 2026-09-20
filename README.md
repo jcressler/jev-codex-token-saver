@@ -140,13 +140,16 @@ Confirmation v1 was [invalidated by a brittle grader](docs/CONFIRMATION-V1-INVAL
 V2 by an [overly tight stock safety cap](docs/CONFIRMATION-V2-INVALID-2026-09-19.md),
 and V3 by a [selected read past EOF](docs/CONFIRMATION-V3-INVALID-2026-09-19.md).
 Each remains public and immutable. Plugin 0.3.1 safely caps selected ranges at
-EOF. [Confirmation v4](docs/CONFIRMATION-V4.md) replaces every exposed task and
-retains the 12-task, three-repetition, rotated-arm design, task-level confidence
+EOF. [Confirmation v4](docs/CONFIRMATION-V4.md) replaced every exposed task and
+retained the 12-task, three-repetition, rotated-arm design, task-level confidence
 intervals, correctness outcomes, and combined-cost gates. Its
-[first 36-run block](docs/CONFIRMATION-V4-BLOCK1-2026-09-19.md) completed: Jev
-used 54.3% fewer total Codex input tokens than stock and 11.3% fewer than local,
-with lower combined cost than both. The full three-block confirmation remains
-incomplete.
+[final 108-run result](docs/CONFIRMATION-V4-FINAL-2026-09-20.md) found a 39.2%
+paired input-token reduction versus stock (95% CI 19.4% to 56.2%) and 7.9%
+versus local selection (95% CI 4.1% to 12.0%). Combined cost was lower than
+both. Blinded semantic correctness was 33/36 for Jev, 34/36 for stock, and
+32/36 for local, so the protocol's zero-tolerance no-regression gate did not
+pass. The raw answers, measurements, blinded reviews, mapping, and hashes are
+public under [`benchmarks/results/confirmation-v4-2026-09-20`](benchmarks/results/confirmation-v4-2026-09-20/).
 
 ## Troubleshoot or remove
 

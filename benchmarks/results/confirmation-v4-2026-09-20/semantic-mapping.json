@@ -1,0 +1,763 @@
+{
+  "schemaVersion": 1,
+  "seed": "80248c8eb3d20c1fcccca1c6abed208cf44f4306f180009178b10488f9845686",
+  "rubricSha256": "731b21ef6159c49c728fc18b80b2d5cb73adccd9acb036a6cc5236da7054a12e",
+  "labels": [
+    {
+      "id": "0298074dc0cfff91",
+      "runId": "021-ttl-seconds-regression-r1-local",
+      "taskId": "ttl-seconds-regression",
+      "arm": "local",
+      "repetition": 1
+    },
+    {
+      "id": "04459805bb44adc4",
+      "runId": "010-queue-visibility-contract-r1-stock",
+      "taskId": "queue-visibility-contract",
+      "arm": "stock",
+      "repetition": 1
+    },
+    {
+      "id": "0536477e87f81f8b",
+      "runId": "061-queue-visibility-contract-r2-local",
+      "taskId": "queue-visibility-contract",
+      "arm": "local",
+      "repetition": 2
+    },
+    {
+      "id": "062dee2531afdfc4",
+      "runId": "104-pricing-feed-token-incident-r3-stock",
+      "taskId": "pricing-feed-token-incident",
+      "arm": "stock",
+      "repetition": 3
+    },
+    {
+      "id": "08935182befc12f6",
+      "runId": "034-inventory-pool-incident-r1-local",
+      "taskId": "inventory-pool-incident",
+      "arm": "local",
+      "repetition": 1
+    },
+    {
+      "id": "0a6302276c1de66b",
+      "runId": "096-webhook-byte-verification-r3-local",
+      "taskId": "webhook-byte-verification",
+      "arm": "local",
+      "repetition": 3
+    },
+    {
+      "id": "123943b6648ab7e5",
+      "runId": "036-inventory-pool-incident-r1-stock",
+      "taskId": "inventory-pool-incident",
+      "arm": "stock",
+      "repetition": 1
+    },
+    {
+      "id": "16dfaf804bcbf040",
+      "runId": "095-webhook-byte-verification-r3-stock",
+      "taskId": "webhook-byte-verification",
+      "arm": "stock",
+      "repetition": 3
+    },
+    {
+      "id": "186571a7acb2ae38",
+      "runId": "071-inventory-pool-incident-r2-stock",
+      "taskId": "inventory-pool-incident",
+      "arm": "stock",
+      "repetition": 2
+    },
+    {
+      "id": "1cbe4399c71cca6b",
+      "runId": "032-rollout-unit-contract-r1-stock",
+      "taskId": "rollout-unit-contract",
+      "arm": "stock",
+      "repetition": 1
+    },
+    {
+      "id": "1f6d29404a4023b9",
+      "runId": "057-rollout-unit-contract-r2-jev",
+      "taskId": "rollout-unit-contract",
+      "arm": "jev",
+      "repetition": 2
+    },
+    {
+      "id": "2056571f3c8af890",
+      "runId": "106-ttl-seconds-regression-r3-local",
+      "taskId": "ttl-seconds-regression",
+      "arm": "local",
+      "repetition": 3
+    },
+    {
+      "id": "20cf953356a6e3bd",
+      "runId": "030-retry-max-attempts-regression-r1-stock",
+      "taskId": "retry-max-attempts-regression",
+      "arm": "stock",
+      "repetition": 1
+    },
+    {
+      "id": "220535f3d84b7069",
+      "runId": "087-pagination-offset-regression-r3-local",
+      "taskId": "pagination-offset-regression",
+      "arm": "local",
+      "repetition": 3
+    },
+    {
+      "id": "2283a65fcfa4c952",
+      "runId": "031-rollout-unit-contract-r1-jev",
+      "taskId": "rollout-unit-contract",
+      "arm": "jev",
+      "repetition": 1
+    },
+    {
+      "id": "24a52712840c7454",
+      "runId": "075-environment-precedence-contract-r3-jev",
+      "taskId": "environment-precedence-contract",
+      "arm": "jev",
+      "repetition": 3
+    },
+    {
+      "id": "266adb6876a300c7",
+      "runId": "029-retry-max-attempts-regression-r1-jev",
+      "taskId": "retry-max-attempts-regression",
+      "arm": "jev",
+      "repetition": 1
+    },
+    {
+      "id": "26b5ffd7336fb9a1",
+      "runId": "053-retry-max-attempts-regression-r2-stock",
+      "taskId": "retry-max-attempts-regression",
+      "arm": "stock",
+      "repetition": 2
+    },
+    {
+      "id": "2d65e42fca92b7ba",
+      "runId": "026-session-cache-region-scope-r1-jev",
+      "taskId": "session-cache-region-scope",
+      "arm": "jev",
+      "repetition": 1
+    },
+    {
+      "id": "2da94d728b07d62f",
+      "runId": "074-environment-precedence-contract-r3-local",
+      "taskId": "environment-precedence-contract",
+      "arm": "local",
+      "repetition": 3
+    },
+    {
+      "id": "3052b95031c56984",
+      "runId": "101-retry-max-attempts-regression-r3-local",
+      "taskId": "retry-max-attempts-regression",
+      "arm": "local",
+      "repetition": 3
+    },
+    {
+      "id": "30b58f1c240545c9",
+      "runId": "041-permission-cache-org-scope-r2-local",
+      "taskId": "permission-cache-org-scope",
+      "arm": "local",
+      "repetition": 2
+    },
+    {
+      "id": "328fd7e37e16b0b1",
+      "runId": "090-permission-cache-org-scope-r3-stock",
+      "taskId": "permission-cache-org-scope",
+      "arm": "stock",
+      "repetition": 3
+    },
+    {
+      "id": "348daffabd50127a",
+      "runId": "016-webhook-byte-verification-r1-stock",
+      "taskId": "webhook-byte-verification",
+      "arm": "stock",
+      "repetition": 1
+    },
+    {
+      "id": "34a478879d4c5036",
+      "runId": "046-pricing-feed-token-incident-r2-local",
+      "taskId": "pricing-feed-token-incident",
+      "arm": "local",
+      "repetition": 2
+    },
+    {
+      "id": "365ec9ed99f91c2f",
+      "runId": "047-pricing-feed-token-incident-r2-jev",
+      "taskId": "pricing-feed-token-incident",
+      "arm": "jev",
+      "repetition": 2
+    },
+    {
+      "id": "384f986605a74675",
+      "runId": "017-webhook-byte-verification-r1-local",
+      "taskId": "webhook-byte-verification",
+      "arm": "local",
+      "repetition": 1
+    },
+    {
+      "id": "3bb7c2fbc330cee7",
+      "runId": "097-rollout-unit-contract-r3-local",
+      "taskId": "rollout-unit-contract",
+      "arm": "local",
+      "repetition": 3
+    },
+    {
+      "id": "3e5c17ee445e4c7a",
+      "runId": "100-retry-max-attempts-regression-r3-stock",
+      "taskId": "retry-max-attempts-regression",
+      "arm": "stock",
+      "repetition": 3
+    },
+    {
+      "id": "46f3ee31778f3890",
+      "runId": "019-ttl-seconds-regression-r1-jev",
+      "taskId": "ttl-seconds-regression",
+      "arm": "jev",
+      "repetition": 1
+    },
+    {
+      "id": "470a80c1aba4cbb2",
+      "runId": "007-pagination-offset-regression-r1-stock",
+      "taskId": "pagination-offset-regression",
+      "arm": "stock",
+      "repetition": 1
+    },
+    {
+      "id": "4d3eacba4d5b8919",
+      "runId": "086-pagination-offset-regression-r3-stock",
+      "taskId": "pagination-offset-regression",
+      "arm": "stock",
+      "repetition": 3
+    },
+    {
+      "id": "4dfac5f324f22c0c",
+      "runId": "103-pricing-feed-token-incident-r3-jev",
+      "taskId": "pricing-feed-token-incident",
+      "arm": "jev",
+      "repetition": 3
+    },
+    {
+      "id": "4fa7b3087ca0d89f",
+      "runId": "099-rollout-unit-contract-r3-stock",
+      "taskId": "rollout-unit-contract",
+      "arm": "stock",
+      "repetition": 3
+    },
+    {
+      "id": "53e2830cb775e62a",
+      "runId": "011-queue-visibility-contract-r1-local",
+      "taskId": "queue-visibility-contract",
+      "arm": "local",
+      "repetition": 1
+    },
+    {
+      "id": "57a72b179da1a50c",
+      "runId": "073-environment-precedence-contract-r3-stock",
+      "taskId": "environment-precedence-contract",
+      "arm": "stock",
+      "repetition": 3
+    },
+    {
+      "id": "593c17f82f3ad730",
+      "runId": "012-queue-visibility-contract-r1-jev",
+      "taskId": "queue-visibility-contract",
+      "arm": "jev",
+      "repetition": 1
+    },
+    {
+      "id": "5b226d0fcfff1ffc",
+      "runId": "051-webhook-byte-verification-r2-stock",
+      "taskId": "webhook-byte-verification",
+      "arm": "stock",
+      "repetition": 2
+    },
+    {
+      "id": "5b75f7a6a90d24e8",
+      "runId": "002-pricing-feed-token-incident-r1-local",
+      "taskId": "pricing-feed-token-incident",
+      "arm": "local",
+      "repetition": 1
+    },
+    {
+      "id": "5ba030dfd5b258c8",
+      "runId": "089-permission-cache-org-scope-r3-jev",
+      "taskId": "permission-cache-org-scope",
+      "arm": "jev",
+      "repetition": 3
+    },
+    {
+      "id": "610b145a971b5018",
+      "runId": "044-environment-precedence-contract-r2-stock",
+      "taskId": "environment-precedence-contract",
+      "arm": "stock",
+      "repetition": 2
+    },
+    {
+      "id": "61480c21504033c7",
+      "runId": "028-retry-max-attempts-regression-r1-local",
+      "taskId": "retry-max-attempts-regression",
+      "arm": "local",
+      "repetition": 1
+    },
+    {
+      "id": "654837a72f3f9965",
+      "runId": "098-rollout-unit-contract-r3-jev",
+      "taskId": "rollout-unit-contract",
+      "arm": "jev",
+      "repetition": 3
+    },
+    {
+      "id": "68cf209f1b46736f",
+      "runId": "008-pagination-offset-regression-r1-local",
+      "taskId": "pagination-offset-regression",
+      "arm": "local",
+      "repetition": 1
+    },
+    {
+      "id": "68d1a4f5ebf23ad1",
+      "runId": "107-ttl-seconds-regression-r3-jev",
+      "taskId": "ttl-seconds-regression",
+      "arm": "jev",
+      "repetition": 3
+    },
+    {
+      "id": "6966c99c25befb16",
+      "runId": "108-ttl-seconds-regression-r3-stock",
+      "taskId": "ttl-seconds-regression",
+      "arm": "stock",
+      "repetition": 3
+    },
+    {
+      "id": "6aced1b75967eca7",
+      "runId": "085-pagination-offset-regression-r3-jev",
+      "taskId": "pagination-offset-regression",
+      "arm": "jev",
+      "repetition": 3
+    },
+    {
+      "id": "6b031754a43f930b",
+      "runId": "035-inventory-pool-incident-r1-jev",
+      "taskId": "inventory-pool-incident",
+      "arm": "jev",
+      "repetition": 1
+    },
+    {
+      "id": "6b0f723ab2af8516",
+      "runId": "020-ttl-seconds-regression-r1-stock",
+      "taskId": "ttl-seconds-regression",
+      "arm": "stock",
+      "repetition": 1
+    },
+    {
+      "id": "6bd638e4c4f033c2",
+      "runId": "050-webhook-byte-verification-r2-jev",
+      "taskId": "webhook-byte-verification",
+      "arm": "jev",
+      "repetition": 2
+    },
+    {
+      "id": "6e93038bc4b55d3e",
+      "runId": "033-rollout-unit-contract-r1-local",
+      "taskId": "rollout-unit-contract",
+      "arm": "local",
+      "repetition": 1
+    },
+    {
+      "id": "6fb0c6dba6470388",
+      "runId": "005-permission-cache-org-scope-r1-stock",
+      "taskId": "permission-cache-org-scope",
+      "arm": "stock",
+      "repetition": 1
+    },
+    {
+      "id": "70669a133ce0b8cd",
+      "runId": "063-queue-visibility-contract-r2-stock",
+      "taskId": "queue-visibility-contract",
+      "arm": "stock",
+      "repetition": 2
+    },
+    {
+      "id": "735222ef42956a67",
+      "runId": "080-catalog-batch-incident-r3-jev",
+      "taskId": "catalog-batch-incident",
+      "arm": "jev",
+      "repetition": 3
+    },
+    {
+      "id": "77adc6af7364dca9",
+      "runId": "060-ttl-seconds-regression-r2-jev",
+      "taskId": "ttl-seconds-regression",
+      "arm": "jev",
+      "repetition": 2
+    },
+    {
+      "id": "78bdd07977f66d2e",
+      "runId": "067-catalog-batch-incident-r2-stock",
+      "taskId": "catalog-batch-incident",
+      "arm": "stock",
+      "repetition": 2
+    },
+    {
+      "id": "7d60cca6cc59fa2f",
+      "runId": "038-pagination-offset-regression-r2-jev",
+      "taskId": "pagination-offset-regression",
+      "arm": "jev",
+      "repetition": 2
+    },
+    {
+      "id": "8275d2f99907f555",
+      "runId": "059-ttl-seconds-regression-r2-local",
+      "taskId": "ttl-seconds-regression",
+      "arm": "local",
+      "repetition": 2
+    },
+    {
+      "id": "84543109f7e391e4",
+      "runId": "024-environment-precedence-contract-r1-stock",
+      "taskId": "environment-precedence-contract",
+      "arm": "stock",
+      "repetition": 1
+    },
+    {
+      "id": "86061242d220c520",
+      "runId": "065-session-cache-region-scope-r2-stock",
+      "taskId": "session-cache-region-scope",
+      "arm": "stock",
+      "repetition": 2
+    },
+    {
+      "id": "8b3f1cc378ccb8c2",
+      "runId": "083-inventory-pool-incident-r3-local",
+      "taskId": "inventory-pool-incident",
+      "arm": "local",
+      "repetition": 3
+    },
+    {
+      "id": "9191958f072d0ba2",
+      "runId": "093-queue-visibility-contract-r3-local",
+      "taskId": "queue-visibility-contract",
+      "arm": "local",
+      "repetition": 3
+    },
+    {
+      "id": "9280b6ae34e4c3f7",
+      "runId": "009-pagination-offset-regression-r1-jev",
+      "taskId": "pagination-offset-regression",
+      "arm": "jev",
+      "repetition": 1
+    },
+    {
+      "id": "950214165342abb1",
+      "runId": "055-rollout-unit-contract-r2-stock",
+      "taskId": "rollout-unit-contract",
+      "arm": "stock",
+      "repetition": 2
+    },
+    {
+      "id": "956c490120a1d1ec",
+      "runId": "082-inventory-pool-incident-r3-stock",
+      "taskId": "inventory-pool-incident",
+      "arm": "stock",
+      "repetition": 3
+    },
+    {
+      "id": "9755dbddd8b938b4",
+      "runId": "094-webhook-byte-verification-r3-jev",
+      "taskId": "webhook-byte-verification",
+      "arm": "jev",
+      "repetition": 3
+    },
+    {
+      "id": "98116b4894004d60",
+      "runId": "039-pagination-offset-regression-r2-stock",
+      "taskId": "pagination-offset-regression",
+      "arm": "stock",
+      "repetition": 2
+    },
+    {
+      "id": "9c7ce2119c3f388e",
+      "runId": "014-catalog-batch-incident-r1-stock",
+      "taskId": "catalog-batch-incident",
+      "arm": "stock",
+      "repetition": 1
+    },
+    {
+      "id": "9d4aab75aeb2e63e",
+      "runId": "077-session-cache-region-scope-r3-local",
+      "taskId": "session-cache-region-scope",
+      "arm": "local",
+      "repetition": 3
+    },
+    {
+      "id": "a9e3494619238af9",
+      "runId": "040-permission-cache-org-scope-r2-stock",
+      "taskId": "permission-cache-org-scope",
+      "arm": "stock",
+      "repetition": 2
+    },
+    {
+      "id": "ab5aac186a6d7c44",
+      "runId": "079-catalog-batch-incident-r3-local",
+      "taskId": "catalog-batch-incident",
+      "arm": "local",
+      "repetition": 3
+    },
+    {
+      "id": "abb84a1ddd0c56fb",
+      "runId": "037-pagination-offset-regression-r2-local",
+      "taskId": "pagination-offset-regression",
+      "arm": "local",
+      "repetition": 2
+    },
+    {
+      "id": "ac55324dd1bcb392",
+      "runId": "025-session-cache-region-scope-r1-local",
+      "taskId": "session-cache-region-scope",
+      "arm": "local",
+      "repetition": 1
+    },
+    {
+      "id": "ad5251d7636f42ea",
+      "runId": "081-catalog-batch-incident-r3-stock",
+      "taskId": "catalog-batch-incident",
+      "arm": "stock",
+      "repetition": 3
+    },
+    {
+      "id": "afa880257370f8dc",
+      "runId": "088-permission-cache-org-scope-r3-local",
+      "taskId": "permission-cache-org-scope",
+      "arm": "local",
+      "repetition": 3
+    },
+    {
+      "id": "afff948f0968b7f3",
+      "runId": "102-retry-max-attempts-regression-r3-jev",
+      "taskId": "retry-max-attempts-regression",
+      "arm": "jev",
+      "repetition": 3
+    },
+    {
+      "id": "b0c625715caf6ab6",
+      "runId": "076-session-cache-region-scope-r3-stock",
+      "taskId": "session-cache-region-scope",
+      "arm": "stock",
+      "repetition": 3
+    },
+    {
+      "id": "b18ec18d508d8449",
+      "runId": "054-retry-max-attempts-regression-r2-local",
+      "taskId": "retry-max-attempts-regression",
+      "arm": "local",
+      "repetition": 2
+    },
+    {
+      "id": "b25cf000b48314fe",
+      "runId": "004-permission-cache-org-scope-r1-jev",
+      "taskId": "permission-cache-org-scope",
+      "arm": "jev",
+      "repetition": 1
+    },
+    {
+      "id": "b311212694bbfad3",
+      "runId": "022-environment-precedence-contract-r1-local",
+      "taskId": "environment-precedence-contract",
+      "arm": "local",
+      "repetition": 1
+    },
+    {
+      "id": "b3895b67bf7a4b32",
+      "runId": "092-queue-visibility-contract-r3-stock",
+      "taskId": "queue-visibility-contract",
+      "arm": "stock",
+      "repetition": 3
+    },
+    {
+      "id": "b53486cdf06bd9eb",
+      "runId": "091-queue-visibility-contract-r3-jev",
+      "taskId": "queue-visibility-contract",
+      "arm": "jev",
+      "repetition": 3
+    },
+    {
+      "id": "b67e11a40bff8c29",
+      "runId": "062-queue-visibility-contract-r2-jev",
+      "taskId": "queue-visibility-contract",
+      "arm": "jev",
+      "repetition": 2
+    },
+    {
+      "id": "b8a5b3a278ee9902",
+      "runId": "027-session-cache-region-scope-r1-stock",
+      "taskId": "session-cache-region-scope",
+      "arm": "stock",
+      "repetition": 1
+    },
+    {
+      "id": "b8db814190065fb3",
+      "runId": "018-webhook-byte-verification-r1-jev",
+      "taskId": "webhook-byte-verification",
+      "arm": "jev",
+      "repetition": 1
+    },
+    {
+      "id": "bc1d9393431c1955",
+      "runId": "023-environment-precedence-contract-r1-jev",
+      "taskId": "environment-precedence-contract",
+      "arm": "jev",
+      "repetition": 1
+    },
+    {
+      "id": "be837ba5994d3029",
+      "runId": "078-session-cache-region-scope-r3-jev",
+      "taskId": "session-cache-region-scope",
+      "arm": "jev",
+      "repetition": 3
+    },
+    {
+      "id": "c592ab00b87d4189",
+      "runId": "072-inventory-pool-incident-r2-local",
+      "taskId": "inventory-pool-incident",
+      "arm": "local",
+      "repetition": 2
+    },
+    {
+      "id": "c86301251155a5d9",
+      "runId": "056-rollout-unit-contract-r2-local",
+      "taskId": "rollout-unit-contract",
+      "arm": "local",
+      "repetition": 2
+    },
+    {
+      "id": "cf9a9371ba85ab6b",
+      "runId": "064-session-cache-region-scope-r2-jev",
+      "taskId": "session-cache-region-scope",
+      "arm": "jev",
+      "repetition": 2
+    },
+    {
+      "id": "d26b6532336ab8be",
+      "runId": "058-ttl-seconds-regression-r2-stock",
+      "taskId": "ttl-seconds-regression",
+      "arm": "stock",
+      "repetition": 2
+    },
+    {
+      "id": "d9f643945c97c35f",
+      "runId": "048-pricing-feed-token-incident-r2-stock",
+      "taskId": "pricing-feed-token-incident",
+      "arm": "stock",
+      "repetition": 2
+    },
+    {
+      "id": "db7a6821f2645197",
+      "runId": "084-inventory-pool-incident-r3-jev",
+      "taskId": "inventory-pool-incident",
+      "arm": "jev",
+      "repetition": 3
+    },
+    {
+      "id": "dbcb7f000d070f0c",
+      "runId": "052-retry-max-attempts-regression-r2-jev",
+      "taskId": "retry-max-attempts-regression",
+      "arm": "jev",
+      "repetition": 2
+    },
+    {
+      "id": "dff1852db061a869",
+      "runId": "001-pricing-feed-token-incident-r1-stock",
+      "taskId": "pricing-feed-token-incident",
+      "arm": "stock",
+      "repetition": 1
+    },
+    {
+      "id": "e8cf083a31484d9e",
+      "runId": "043-environment-precedence-contract-r2-jev",
+      "taskId": "environment-precedence-contract",
+      "arm": "jev",
+      "repetition": 2
+    },
+    {
+      "id": "e8dd29ff4f07938e",
+      "runId": "013-catalog-batch-incident-r1-jev",
+      "taskId": "catalog-batch-incident",
+      "arm": "jev",
+      "repetition": 1
+    },
+    {
+      "id": "ebb7ed70effd867c",
+      "runId": "042-permission-cache-org-scope-r2-jev",
+      "taskId": "permission-cache-org-scope",
+      "arm": "jev",
+      "repetition": 2
+    },
+    {
+      "id": "edda654772c78c23",
+      "runId": "066-session-cache-region-scope-r2-local",
+      "taskId": "session-cache-region-scope",
+      "arm": "local",
+      "repetition": 2
+    },
+    {
+      "id": "eec791e7ab8f00ab",
+      "runId": "045-environment-precedence-contract-r2-local",
+      "taskId": "environment-precedence-contract",
+      "arm": "local",
+      "repetition": 2
+    },
+    {
+      "id": "efcb0ad80fe090bf",
+      "runId": "105-pricing-feed-token-incident-r3-local",
+      "taskId": "pricing-feed-token-incident",
+      "arm": "local",
+      "repetition": 3
+    },
+    {
+      "id": "f3cf5f7620566d2f",
+      "runId": "068-catalog-batch-incident-r2-local",
+      "taskId": "catalog-batch-incident",
+      "arm": "local",
+      "repetition": 2
+    },
+    {
+      "id": "f7d6d4485c0193f4",
+      "runId": "003-pricing-feed-token-incident-r1-jev",
+      "taskId": "pricing-feed-token-incident",
+      "arm": "jev",
+      "repetition": 1
+    },
+    {
+      "id": "f83b2ef99e6831f5",
+      "runId": "015-catalog-batch-incident-r1-local",
+      "taskId": "catalog-batch-incident",
+      "arm": "local",
+      "repetition": 1
+    },
+    {
+      "id": "f8e9d964b5947471",
+      "runId": "006-permission-cache-org-scope-r1-local",
+      "taskId": "permission-cache-org-scope",
+      "arm": "local",
+      "repetition": 1
+    },
+    {
+      "id": "fbba56a519a067af",
+      "runId": "069-catalog-batch-incident-r2-jev",
+      "taskId": "catalog-batch-incident",
+      "arm": "jev",
+      "repetition": 2
+    },
+    {
+      "id": "fcf0a43f302ba23b",
+      "runId": "049-webhook-byte-verification-r2-local",
+      "taskId": "webhook-byte-verification",
+      "arm": "local",
+      "repetition": 2
+    },
+    {
+      "id": "fd816df04a5067a3",
+      "runId": "070-inventory-pool-incident-r2-jev",
+      "taskId": "inventory-pool-incident",
+      "arm": "jev",
+      "repetition": 2
+    }
+  ]
+}
