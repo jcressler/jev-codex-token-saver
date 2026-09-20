@@ -103,4 +103,3 @@ node benchmarks/confirmation-v1.mjs --run-block --block 3 --run-dir $confirmatio
 
 Inspect `summary.json` and the durable state after each block. Do not edit the
 protocol after the first measured launch.
-
