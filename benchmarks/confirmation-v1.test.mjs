@@ -5,7 +5,7 @@ import { join } from 'node:path';
 import test from 'node:test';
 import { readLargeTextEvidence, searchWorkspaceEvidence } from '../src/evidence-service.mjs';
 import { ARMS, REPETITIONS, TASKS, createFixtures, gradeAnswer, makePlan, promptLeaksOracle } from './confirmation-v1-tasks.mjs';
-import { BLOCK_RUNS, TOTAL_RUNS, codexArgs, createExecutionRoot, evidenceSupportsFrozenFacts, mockJev, pairedBootstrap, parseEvents, promptFor, taskInput, toolPolicy } from './confirmation-v1.mjs';
+import { BLOCK_RUNS, TOTAL_RUNS, codexArgs, createExecutionRoot, evidenceSupportsFrozenFacts, jevCredentialSmoke, mockJev, pairedBootstrap, parseEvents, promptFor, taskInput, toolPolicy } from './confirmation-v1.mjs';
 
 test('confirmation plan has twelve holdouts, three categories each, and 108 balanced runs', () => {
   assert.equal(TASKS.length, 12);
@@ -118,4 +118,21 @@ test('preparation creates the required execution root before a measured block', 
   } finally {
     await rm(root, { recursive: true, force: true });
   }
+});
+
+test('live-block Jev credential smoke requires real model and usage metadata before Codex', async () => {
+  const good = async (_state, questions) => ({
+    model: 'jev-1.13.0', usage: { input_tokens: 12, output_tokens: 3 },
+    answers: Object.fromEntries(Object.keys(questions).map(key => [key, { noul: key.endsWith('_0') ? 0.99 : 0.01 }])),
+  });
+  const smoke = await jevCredentialSmoke(undefined, good);
+  assert.equal(smoke.mode, 'jev');
+  assert.equal(smoke.model, 'jev-1.13.0');
+  assert.equal(smoke.requests, 1);
+  assert.deepEqual(smoke.usage, { input_tokens: 12, output_tokens: 3 });
+  assert.ok(Number.isInteger(smoke.latencyMs));
+  await assert.rejects(jevCredentialSmoke(undefined, async (_state, questions) => ({
+    model: 'wrong', usage: { input_tokens: 12, output_tokens: 3 },
+    answers: Object.fromEntries(Object.keys(questions).map(key => [key, { noul: 0.5 }])),
+  })), /incomplete model or usage telemetry/);
 });

@@ -7,6 +7,7 @@ import { basename, dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { performance } from 'node:perf_hooks';
 import { readLargeTextEvidence, searchWorkspaceEvidence } from '../src/evidence-service.mjs';
+import { rankWithJev } from '../src/investigator.mjs';
 import { ARMS, OUTPUT_SCHEMA, REPETITIONS, TASKS, createFixtures, gradeAnswer, hashTree, makePlan, promptLeaksOracle } from './confirmation-v1-tasks.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
@@ -193,6 +194,24 @@ async function createExecutionRoot(runDir) {
   await mkdir(join(runDir, 'executions'), { recursive: false });
 }
 
+async function jevCredentialSmoke(apiKey, ask) {
+  if (!ask && !validKey(apiKey)) throw new Error('TYPESAFE_API_KEY is unavailable or malformed');
+  const result = await rankWithJev(
+    'Select the candidate containing the credential preflight marker.',
+    ['Identify the explicit preflight marker.'],
+    [
+      { path: 'preflight/relevant.txt', lines: { start: 1, end: 1 }, excerpt: 'credential preflight marker: ready', localScore: 2 },
+      { path: 'preflight/noise.txt', lines: { start: 1, end: 1 }, excerpt: 'ordinary background status', localScore: 1 },
+    ],
+    { apiKey, ask, resultLimit: 1 },
+  );
+  if (result.mode !== 'jev' || result.requests !== 1 || result.model !== JEV_MODEL ||
+      !Number.isSafeInteger(result.usage?.input_tokens) || !Number.isSafeInteger(result.usage?.output_tokens)) {
+    throw new Error('Jev credential smoke returned incomplete model or usage telemetry');
+  }
+  return { mode: result.mode, model: result.model, requests: result.requests, usage: result.usage, latencyMs: result.latencyMs };
+}
+
 async function prepare(runDir, codexBinary) {
   if (!codexBinary) throw new Error('--codex-binary is required');
   const gitHead = assertCleanGit();
@@ -296,6 +315,8 @@ async function runBlock(runDir, blockNumber) {
   if (!validKey(process.env.TYPESAFE_API_KEY)) throw new Error('TYPESAFE_API_KEY is unavailable or malformed');
   await validateFrozen(runDir, manifest);
   const versionDir = join(runDir, `block-${blockNumber}-preflight`); await mkdir(versionDir, { recursive: false });
+  const jevSmoke = await jevCredentialSmoke(process.env.TYPESAFE_API_KEY);
+  await atomicJson(join(versionDir, 'jev-credential-smoke.json'), jevSmoke);
   const version = await runProcess(manifest.artifacts.codexBinaryPath, ['--version'], { cwd: repoRoot, env: process.env, stdoutPath: join(versionDir, 'stdout.log'), stderrPath: join(versionDir, 'stderr.log'), timeoutMs: 30_000 });
   if (version.code !== 0 || version.stdout.trim() !== CODEX_VERSION) throw new Error('Codex version preflight failed');
   block.status = 'running'; block.startedAt = new Date().toISOString(); state.status = `running-block-${blockNumber}`; await atomicJson(statePath, state);
@@ -418,4 +439,4 @@ async function main() {
 
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) main().catch(error => { process.stderr.write(`${error.stack ?? error}\n`); process.exitCode = 1; });
 
-export { BLOCK_RUNS, BLOCK_BUDGET, CODEX_VERSION, MODEL, TOTAL_RUNS, blockBudgetExceeded, createExecutionRoot, evidenceSupportsFrozenFacts, mockJev, taskInput };
+export { BLOCK_RUNS, BLOCK_BUDGET, CODEX_VERSION, MODEL, TOTAL_RUNS, blockBudgetExceeded, createExecutionRoot, evidenceSupportsFrozenFacts, jevCredentialSmoke, mockJev, taskInput };

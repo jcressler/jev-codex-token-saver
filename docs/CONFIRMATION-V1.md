@@ -37,6 +37,9 @@ claim.
 - Stock may use normal efficient shell search and bounded reads.
 - Local and Jev receive identical tool arguments and candidate/result caps.
 - Local runs have no Jev key. Jev runs make one real selection request.
+- Before any Codex launch in each block, one small live Jev request must return
+  the exact model name and complete usage telemetry. Authentication failure
+  therefore stops the block before Codex spends tokens.
 - Selector outputs are not reused between repetitions.
 - Web search, edits, retries, automatic continuation, and arm-aware grading are
   prohibited.
@@ -60,6 +63,9 @@ Each block stops before the next launch after any threshold is exceeded:
 - 100,000 Codex output tokens;
 - 300 Codex tool calls;
 - 12 Jev requests.
+
+The measured-request threshold excludes the one separately recorded Jev
+credential smoke request made before each block.
 
 ## Frozen decision rule
 

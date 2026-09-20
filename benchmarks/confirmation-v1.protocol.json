@@ -17,6 +17,7 @@
   "runsPerBlock": 36,
   "totalMeasuredRuns": 108,
   "retries": 0,
+  "credentialSmokeJevRequestsPerBlock": 1,
   "primaryAnalysisUnit": "task",
   "primaryMetric": "paired geometric-mean Codex input-token reduction",
   "confidenceMethod": "task-level paired bootstrap with 10000 deterministic draws",
@@ -34,7 +35,7 @@
     "maxCodexInputTokens": 4500000,
     "maxCodexOutputTokens": 100000,
     "maxCodexToolCalls": 300,
-    "maxJevRequests": 12
+    "maxMeasuredJevRequests": 12
   },
   "pricingUsdPerMillionTokens": {
     "codexInput": 4,
