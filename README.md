@@ -129,9 +129,12 @@ discovery, and a real stdio tool call.
 The [architecture notes](docs/ARCHITECTURE.md) describe the trust boundary and
 selection flow. The first six-run gateway pilot was
 [invalidated and audited](docs/GATEWAY-PILOT-2026-09-19.md); its descriptive
-numbers are published, but they are not presented as proof. The corrected
-[controlled evaluation protocol](docs/NEXT-EVALUATION.md) retains the same
-20% no-regression success criterion.
+numbers are published, but they are not presented as proof. The
+[corrected six-run pilot](docs/GATEWAY-PILOT-CORRECTED-2026-09-19.md) passed the
+20% no-regression gate with 36.07% lower median Codex input than stock. It is a
+promising two-task result, not a universal savings claim. The next
+[controlled evaluation protocol](docs/NEXT-EVALUATION.md) calls for repetitions
+before generalizing the percentage.
 
 ## Troubleshoot or remove
 

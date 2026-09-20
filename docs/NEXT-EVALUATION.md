@@ -1,7 +1,8 @@
 # Frozen next controlled evaluation
 
-Status: corrected after an invalid pilot; not relaunched. See the
-[pilot audit](GATEWAY-PILOT-2026-09-19.md).
+Status: corrected pilot completed and passed; full repeated evaluation not
+launched. See the [invalid pilot audit](GATEWAY-PILOT-2026-09-19.md) and the
+[corrected result](GATEWAY-PILOT-CORRECTED-2026-09-19.md).
 
 The next benchmark compares three arms on the same larger investigation tasks:
 

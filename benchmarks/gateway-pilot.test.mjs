@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { TASKS, codexArgs, exactFacts, makeMonitor, parseEvents, plan, toolPolicy } from './gateway-pilot.mjs';
+import { TASKS, codexArgs, continuationEligible, exactFacts, makeMonitor, parseEvents, plan, toolPolicy } from './gateway-pilot.mjs';
 
 test('gateway pilot freezes six no-retry executions with balanced arms', () => {
   const frozen = plan();
@@ -42,6 +42,41 @@ test('event and policy validation require usage and exactly two gateway calls', 
   assert.equal(parsed.usage.input_tokens, 10);
   const diagnostics = [{ record: { mode: 'jev', metrics: { jevRequests: 1 } } }];
   assert.equal(toolPolicy('jev', parsed, diagnostics).passed, true);
+});
+
+test('stock policy records a recoverable command miss without invalidating the run', () => {
+  const parsed = parseEvents([
+    JSON.stringify({ type: 'item.started', item: { type: 'command_execution' } }),
+    JSON.stringify({ type: 'item.completed', item: { type: 'command_execution', exit_code: 1, status: 'failed' } }),
+    JSON.stringify({ type: 'turn.completed', usage: { input_tokens: 10, output_tokens: 2 } }),
+  ].join('\n'));
+  const policy = toolPolicy('stock', parsed, []);
+  assert.equal(policy.failedCount, 1);
+  assert.equal(policy.failedAllowed, true);
+  assert.equal(policy.passed, true);
+});
+
+test('audited continuation only accepts the exact completed first-run shape', () => {
+  const eligible = {
+    status: 'invalid', launches: 1, completed: 1,
+    results: [{
+      runId: plan()[0].runId,
+      process: { code: 0, timedOut: false, routerErrorCount: 0 },
+      usage: { input_tokens: 10 }, grade: { passed: true }, fixtureUnchanged: true,
+      policy: { failedCount: 1, jevCalls: 0, unexpectedMcpCalls: 0 },
+    }],
+  };
+  assert.equal(continuationEligible(eligible), true);
+  assert.equal(continuationEligible({ ...eligible, launches: 2 }), false);
+  assert.equal(continuationEligible({ ...eligible, results: [{ ...eligible.results[0], grade: { passed: false } }] }), false);
+});
+
+test('cache grader accepts the exact JavaScript template-literal key', () => {
+  const answer = {
+    finding: 'Reads and writes use productId while invalidation uses ${tenantId}:${productId}; every operation must use the identical matching key.',
+    evidence: ['src/catalog/cache.mjs uses productId', 'src/catalog/invalidation.mjs uses tenantId and productId'],
+  };
+  assert.equal(TASKS[1].grade(answer).passed, true);
 });
 
 test('live monitor allows built-in discovery and stops real policy drift', () => {

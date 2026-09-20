@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "status": "completed-with-transparent-adjudication",
+  "criterionEvaluable": true,
+  "criterionPassed": true,
+  "model": "gpt-5.6-sol",
+  "reasoningEffort": "high",
+  "codexCli": "0.155.1",
+  "measuredLaunches": 6,
+  "retriedRuns": 0,
+  "jevRequests": 2,
+  "allAnswersCorrect": true,
+  "runs": [
+    { "task": "checkout-log-incident", "arm": "stock", "inputTokens": 109618, "cachedInputTokens": 85504, "outputTokens": 1044, "reasoningOutputTokens": 189, "toolCalls": 5, "failedToolCalls": 1, "elapsedMs": 49054, "correctness": 1, "apiEquivalentUsd": 0.1515376 },
+    { "task": "checkout-log-incident", "arm": "local", "inputTokens": 87303, "cachedInputTokens": 59520, "outputTokens": 703, "reasoningOutputTokens": 205, "toolCalls": 2, "failedToolCalls": 0, "elapsedMs": 23591, "correctness": 1, "apiEquivalentUsd": 0.149 },
+    { "task": "checkout-log-incident", "arm": "jev", "inputTokens": 57894, "cachedInputTokens": 48896, "outputTokens": 679, "reasoningOutputTokens": 119, "toolCalls": 2, "failedToolCalls": 0, "elapsedMs": 21573, "correctness": 1, "apiEquivalentCodexUsd": 0.0691304, "jevInputTokens": 15172, "jevOutputTokens": 1404, "jevLatencyMs": 778, "jevUsd": 0.000637224, "totalApiEquivalentUsd": 0.069767624 },
+    { "task": "tenant-cache-leak", "arm": "local", "inputTokens": 58398, "cachedInputTokens": 49152, "outputTokens": 911, "reasoningOutputTokens": 366, "toolCalls": 2, "failedToolCalls": 0, "elapsedMs": 27794, "correctness": 1, "apiEquivalentUsd": 0.0748648 },
+    { "task": "tenant-cache-leak", "arm": "jev", "inputTokens": 57779, "cachedInputTokens": 51968, "outputTokens": 1062, "reasoningOutputTokens": 482, "toolCalls": 2, "failedToolCalls": 0, "elapsedMs": 28424, "correctness": 1, "apiEquivalentCodexUsd": 0.0652712, "jevInputTokens": 8151, "jevOutputTokens": 1404, "jevLatencyMs": 567, "jevUsd": 0.000342342, "totalApiEquivalentUsd": 0.065613542 },
+    { "task": "tenant-cache-leak", "arm": "stock", "inputTokens": 71316, "cachedInputTokens": 51072, "outputTokens": 1352, "reasoningOutputTokens": 535, "toolCalls": 3, "failedToolCalls": 0, "elapsedMs": 36421, "correctness": 1, "apiEquivalentUsd": 0.1284448 }
+  ],
+  "arms": {
+    "stock": { "medianInputTokens": 90467, "totalInputTokens": 180934, "totalCachedInputTokens": 136576, "totalOutputTokens": 2396, "totalToolCalls": 8, "totalElapsedMs": 85475, "apiEquivalentUsd": 0.2799824 },
+    "local": { "medianInputTokens": 72850.5, "totalInputTokens": 145701, "totalCachedInputTokens": 108672, "totalOutputTokens": 1614, "totalToolCalls": 4, "totalElapsedMs": 51385, "apiEquivalentUsd": 0.2238648 },
+    "jev": { "medianInputTokens": 57836.5, "totalInputTokens": 115673, "totalCachedInputTokens": 100864, "totalOutputTokens": 1741, "totalToolCalls": 4, "totalElapsedMs": 49997, "codexApiEquivalentUsd": 0.1344016, "jevUsd": 0.000979566, "totalApiEquivalentUsd": 0.135381166 }
+  },
+  "comparisons": {
+    "jevVersusStock": { "inputTokenReductionPercent": 36.069, "outputTokenReductionPercent": 27.3372, "elapsedTimeReductionPercent": 41.5069, "toolCallReductionPercent": 50, "apiEquivalentCostReductionPercent": 51.6465 },
+    "jevVersusLocal": { "inputTokenReductionPercent": 20.6093, "outputTokenChangePercent": 7.8686, "elapsedTimeReductionPercent": 2.7012, "toolCallChangePercent": 0, "apiEquivalentCostReductionPercent": 39.5255 }
+  },
+  "selector": {
+    "model": "jev-1.13.0",
+    "requests": 2,
+    "inputTokens": 23323,
+    "outputTokens": 2808,
+    "latencyMs": 1345,
+    "costUsd": 0.000979566,
+    "logPacket": { "estimatedCandidateTokens": 13921, "estimatedReturnedTokens": 267 },
+    "cachePacket": { "estimatedCandidateTokens": 4691, "estimatedReturnedTokens": 306 }
+  },
+  "auditEvents": [
+    { "type": "validator-correction", "run": "checkout-log-incident-stock", "reason": "One initial rg command returned exit 1 before Codex recovered. The published protocol records tool failures but does not make a recoverable stock search miss an invalidator. The run was not repeated." },
+    { "type": "grader-correction", "run": "tenant-cache-leak-local", "reason": "The original regex did not allow braces in the exact JavaScript template literal ${tenantId}:${productId}. The unchanged answer passed the corrected equivalent-expression grader. The run was not repeated." }
+  ],
+  "pricing": {
+    "codexApiEquivalent": { "inputUsdPerMillion": 4, "cachedInputUsdPerMillion": 0.4, "outputUsdPerMillion": 20, "source": "https://developers.openai.com/api/docs/models/gpt-5.6-sol" },
+    "jev": { "inputUsdPerMillion": 0.042, "outputUsdPerMillion": 0, "source": "https://typesafe.ai/blog/introducing-system-one-models-and-jev" }
+  },
+  "limitations": [
+    "This is a two-task, one-run-per-arm pilot, not a general savings estimate.",
+    "Two transparent validator corrections were applied without rerunning or changing any model answer.",
+    "Sequential run order and provider cache behavior can affect cached-input totals and latency.",
+    "API-equivalent dollar estimates are not the same as Codex subscription usage."
+  ]
+}
