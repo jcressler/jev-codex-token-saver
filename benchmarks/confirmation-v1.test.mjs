@@ -5,7 +5,7 @@ import { join } from 'node:path';
 import test from 'node:test';
 import { readLargeTextEvidence, searchWorkspaceEvidence } from '../src/evidence-service.mjs';
 import { ARMS, REPETITIONS, TASKS, createFixtures, gradeAnswer, makePlan, promptLeaksOracle } from './confirmation-v1-tasks.mjs';
-import { BLOCK_RUNS, TOTAL_RUNS, codexArgs, createExecutionRoot, evidenceSupportsFrozenFacts, jevCredentialSmoke, mockJev, pairedBootstrap, parseEvents, promptFor, taskInput, toolPolicy } from './confirmation-v1.mjs';
+import { BLOCK_RUNS, TOTAL_RUNS, codexArgs, createExecutionRoot, evidenceSupportsFrozenFacts, jevCredentialSmoke, mockJev, pairedBootstrap, parseEvents, promptFor, reservePreflightAttempt, taskInput, toolPolicy } from './confirmation-v1.mjs';
 
 test('confirmation plan has twelve holdouts, three categories each, and 108 balanced runs', () => {
   assert.equal(TASKS.length, 12);
@@ -135,4 +135,13 @@ test('live-block Jev credential smoke requires real model and usage metadata bef
     model: 'wrong', usage: { input_tokens: 12, output_tokens: 3 },
     answers: Object.fromEntries(Object.keys(questions).map(key => [key, { noul: 0.5 }])),
   })), /incomplete model or usage telemetry/);
+});
+
+test('credential preflight may retry safely only before any Codex launch', () => {
+  const block = { status: 'pending', launches: 0, preflightAttempts: 0 };
+  assert.equal(reservePreflightAttempt(block), 1);
+  assert.equal(reservePreflightAttempt(block), 2);
+  assert.equal(reservePreflightAttempt(block), 3);
+  assert.throws(() => reservePreflightAttempt(block), /cap reached/);
+  assert.throws(() => reservePreflightAttempt({ status: 'running', launches: 1, preflightAttempts: 0 }), /before a block launches/);
 });

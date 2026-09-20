@@ -67,6 +67,11 @@ Each block stops before the next launch after any threshold is exceeded:
 The measured-request threshold excludes the one separately recorded Jev
 credential smoke request made before each block.
 
+Up to three failed credential-smoke attempts are permitted while a block still
+has zero Codex launches. Each attempt is stored durably. These are authentication
+preflights, not measured-run retries; after the first Codex launch, the block
+cannot restart or resume.
+
 ## Frozen decision rule
 
 The task is the statistical unit. For each task and arm, the three repetitions

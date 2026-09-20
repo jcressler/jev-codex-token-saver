@@ -22,6 +22,7 @@ const MAX_TOOLS = 10;
 const BLOCK_RUNS = TASKS.length * ARMS.length;
 const TOTAL_RUNS = BLOCK_RUNS * REPETITIONS;
 const BLOCK_BUDGET = Object.freeze({ inputTokens: 4_500_000, outputTokens: 100_000, toolCalls: 300, jevRequests: TASKS.length });
+const MAX_PREFLIGHT_ATTEMPTS = 3;
 const PRICING = Object.freeze({ codex: { input: 4, cachedInput: 0.4, output: 20 }, jev: { input: 0.042, output: 0 } });
 
 function sha256(value) { return createHash('sha256').update(value).digest('hex'); }
@@ -212,6 +213,14 @@ async function jevCredentialSmoke(apiKey, ask) {
   return { mode: result.mode, model: result.model, requests: result.requests, usage: result.usage, latencyMs: result.latencyMs };
 }
 
+function reservePreflightAttempt(block) {
+  if (block.status !== 'pending' || block.launches !== 0) throw new Error('credential preflight is allowed only before a block launches');
+  const attempt = (block.preflightAttempts ?? 0) + 1;
+  if (attempt > MAX_PREFLIGHT_ATTEMPTS) throw new Error('credential preflight attempt cap reached');
+  block.preflightAttempts = attempt;
+  return attempt;
+}
+
 async function prepare(runDir, codexBinary) {
   if (!codexBinary) throw new Error('--codex-binary is required');
   const gitHead = assertCleanGit();
@@ -226,7 +235,7 @@ async function prepare(runDir, codexBinary) {
   const plan = makePlan();
   const manifest = {
     schemaVersion: 1, status: 'frozen', createdAt: new Date().toISOString(), gitHead,
-    protocol: { model: MODEL, effort: EFFORT, codexVersion: CODEX_VERSION, jevModel: JEV_MODEL, tasks: TASKS.length, arms: ARMS, repetitions: REPETITIONS, blockRuns: BLOCK_RUNS, totalRuns: TOTAL_RUNS, retries: 0, timeoutMs: TIMEOUT_MS, maxTools: MAX_TOOLS, blockBudget: BLOCK_BUDGET },
+    protocol: { model: MODEL, effort: EFFORT, codexVersion: CODEX_VERSION, jevModel: JEV_MODEL, tasks: TASKS.length, arms: ARMS, repetitions: REPETITIONS, blockRuns: BLOCK_RUNS, totalRuns: TOTAL_RUNS, retries: 0, maxPreflightAttempts: MAX_PREFLIGHT_ATTEMPTS, timeoutMs: TIMEOUT_MS, maxTools: MAX_TOOLS, blockBudget: BLOCK_BUDGET },
     artifacts: {
       runnerSha256: sha256(await readFile(fileURLToPath(import.meta.url))),
       tasksSha256: sha256(await readFile(join(here, 'confirmation-v1-tasks.mjs'))),
@@ -236,7 +245,7 @@ async function prepare(runDir, codexBinary) {
     pricing: PRICING, fixtureHashes, plan,
   };
   await atomicJson(join(runDir, 'manifest.json'), manifest);
-  await atomicJson(join(runDir, 'state.json'), { schemaVersion: 1, status: 'prepared', manifestSha256: sha256(JSON.stringify(manifest)), rehearsal: { status: 'pending' }, blocks: Object.fromEntries(Array.from({ length: REPETITIONS }, (_, i) => [String(i + 1), { status: 'pending', launches: 0, completed: 0, totals: { inputTokens: 0, outputTokens: 0, toolCalls: 0, jevRequests: 0 }, results: [] }])) });
+  await atomicJson(join(runDir, 'state.json'), { schemaVersion: 1, status: 'prepared', manifestSha256: sha256(JSON.stringify(manifest)), rehearsal: { status: 'pending' }, blocks: Object.fromEntries(Array.from({ length: REPETITIONS }, (_, i) => [String(i + 1), { status: 'pending', preflightAttempts: 0, launches: 0, completed: 0, totals: { inputTokens: 0, outputTokens: 0, toolCalls: 0, jevRequests: 0 }, results: [] }])) });
   return manifest;
 }
 
@@ -314,9 +323,23 @@ async function runBlock(runDir, blockNumber) {
   if (blockNumber > 1 && state.blocks[String(blockNumber - 1)].status !== 'completed') throw new Error('previous block must complete before this block');
   if (!validKey(process.env.TYPESAFE_API_KEY)) throw new Error('TYPESAFE_API_KEY is unavailable or malformed');
   await validateFrozen(runDir, manifest);
-  const versionDir = join(runDir, `block-${blockNumber}-preflight`); await mkdir(versionDir, { recursive: false });
-  const jevSmoke = await jevCredentialSmoke(process.env.TYPESAFE_API_KEY);
-  await atomicJson(join(versionDir, 'jev-credential-smoke.json'), jevSmoke);
+  const preflightAttempt = reservePreflightAttempt(block);
+  const versionDir = join(runDir, `block-${blockNumber}-preflight-${preflightAttempt}`); await mkdir(versionDir, { recursive: false });
+  block.lastPreflight = { attempt: preflightAttempt, status: 'running', startedAt: new Date().toISOString() };
+  await atomicJson(statePath, state);
+  let jevSmoke;
+  try {
+    jevSmoke = await jevCredentialSmoke(process.env.TYPESAFE_API_KEY);
+    await atomicJson(join(versionDir, 'jev-credential-smoke.json'), jevSmoke);
+    block.lastPreflight = { ...block.lastPreflight, status: 'passed', completedAt: new Date().toISOString(), model: jevSmoke.model, usage: jevSmoke.usage };
+    await atomicJson(statePath, state);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    await atomicJson(join(versionDir, 'jev-credential-smoke-error.json'), { error: message });
+    block.lastPreflight = { ...block.lastPreflight, status: 'failed', completedAt: new Date().toISOString(), error: message };
+    await atomicJson(statePath, state);
+    throw error;
+  }
   const version = await runProcess(manifest.artifacts.codexBinaryPath, ['--version'], { cwd: repoRoot, env: process.env, stdoutPath: join(versionDir, 'stdout.log'), stderrPath: join(versionDir, 'stderr.log'), timeoutMs: 30_000 });
   if (version.code !== 0 || version.stdout.trim() !== CODEX_VERSION) throw new Error('Codex version preflight failed');
   block.status = 'running'; block.startedAt = new Date().toISOString(); state.status = `running-block-${blockNumber}`; await atomicJson(statePath, state);
@@ -439,4 +462,4 @@ async function main() {
 
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) main().catch(error => { process.stderr.write(`${error.stack ?? error}\n`); process.exitCode = 1; });
 
-export { BLOCK_RUNS, BLOCK_BUDGET, CODEX_VERSION, MODEL, TOTAL_RUNS, blockBudgetExceeded, createExecutionRoot, evidenceSupportsFrozenFacts, jevCredentialSmoke, mockJev, taskInput };
+export { BLOCK_RUNS, BLOCK_BUDGET, CODEX_VERSION, MODEL, TOTAL_RUNS, blockBudgetExceeded, createExecutionRoot, evidenceSupportsFrozenFacts, jevCredentialSmoke, mockJev, reservePreflightAttempt, taskInput };
