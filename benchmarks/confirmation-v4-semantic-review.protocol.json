@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "benchmark": "confirmation-v4",
+  "registeredAfter": "block-1-completed",
+  "registeredBefore": "block-2-launched",
+  "scope": "secondary semantic correctness adjudication",
+  "preservesFrozenAutomaticGrades": true,
+  "reviewers": 2,
+  "reviewerIndependence": "Each reviewer receives only the same arm-blind packet and completes all criteria without access to the label mapping or the other review.",
+  "criteria": ["cause", "locations", "fix", "test"],
+  "passRule": "All four semantic criteria must pass.",
+  "paraphraseRule": "Accurate semantic equivalents pass; literal regex phrasing is not required.",
+  "disagreementRule": "Any criterion disagreement remains unresolved until a third arm-blind review of that item. No unresolved item counts as correct.",
+  "unblindingRule": "Arm labels are joined only after both complete review files validate and consensus is computed.",
+  "reportingRule": "Report frozen automatic correctness and secondary semantic correctness separately, including disagreement counts and protocol timing."
+}
