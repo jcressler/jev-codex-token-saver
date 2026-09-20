@@ -2,7 +2,8 @@
 
 Status: corrected pilot completed and passed; full repeated evaluation not
 launched. See the [invalid pilot audit](GATEWAY-PILOT-2026-09-19.md) and the
-[corrected result](GATEWAY-PILOT-CORRECTED-2026-09-19.md).
+[corrected result](GATEWAY-PILOT-CORRECTED-2026-09-19.md). The implemented
+12-task successor is the [confirmation v1 protocol](CONFIRMATION-V1.md).
 
 The next benchmark compares three arms on the same larger investigation tasks:
 

@@ -136,6 +136,11 @@ promising two-task result, not a universal savings claim. The next
 [controlled evaluation protocol](docs/NEXT-EVALUATION.md) calls for repetitions
 before generalizing the percentage.
 
+The prospective [confirmation evaluation](docs/CONFIRMATION-V1.md) freezes 12
+new tasks, three repetitions, randomized task blocks, rotated arm order,
+task-level confidence intervals, correctness gates, and combined-cost gates.
+Its measured blocks have not been launched.
+
 ## Troubleshoot or remove
 
 If `jev_token_saver` is missing, confirm the plugin is enabled, run

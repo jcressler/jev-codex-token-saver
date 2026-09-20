@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "status": "prospective-not-launched",
+  "model": "gpt-5.6-sol",
+  "reasoningEffort": "high",
+  "jevModel": "jev-1.13.0",
+  "tasks": 12,
+  "taskCategories": {
+    "noisy-log": 3,
+    "large-repository": 3,
+    "failing-test": 3,
+    "mixed-doc-config": 3
+  },
+  "arms": ["stock", "local", "jev"],
+  "repetitions": 3,
+  "blocks": 3,
+  "runsPerBlock": 36,
+  "totalMeasuredRuns": 108,
+  "retries": 0,
+  "primaryAnalysisUnit": "task",
+  "primaryMetric": "paired geometric-mean Codex input-token reduction",
+  "confidenceMethod": "task-level paired bootstrap with 10000 deterministic draws",
+  "confirmationGates": {
+    "campaignMustComplete": true,
+    "correctnessRegressionAllowed": false,
+    "lower95PercentMustExceed": 0,
+    "combinedJevCostMustBeatStock": true,
+    "combinedJevCostMustBeatLocal": true
+  },
+  "strongTwentyPercentGate": {
+    "lower95PercentMustExceed": 20
+  },
+  "blockBudget": {
+    "maxCodexInputTokens": 4500000,
+    "maxCodexOutputTokens": 100000,
+    "maxCodexToolCalls": 300,
+    "maxJevRequests": 12
+  },
+  "pricingUsdPerMillionTokens": {
+    "codexInput": 4,
+    "codexCachedInput": 0.4,
+    "codexOutput": 20,
+    "jevInput": 0.042,
+    "jevOutput": 0
+  }
+}
