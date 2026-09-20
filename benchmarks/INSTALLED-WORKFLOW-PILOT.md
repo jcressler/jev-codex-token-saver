@@ -29,10 +29,13 @@ Remove-Item Env:TYPESAFE_API_KEY
 Each arm is single-launch. Existing results cannot be overwritten or retried.
 The harness checks the pinned Codex version and SHA-256 before a model call,
 hashes the fixture before and after, requires the quality rubric to pass, and
-caps each execution at 150,000 input tokens, 8,000 output tokens, and 15 tool
-calls. The Jev arm also requires a verified skill command and a successful Jev
-diagnostic. A failed authentication remains a failed gate; its answer and Codex
-usage must not be presented as Jev performance.
+rejects results above 150,000 input tokens, 8,000 output tokens, or 15 tool
+calls. Codex reports usage after an execution, so these are stop gates rather
+than hard per-call token limits: one execution can cross a threshold, but no
+counterpart or subsequent run is launched. The Jev arm also requires a verified
+skill command and a successful Jev diagnostic. A failed authentication remains
+a failed gate; its answer and Codex usage must not be presented as Jev
+performance.
 
 After both arms exist, the harness writes `blind-review.json` with answer IDs but
 no arm, run, usage, or timing labels. It writes the separate `label-map.json` for
