@@ -35,6 +35,13 @@ and SHA-256 hashes.
 Every block remained below its frozen input, output, tool, and Jev-request
 limits. The live credential smoke passed before each block.
 
+Two non-measured setup stops are retained here for completeness. Before Block
+2, the first detached-worktree command stopped at the frozen runner hash check
+because the Windows checkout had different line-ending bytes. Block 2 still had
+zero launches and zero credential-smoke attempts. The exact committed blobs
+were restored byte for byte, the worktree index was clean, and only then did the
+successful block command begin. No measured execution was retried.
+
 ## Efficiency results
 
 | Arm | Valid runs | Median input/run | Total input | Output | Tools | Elapsed | Combined API-equivalent cost |
@@ -84,6 +91,12 @@ semantic procedure with task-specific rubrics. Two independent reviewers saw
 only a shuffled arm-blind packet. They agreed on 107 of 108 answers. A third
 arm-blind reviewer resolved the one disagreement. Labels were joined only after
 the review files validated.
+
+The first Reviewer A transport attempt was also discarded before adjudication:
+the read-only command policy prevented it from opening the packet, it never saw
+an answer, and it produced no review file. The valid Reviewer A and B runs
+received the frozen packet directly as inline input. Their files passed exact
+ID, count, boolean-consistency, and conjunction validation before unblinding.
 
 | Arm | Blinded semantic passes | Rate |
 |---|---:|---:|
