@@ -1,6 +1,6 @@
 {
   "name": "jev-codex-token-saver",
-  "version": "0.2.0",
+  "version": "0.3.0+codex.20260920022419",
   "description": "Use bounded Jev evidence selection to keep broad local search results out of Codex context.",
   "author": {
     "name": "James Cressler",
@@ -16,13 +16,16 @@
     "retrieval"
   ],
   "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
   "interface": {
     "displayName": "Jev Codex Token Saver",
     "shortDescription": "Return focused evidence from broad local searches",
-    "longDescription": "An experimental Codex workflow that searches locally, expands bounded references, sends a bounded candidate set to Jev for typed relevance scoring, and returns only selected exact excerpts. Detailed telemetry is optional.",
+    "longDescription": "A local MCP evidence gateway that searches workspaces and large text files inside one tool call, sends only bounded candidates to Jev for typed relevance scoring, and returns selected exact excerpts to Codex. Small results bypass Jev and failures use a visible local fallback.",
     "developerName": "James Cressler",
     "category": "Productivity",
-    "capabilities": [],
+    "capabilities": [
+      "Read"
+    ],
     "defaultPrompt": [
       "Investigate this codebase with bounded Jev evidence selection."
     ]

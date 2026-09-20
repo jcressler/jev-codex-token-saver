@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "jev_token_saver": {
+      "command": "node",
+      "args": ["./dist/server.mjs"],
+      "cwd": ".",
+      "env_vars": ["TYPESAFE_API_KEY"],
+      "startup_timeout_sec": 20,
+      "tool_timeout_sec": 60,
+      "default_tools_approval_mode": "approve"
+    }
+  }
+}

@@ -1,6 +1,6 @@
 {
   "name": "jev-codex-token-saver",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Bounded Jev evidence selection for token-efficient Codex investigations.",
   "type": "module",
   "license": "MIT",
@@ -16,9 +16,12 @@
   },
   "files": [
     ".codex-plugin",
+    ".mcp.json",
     ".agents",
     "benchmarks",
     "docs",
+    "dist",
+    "examples",
     "skills",
     "scripts",
     "src",
@@ -27,9 +30,17 @@
     "LICENSE"
   ],
   "scripts": {
+    "build": "esbuild src/mcp-server.mjs --bundle --platform=node --format=esm --target=node22 --outfile=dist/server.mjs",
     "test": "node --test",
-    "check": "node --check scripts/investigate.mjs && node --check src/investigator.mjs && node --check benchmarks/paired-pilot.mjs && node --check benchmarks/evaluation-v2.mjs && node --check benchmarks/quality-review.mjs && node --check benchmarks/installed-workflow-pilot.mjs && node --check benchmarks/controlled-workflow.mjs && node --check benchmarks/behavioral-validation.mjs && npm test",
+    "demo": "node examples/large-output-demo.mjs",
+    "smoke:live": "node scripts/live-smoke.mjs",
+    "check": "npm run build && node --check scripts/investigate.mjs && node --check src/investigator.mjs && node --check src/evidence-service.mjs && node --check src/mcp-server.mjs && node --check dist/server.mjs && node --check benchmarks/paired-pilot.mjs && node --check benchmarks/evaluation-v2.mjs && node --check benchmarks/quality-review.mjs && node --check benchmarks/installed-workflow-pilot.mjs && node --check benchmarks/controlled-workflow.mjs && node --check benchmarks/behavioral-validation.mjs && npm test",
     "pilot:paired": "node benchmarks/paired-pilot.mjs",
     "eval:v2:prepare": "node benchmarks/evaluation-v2.mjs --prepare"
+  },
+  "devDependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "esbuild": "^0.28.2",
+    "zod": "^4.6.5"
   }
 }

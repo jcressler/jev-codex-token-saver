@@ -50,6 +50,18 @@ test('search includes a bounded local file referenced by a strong lexical candid
   }
 });
 
+test('workspace search considers relative paths as evidence signals', async () => {
+  const root = await mkdtemp(join(tmpdir(), 'jev-token-saver-path-signal-'));
+  try {
+    await mkdir(join(root, '.codex-plugin'));
+    await writeFile(join(root, '.codex-plugin', 'plugin.json'), '{"name":"example"}\n');
+    const result = await searchWorkspace(root, 'codex plugin manifest', [], { candidateLimit: 4, resultLimit: 2 });
+    assert.equal(result.candidates.some(candidate => candidate.path === '.codex-plugin/plugin.json'), true);
+  } finally {
+    await rm(root, { recursive: true, force: true });
+  }
+});
+
 test('Jev typed scores can select a lower lexical candidate', async () => {
   const candidates = [
     { path: 'a.ts', lines: { start: 1, end: 1 }, excerpt: 'shared term only', matchedTerms: ['shared'], localScore: 200 },
@@ -107,6 +119,18 @@ test('Jev selection abstains when no candidate meets the declared usefulness thr
     }),
   });
   assert.deepEqual(ranked.selected, []);
+});
+
+test('requirement scores guide coverage without vetoing relevant evidence', async () => {
+  const ranked = await rankWithJev('investigate the failure', ['optional supporting detail'], [
+    { path: 'cause.ts', lines: { start: 1, end: 1 }, excerpt: 'directly relevant cause', matchedTerms: [], localScore: 1 },
+  ], {
+    resultLimit: 1,
+    ask: async () => ({
+      answers: { relevance_0: { noul: 0.81 }, requirement_0_0: { noul: 0.22 } },
+    }),
+  });
+  assert.deepEqual(ranked.selected.map(item => item.candidate.path), ['cause.ts']);
 });
 
 test('HTTP Jev responses require returned model and usage metadata', async () => {

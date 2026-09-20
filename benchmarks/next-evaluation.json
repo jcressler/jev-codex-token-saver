@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "status": "frozen-not-run",
+  "codex": {
+    "model": "gpt-5.6-sol",
+    "reasoningEffort": "high",
+    "approvalPolicy": "never",
+    "freshTaskPerRun": true
+  },
+  "arms": [
+    { "id": "stock", "policy": "normal efficient Codex search and reads" },
+    { "id": "local", "policy": "plugin evidence tools with TYPESAFE_API_KEY absent" },
+    { "id": "jev", "policy": "plugin evidence tools with jev-1.13.0" }
+  ],
+  "pilotTasks": 2,
+  "fullTasks": 6,
+  "retries": 0,
+  "successCriterion": {
+    "metric": "median_codex_input_tokens",
+    "minimumReductionVersusStockPercent": 20,
+    "allowCorrectnessRegression": false
+  },
+  "requiredMeasurements": [
+    "codex_input_tokens",
+    "codex_cached_input_tokens",
+    "codex_output_tokens",
+    "codex_tool_calls",
+    "elapsed_ms",
+    "blinded_correctness",
+    "selector_mode",
+    "jev_model",
+    "jev_input_tokens",
+    "jev_output_tokens",
+    "jev_latency_ms",
+    "jev_scores",
+    "warnings",
+    "failures"
+  ]
+}

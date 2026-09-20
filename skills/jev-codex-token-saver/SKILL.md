@@ -1,43 +1,44 @@
 ---
 name: jev-codex-token-saver
-description: Investigate broad local code, logs, or documentation with a bounded search packet so Codex receives a few relevant excerpts instead of a large raw result set.
+description: Use the bundled evidence tools for broad workspace searches or large text and log investigations so Jev can select evidence before bulky results enter Codex context.
 ---
 
 # Jev Codex Token Saver
 
-Use this skill when an investigation would otherwise require broad searches or
-large log/file reads. It is most useful for multi-file diagnosis and repeated
-fact lookup; skip it for a known file, a small edit, or a narrow exact search.
+Use this skill when an investigation would otherwise require a broad search or a
+large text/log read. Skip it for a known small file, a narrow exact lookup, or a
+small edit.
 
-Run the bundled script with an explicit authorized workspace root and a concrete
-query. Add requirements for distinct facts the answer must establish:
+Call `search_workspace_evidence` for a multi-file investigation. Supply the
+absolute authorized workspace root, a concrete question, and separate
+requirements for facts the answer must establish. Call
+`read_large_text_evidence` when the likely evidence is in one large text or log
+file. Both tools gather and preprocess locally inside the call. Eligible large
+candidate packets use Jev automatically when `TYPESAFE_API_KEY` is configured;
+small packets report `bypass`, and unavailable or invalid Jev responses report
+`local-fallback`.
 
-```sh
-node "${PLUGIN_ROOT}/scripts/investigate.mjs" \
-  --root PATH \
-  --query "why does checkout initialization fail" \
-  --requirement "the failing call site" \
-  --requirement "the configuration that controls it" \
-  --jev --allow-network
-```
+Use `read_selected_evidence` with the returned session ID for a wider exact line
+range or a complete selected small file. Do this before edits or consequential
+claims when the selected excerpt does not provide enough context. The follow-up
+tool can only read paths selected in that session.
 
-Use `--jev --allow-network` only when the user has authorized sending the query,
-requirements, relative paths, and bounded source excerpts to TypeSafe. Jev mode
-requires `TYPESAFE_API_KEY` in the Codex process environment. Never print, store,
-or pass the key on the command line. Without authorization or a key, omit both
-flags and use the deterministic local ranking.
+Make at most one search or large-text call for an investigation. Do not
+reformulate or retry when Jev returns no evidence or the tool rejects an input;
+report that result. After a successful selection, use only
+`read_selected_evidence` for additional context.
 
-Treat returned excerpts as leads. Open the selected exact source locations when
-the task requires code changes or consequential conclusions. If the report says
-`local-fallback`, Jev did not complete successfully. The normal response is a
-compact packet containing only the mode, exact source excerpts, and essential
-warnings. Use `--diagnostics PATH` only when evaluating or debugging the selector;
-that separate report contains the query, detailed scores, skip counters, and
-telemetry. Never load the diagnostic report into model context unless those
-details are needed for the task.
+Treat `candidateLimit`, `resultLimit`, file-size limits, and scan limits as safety
+caps rather than quotas. Do not inflate a request to reach a cap. Keep
+`includeDiagnostics` false during normal work; enable it only for evaluation or
+selector debugging because raw scores and usage add context tokens.
 
-The reported reduction compares the bounded candidate packet with the returned
-evidence packet. Do not describe it as measured Codex savings unless a separate
-controlled Codex run records the actual input tokens and equivalent task quality.
-The tool does not modify native compaction, intercept arbitrary Codex tools, or
-change source files.
+The Jev request contains the question, requirements, relative paths, and bounded
+candidate excerpts. Credential-like files are excluded. Never print, store, or
+pass `TYPESAFE_API_KEY` as a tool argument. A reported packet reduction compares
+the internal candidate packet with returned evidence; it is not an end-to-end
+Codex token-savings claim.
+
+These tools do not intercept native Codex tools, modify native compaction, or
+rewrite conversation history. Use them at the start of eligible investigations
+so large raw results never enter the model context.

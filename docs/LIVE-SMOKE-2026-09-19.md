@@ -50,3 +50,48 @@ independent grader scored answer quality. This run therefore demonstrates live
 integration and a potentially useful selection difference, not a proven token
 or quality advantage over local selection. End-to-end Codex savings require a
 paired task that holds the Codex model, reasoning effort, task, and grader fixed.
+
+## Version 0.3.0 MCP gateway verification
+
+The release verification permits at most two live Jev requests and no automatic
+retry.
+
+- Attempt 1: failed closed as `local-fallback`. The clipboard contained non-key
+  text with whitespace; the original preflight checked only that it was nonempty.
+  The script made no retry and did not expose or store the clipboard contents.
+- Correction: live preflight now requires one bounded opaque ASCII token with no
+  whitespace before any request. TypeSafe keys do not all use the public
+  quickstart's example prefix. A fallback result is printed with its warning
+  before the smoke exits nonzero, so an API failure remains diagnosable.
+- Attempt 2: passed with `mode: jev`. The 647 KB planted log produced 16
+  candidates (47,773 characters, approximately 11,944 tokens); Jev returned the
+  exact root cause and stack trace in one 580-character excerpt (approximately
+  145 tokens). `jev-1.13.0` reported 9,665 input tokens, 1,046 output tokens, and
+  666 ms selector latency. These are internal packet measurements, not Codex
+  token savings.
+
+## Installed Sol High integration smoke
+
+The installed `0.3.0` plugin was discovered through Codex and its schema rejected
+an out-of-range candidate limit before any Jev request. The subsequent valid call
+used `jev-1.13.0`, but its top relevance score of 0.51 was vetoed by a separate
+0.50 requirement-support threshold, so the tool returned no evidence. Sol then
+violated the frozen smoke procedure by reformulating the search instead of using
+the exact follow-up tool. That second call also returned no evidence. It was
+interrupted immediately afterward.
+
+Recorded Jev calls inside the failed integration smoke:
+
+- Call 1: 12,318 input tokens, 1,764 output tokens, 785 ms, 20 candidates, no
+  returned evidence.
+- Call 2: 6,880 input tokens, 778 output tokens, 528 ms, 12 candidates, no
+  returned evidence.
+
+The correction removes the requirement-score veto while retaining the 0.50
+relevance threshold, adds relative-path evidence signals, and adds an MCP server
+instruction that prohibits search reformulation and retries. Those exact cases
+are covered offline. No further live Jev or Codex calls were made after the
+failed smoke. The rebuilt cached plugin passed offline stdio discovery, selection,
+session creation, and exact follow-up retrieval. The corrected live
+Jev-selected follow-up flow remains to be reconfirmed in a later explicitly
+authorized smoke.

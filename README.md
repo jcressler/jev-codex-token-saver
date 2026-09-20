@@ -1,167 +1,156 @@
 # Jev Codex Token Saver
 
-An experimental Codex plugin that reduces broad investigation output before it
-enters the model context.
+Jev Codex Token Saver is a local Codex plugin that reduces the amount of search
+and log data sent back to Codex. Its MCP server gathers evidence locally, sends a
+bounded candidate packet to Jev for typed relevance scoring, and returns only the
+selected exact excerpts.
 
-The prototype searches an authorized workspace locally, builds a bounded set of
-exact excerpts, follows a few local imports from strong candidates, and optionally
-makes one Jev request to score which excerpts answer the query and its requirements.
-Codex receives only the selected evidence.
-It does not rewrite conversation history or replace native Codex compaction.
+The useful intervention point is **before** a large tool result enters Codex
+context:
 
-Jev selection returns **up to** the requested result limit. A candidate must have
-relevance of at least 0.5 and, when requirements are supplied, support of at least
-0.5 for one requirement. Selection prioritizes requirements not already covered,
-then useful remaining evidence. It can return no excerpts. These are declared
-prototype cutoffs, not calibrated accuracy guarantees.
+```text
+Codex question
+    -> local workspace scan or large-file grouping
+    -> bounded candidates
+    -> Jev typed evidence selection
+    -> a few exact excerpts returned to Codex
+    -> optional exact follow-up read
+```
 
-## Why this design
+This is not a replacement for native Codex compaction. It does not rewrite
+history, intercept native tools, or claim that every task will use fewer tokens.
+It gives Codex purpose-built tools for broad investigations where raw results
+would otherwise be large.
 
-Large search results, logs, and repeated file reads can consume more Codex input
-than the useful evidence warrants. Jev is used here as a typed relevance scorer,
-where its `Noul` probabilities fit the decision being made. File discovery,
-bounds, exact excerpts, secret-like file exclusions, and fallback behavior stay
-deterministic.
+## What the plugin adds
 
-This is a prototype. Its `candidateContextReductionPercent` compares the bounded
-candidate packet with the evidence packet returned to Codex. It is useful
-instrumentation, but it is not proof of an equivalent percentage reduction in
-Codex billing, subscription usage, or end-to-end task tokens.
+- `search_workspace_evidence`: searches an authorized local workspace and
+  returns selected file excerpts.
+- `read_large_text_evidence`: groups a large text or log file, keeps error and
+  stack-trace blocks intact, and returns selected line ranges.
+- `read_selected_evidence`: retrieves an exact wider range or complete selected
+  small file from the same bounded session.
+- A focused skill that tells Codex when to use those tools.
 
-## Install as a Codex plugin
+Small candidate packets bypass Jev. Eligible large packets use Jev when
+`TYPESAFE_API_KEY` is available. Authentication, network, malformed-response, or
+timeout failures make one attempt and then return a clearly labeled local
+fallback. No retry loop is hidden from the user.
 
-Requirements: Node.js 22.12 or newer.
+## Install
 
-```sh
-codex plugin marketplace add jcressler/jev-codex-token-saver
+Requirements:
+
+- Codex CLI/Desktop with plugin support
+- Node.js 22.12 or newer
+- A TypeSafe Jev API key for Jev selection (the local fallback works without it)
+
+Add this GitHub repository as a marketplace and install the plugin:
+
+```powershell
+codex plugin marketplace add https://github.com/jcressler/jev-codex-token-saver
 codex plugin add jev-codex-token-saver@jev-codex-token-saver
 ```
 
-Start a new Codex task after installing so the skill is discovered.
+Set `TYPESAFE_API_KEY` in the environment that launches Codex. Do not put the
+key in plugin files, prompts, command arguments, or Git. On Windows, one option is
+to add it through **System Properties -> Environment Variables**, then fully
+restart Codex so the bundled MCP process inherits it.
 
-## Run directly
+Start a new Codex task after installation or upgrade. Confirm discovery with:
 
-Local deterministic selection needs no API key or network access:
-
-```sh
-node scripts/investigate.mjs \
-  --root /path/to/project \
-  --query "why checkout initialization fails" \
-  --requirement "the failing call site" \
-  --requirement "the controlling configuration"
+```powershell
+codex plugin list
+codex mcp list
 ```
 
-For Jev selection, provide `TYPESAFE_API_KEY` through the process environment:
+The MCP list should include `jev_token_saver`.
 
-```sh
-node scripts/investigate.mjs \
-  --root /path/to/project \
-  --query "why checkout initialization fails" \
-  --requirement "the failing call site" \
-  --requirement "the controlling configuration" \
-  --jev --allow-network
-```
+## Use
 
-Jev mode sends the query, requirements, relative paths, and bounded candidate
-excerpts to TypeSafe. It defaults to the pinned evaluation model
-`jev-1.13.0`. An invalid response, timeout, or request failure returns the local
-ordering with `mode: "local-fallback"`.
+Ask Codex naturally:
 
-Normal output is deliberately compact: mode, exact source locations, excerpts,
-and essential warnings. Write the complete query, Jev scores, skip counters, and
-telemetry to a separate file only when evaluating or debugging:
+> Use Jev Codex Token Saver to investigate why checkout initialization fails in
+> this workspace. Establish the failing call site and the controlling config.
 
-```sh
-node scripts/investigate.mjs \
-  --root /path/to/project \
-  --query "why checkout initialization fails" \
-  --jev --allow-network \
-  --diagnostics ./jev-diagnostics.json
-```
+The tool response always identifies its selector mode:
 
-`--full` preserves the earlier verbose stdout format for direct debugging.
+| Mode | Meaning |
+|---|---|
+| `jev` | One Jev request selected from an eligible bounded candidate packet. |
+| `bypass` | The packet was small enough to return without Jev. |
+| `local-fallback` | Jev was unavailable or invalid; deterministic local ordering was returned with a warning. |
 
-## Current safeguards and limits
+Use `includeDiagnostics: true` only while evaluating or debugging. Normal calls
+omit raw scores and most selector telemetry to avoid adding those tokens back to
+Codex context.
 
-- One Jev request, at most 20 candidate files, and a 48 KiB request cap.
-- At most 4 imported local files are added by reference expansion by default;
-  the total candidate cap still applies.
-- At most 8 returned evidence excerpts.
-- No symlink traversal.
-- Common generated/dependency directories are skipped.
-- `.env`, credential/secret-named files, private-key formats, and binary files are skipped.
-- Default scan caps: 5,000 visited files, 64 MiB total text, 1 MiB per file.
-- No source writes and no changes to Codex conversation history.
+## Data and boundaries
 
-These exclusions are protective heuristics, not a complete secret scanner or
-redactor. Use Jev mode only for content authorized for transfer.
+The local MCP server reads only the workspace root supplied to a tool call.
+Follow-up reads are limited to paths selected in that session. Absolute child
+paths, `..` traversal, symlink escapes, binary files, `.env` files, and common
+credential/key filenames are rejected.
 
-## Validate
+For an eligible request, TypeSafe receives:
 
-The [controlled workflow protocol](benchmarks/CONTROLLED-WORKFLOW.md) measures
-ordinary Codex, local selection, and Jev selection with the selector invoked
-inside each assisted turn. It validates executable fixes and regression tests;
-the older keyword graders are not used for its quality verdicts.
+- the investigation question;
+- up to six short requirements;
+- relative candidate paths;
+- bounded candidate excerpts; and
+- typed yes/no probability questions.
 
-The [six-run controlled result](benchmarks/results/CONTROLLED-WORKFLOW-2026-09-19.md)
-passed all executable quality checks. Jev used 37.2% less Codex input than local
-selection, but 0.23% more than stock; its API-equivalent cost was 13.9% below
-local and 0.95% above stock, and it took 21.0% longer than stock. These are
-observations on two small known fixtures, not a general savings estimate.
+TypeSafe does not receive the API key in the request body, the complete
+workspace, or files excluded by the scanner. The key is used only in the bearer
+authorization header. This is a conservative exclusion policy, not a full secret
+redactor; use Jev only for content authorized for transfer.
 
-```sh
+Current safety caps include 20 candidates, 8 returned evidence blocks, a 48 KiB
+Jev request, 8 MiB large-file reads, 256 KiB complete-file follow-ups, and 400
+lines per ranged follow-up. These are maximums, not targets.
+
+## Develop and verify
+
+```powershell
+npm install
+npm run build
 npm test
 npm run check
+npm run demo
 ```
 
-The tests use a synthetic Jev adapter; they do not require a key or make network
-requests. A useful next evaluation is a small paired Codex trial comparing the
-same investigation with ordinary search output and with this evidence packet,
-holding the Codex model, reasoning effort, task, and grader constant.
+`npm run demo` creates a 647 KB noisy log, selects the causal error and stack
+trace, and reports candidate versus returned packet sizes without making a paid
+request. The test suite covers bypass, relevant evidence amid noise, critical
+error retention, exact deduplication, follow-up retrieval, API and malformed
+response fallback, workspace and sensitive-path exclusions, plugin config, MCP
+discovery, and a real stdio tool call.
 
-The first real API smoke test and its identical local control are documented in
-[`docs/LIVE-SMOKE-2026-09-19.md`](docs/LIVE-SMOKE-2026-09-19.md). It verifies
-the live integration and shows that Jev changed the evidence selection; it does
-not establish end-to-end Codex token savings or general superiority.
+The [architecture notes](docs/ARCHITECTURE.md) describe the trust boundary and
+selection flow. The [next controlled evaluation](docs/NEXT-EVALUATION.md) is
+frozen but intentionally not launched.
 
-A subsequent [Sol High paired pilot](benchmarks/results/PAIRED-PILOT-2026-09-19.md)
-compared stock Codex with local- and Jev-selected evidence on one real defect.
-All answers passed the audited grader. Local and Jev produced byte-for-byte
-identical evidence, so their differing Codex usage cannot be credited to Jev.
-Together, the two identical evidence-assisted observations averaged 12% fewer
-total input tokens than stock, with wide single-run variance. The frozen
-[protocol](benchmarks/PAIRED-PILOT.md) and JSON evidence are published alongside
-the result.
+## Troubleshoot or remove
 
-The replacement [evaluation v2 protocol](benchmarks/EVALUATION-V2.md) freezes two
-new tasks, balanced arm ordering, two repetitions, durable raw artifacts,
-per-execution fixture hashes, strict launch caps, and fail-closed smoke and
-budget gates. Its live stage is deliberately separate from offline preparation.
+If `jev_token_saver` is missing, confirm the plugin is enabled, run
+`codex plugin marketplace upgrade jev-codex-token-saver`, reinstall the plugin,
+and start a new task. If calls show `local-fallback`, ensure the key exists in the
+Codex process environment and inspect the returned warning. `bypass` is expected
+for small results.
 
-The completed [evaluation v2 result](benchmarks/results/EVALUATION-V2-2026-09-19.md)
-ran all 12 frozen Sol High executions. Jev had the lowest aggregate Codex input,
-output, tool use, elapsed time, and API-equivalent cost after its selector cost;
-the report preserves the grader correction and the limits of the small sample.
+Remove the plugin and its marketplace with:
 
-The historical keyword graders are not reliable quality judges: they can reject
-correct paraphrases and accept answers that negate the expected facts. Their
-reports remain preserved, including the disclosed semantic correction. The
-controlled workflow instead validates proposed code changes against existing
-tests, a submitted regression that fails before the fix, and independent behavior
-checks. It does not use those keyword scores.
+```powershell
+codex plugin remove jev-codex-token-saver@jev-codex-token-saver
+codex plugin marketplace remove jev-codex-token-saver
+```
 
-The [installed workflow pilot](benchmarks/INSTALLED-WORKFLOW-PILOT.md) measures
-the whole Codex path, including skill discovery and the live Jev invocation. It
-uses a pinned Codex binary, strict single-launch artifacts, per-run budgets, and
-rejects `local-fallback` instead of mislabeling it as Jev.
+## Evidence and claims
 
-Its first [completed result](benchmarks/results/INSTALLED-WORKFLOW-PILOT-2026-09-19.md)
-found higher total Codex tokens, tool use, and elapsed time for Jev on one small
-task, alongside lower uncached input and 9.1% lower API-equivalent cost including
-the selector. That run forced skill use for a known-file task the skill recommends
-skipping, spent two extra calls recovering from an incorrect skill path, and
-returned low-scoring filler excerpts. It measures that specific flawed workflow,
-not Jev's general effectiveness. A broader follow-up stopped after its stock arm
-crossed the budget gate and has no Jev counterpart.
+The repository retains earlier exploratory and controlled results under
+[`benchmarks/`](benchmarks/). They motivated the gateway design but do not prove
+a universal savings rate. The current release reports its internal packet sizes
+and Jev usage honestly; end-to-end savings require paired Codex runs with the
+same model, task, fixture, quality gate, and tool policy.
 
-MIT licensed. Independent community project; not affiliated with OpenAI or TypeSafe.
+Licensed under MIT.

@@ -90,9 +90,10 @@ function countOccurrences(text, term) {
 
 function candidateFromText(path, text, query, requirements, options) {
   const folded = text.toLowerCase();
+  const foldedPath = path.toLowerCase();
   const queryTerms = termsFrom([query]);
   const allTerms = termsFrom([query, ...requirements]);
-  const matchedTerms = allTerms.filter((term) => folded.includes(term));
+  const matchedTerms = allTerms.filter((term) => folded.includes(term) || foldedPath.includes(term));
   if (matchedTerms.length === 0) return undefined;
 
   const lines = text.split(/\r?\n/);
@@ -115,6 +116,10 @@ function candidateFromText(path, text, query, requirements, options) {
   }
   selectedLines.sort((a, b) => a - b);
 
+  if (!selectedLines.length && matchedTerms.some((term) => foldedPath.includes(term))) {
+    selectedLines.push(0);
+  }
+
   const blocks = [];
   let firstLine = Number.MAX_SAFE_INTEGER;
   let lastLine = 0;
@@ -134,12 +139,13 @@ function candidateFromText(path, text, query, requirements, options) {
     lastLine = Math.max(lastLine, end + 1);
   }
 
-  const exactPhrase = query.trim().length >= 3 && folded.includes(query.trim().toLowerCase());
+  const exactPhrase = query.trim().length >= 3 && (folded.includes(query.trim().toLowerCase()) || foldedPath.includes(query.trim().toLowerCase()));
   const requirementHits = requirements.map((requirement) => {
     const terms = termsFrom([requirement]);
-    return terms.length ? terms.filter((term) => folded.includes(term)).length / terms.length : 0;
+    return terms.length ? terms.filter((term) => folded.includes(term) || foldedPath.includes(term)).length / terms.length : 0;
   });
-  const localScore = matchedTerms.length * 100 + queryTerms.filter((term) => folded.includes(term)).length * 25 +
+  const pathMatches = matchedTerms.filter((term) => foldedPath.includes(term)).length;
+  const localScore = matchedTerms.length * 100 + queryTerms.filter((term) => folded.includes(term)).length * 25 + pathMatches * 35 +
     (exactPhrase ? 40 : 0) + requirementHits.reduce((sum, score) => sum + score * 20, 0);
   return {
     path,
@@ -359,8 +365,7 @@ function selectByCoverage(scored, requirementCount, limit) {
   const selected = [];
   const used = new Set();
   const coveredRequirements = new Set();
-  const useful = scored.filter((item) => item.relevance >= MIN_USEFUL_PROBABILITY &&
-    (requirementCount === 0 || item.requirementSupport.some(score => score >= MIN_USEFUL_PROBABILITY)));
+  const useful = scored.filter((item) => item.relevance >= MIN_USEFUL_PROBABILITY);
 
   while (selected.length < limit) {
     const withNovelCoverage = useful
@@ -429,7 +434,9 @@ export async function rankWithJev(query, requirements, candidates, options = {})
       questions: request.questions,
       bytes: request.bytes,
     });
+    const requestStarted = performance.now();
     const response = await ask(request.state, request.questions);
+    const latencyMs = Math.round(performance.now() - requestStarted);
     await options.onResponse?.(response);
     const scored = candidates.map((candidate, index) => ({
       candidate,
@@ -441,10 +448,12 @@ export async function rankWithJev(query, requirements, candidates, options = {})
     return {
       mode: 'jev',
       selected: selectByCoverage(scored, requirements.length, resultLimit),
+      scored,
       requests: 1,
       requestChars: request.bytes,
       model: response.model ?? options.model ?? DEFAULT_JEV_MODEL,
       ...(response.usage ? { usage: response.usage } : {}),
+      latencyMs,
     };
   } catch (error) {
     const failure = new Error(error instanceof Error ? error.message : 'Jev ranking failed', { cause: error });
