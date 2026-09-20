@@ -140,10 +140,13 @@ Confirmation v1 was [invalidated by a brittle grader](docs/CONFIRMATION-V1-INVAL
 V2 by an [overly tight stock safety cap](docs/CONFIRMATION-V2-INVALID-2026-09-19.md),
 and V3 by a [selected read past EOF](docs/CONFIRMATION-V3-INVALID-2026-09-19.md).
 Each remains public and immutable. Plugin 0.3.1 safely caps selected ranges at
-EOF. The prospective [confirmation v4 evaluation](docs/CONFIRMATION-V4.md)
-replaces every exposed task and retains the 12-task, three-repetition,
-rotated-arm design, task-level confidence intervals, correctness outcomes, and
-combined-cost gates.
+EOF. [Confirmation v4](docs/CONFIRMATION-V4.md) replaces every exposed task and
+retains the 12-task, three-repetition, rotated-arm design, task-level confidence
+intervals, correctness outcomes, and combined-cost gates. Its
+[first 36-run block](docs/CONFIRMATION-V4-BLOCK1-2026-09-19.md) completed: Jev
+used 54.3% fewer total Codex input tokens than stock and 11.3% fewer than local,
+with lower combined cost than both. The full three-block confirmation remains
+incomplete.
 
 ## Troubleshoot or remove
 
