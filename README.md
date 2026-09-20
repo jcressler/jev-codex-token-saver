@@ -136,4 +136,10 @@ the whole Codex path, including skill discovery and the live Jev invocation. It
 uses a pinned Codex binary, strict single-launch artifacts, per-run budgets, and
 rejects `local-fallback` instead of mislabeling it as Jev.
 
+Its first [completed result](benchmarks/results/INSTALLED-WORKFLOW-PILOT-2026-09-19.md)
+found higher total Codex tokens, tool use, and elapsed time for Jev on one small
+task, alongside lower uncached input and 9.1% lower API-equivalent cost including
+the selector. A broader follow-up stopped at its fixed stock-arm budget gate, so
+no unsupported comparison was made.
+
 MIT licensed. Independent community project; not affiliated with OpenAI or TypeSafe.

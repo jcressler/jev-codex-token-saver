@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "createdAt": "2026-09-20T01:15:00Z",
+  "model": "gpt-5.6-sol",
+  "effort": "high",
+  "codex": {
+    "version": "codex-cli 0.155.0-alpha.9.2",
+    "sha256": "bc45017e8239dc150258f69309ced9df6bbcdf5b8e4f346decf780ac0999e226"
+  },
+  "completedPair": {
+    "taskId": "existing-diagnostics-file",
+    "quality": {
+      "stockScore": 10,
+      "jevScore": 10,
+      "passingScore": 8
+    },
+    "stock": {
+      "inputTokens": 70085,
+      "cachedInputTokens": 50176,
+      "outputTokens": 1174,
+      "toolCalls": 3,
+      "elapsedMs": 24845,
+      "apiEquivalentUsd": 0.1231864
+    },
+    "jev": {
+      "inputTokens": 101326,
+      "cachedInputTokens": 93312,
+      "outputTokens": 2124,
+      "toolCalls": 5,
+      "elapsedMs": 39126,
+      "codexApiEquivalentUsd": 0.1118608,
+      "selector": {
+        "model": "jev-1.13.0",
+        "requests": 1,
+        "inputTokens": 3831,
+        "outputTokens": 652,
+        "elapsedMs": 522,
+        "apiEquivalentUsd": 0.000160902,
+        "candidatePacketChars": 4860,
+        "returnedEvidenceChars": 3156,
+        "candidateContextReductionPercent": 35.1
+      },
+      "totalApiEquivalentUsd": 0.112021702
+    },
+    "jevVersusStockPercent": {
+      "inputTokensMore": 44.5759,
+      "cachedInputTokensMore": 85.9694,
+      "uncachedInputTokensLess": 59.7468,
+      "outputTokensMore": 80.9199,
+      "toolCallsMore": 66.6667,
+      "elapsedMore": 57.4804,
+      "apiEquivalentCostLessIncludingSelector": 9.0633
+    }
+  },
+  "stoppedFollowUp": {
+    "taskId": "campaign-resume-budget-gates",
+    "completedArm": "stock",
+    "status": "failed-budget-gate",
+    "inputTokens": 161589,
+    "inputTokenGate": 150000,
+    "outputTokens": 4435,
+    "toolCalls": 9,
+    "elapsedMs": 69860,
+    "automaticQualityScore": 8,
+    "semanticQualityPassed": true,
+    "jevArmLaunched": false
+  },
+  "excluded": [
+    "An earlier preflight used an obsolete Codex executable and made no model call.",
+    "An earlier Jev arm received HTTP 401 and ran local-fallback; it is not counted as Jev performance."
+  ],
+  "limitations": [
+    "One completed task with one execution per arm cannot establish a general performance effect.",
+    "API-equivalent dollars use the frozen evaluation-v2 price assumptions and are not Codex subscription charges.",
+    "The automatic grader was deterministic, but answer review was not independently blinded."
+  ]
+}
