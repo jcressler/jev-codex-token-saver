@@ -1,8 +1,11 @@
 # Confirmation evaluation v4
 
 Status: completed on 2026-09-20. See the
-[final 108-run result](CONFIRMATION-V4-FINAL-2026-09-20.md). This file preserves
-the protocol and decision rules used for the run.
+[final 108-run result](CONFIRMATION-V4-FINAL-2026-09-20.md) and its subsequent
+[quality audit](CONFIRMATION-V4-QUALITY-AUDIT-2026-09-20.md). The audit found an
+unsupported constraint in the secondary semantic rubric; the evidence-grounded
+retrospective score is 36/36 for every arm. This file preserves the protocol and
+decision rules used for the run.
 
 This evaluation supersedes v3 after an assisted follow-up requested a bounded
 range beyond a selected file's end. The answer was correct, but the strict read

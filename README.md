@@ -146,10 +146,15 @@ intervals, correctness outcomes, and combined-cost gates. Its
 [final 108-run result](docs/CONFIRMATION-V4-FINAL-2026-09-20.md) found a 39.2%
 paired input-token reduction versus stock (95% CI 19.4% to 56.2%) and 7.9%
 versus local selection (95% CI 4.1% to 12.0%). Combined cost was lower than
-both. Blinded semantic correctness was 33/36 for Jev, 34/36 for stock, and
-32/36 for local, so the protocol's zero-tolerance no-regression gate did not
-pass. The raw answers, measurements, blinded reviews, mapping, and hashes are
-public under [`benchmarks/results/confirmation-v4-2026-09-20`](benchmarks/results/confirmation-v4-2026-09-20/).
+both. A subsequent [quality audit](docs/CONFIRMATION-V4-QUALITY-AUDIT-2026-09-20.md)
+found that the secondary rubric added unsupported positive/nonzero and zero-case
+requirements that were absent from the tasks and fixtures. Applying the
+evidence-grounded correction consistently yields 36/36 for Jev, stock, and
+local selection. The original 33/36, 34/36, and 32/36 rubric outcomes remain in
+the immutable raw record, but they do not establish substantive answer errors
+or a Jev quality regression. The raw answers, measurements, blinded reviews,
+mapping, and hashes are public under
+[`benchmarks/results/confirmation-v4-2026-09-20`](benchmarks/results/confirmation-v4-2026-09-20/).
 
 ## Troubleshoot or remove
 

@@ -5,8 +5,14 @@ retry, substitution, or resumed partial block.
 
 The benchmark provides strong evidence that Jev selection reduced Codex input,
 elapsed time, and API-equivalent cost on this synthetic investigation suite. It
-did not satisfy the protocol's zero-tolerance correctness gate: after blinded
-semantic adjudication, Jev passed 33 of 36 answers and stock passed 34 of 36.
+also found no substantive answer-quality regression after correcting an
+unsupported requirement in the secondary semantic rubric. The original rubric
+recorded Jev at 33/36, stock at 34/36, and local at 32/36; an evidence-grounded
+audit of every failure yields 36/36 for all three arms. The raw rubric outcomes
+remain preserved in the machine-readable audit trail.
+
+See the [quality audit](CONFIRMATION-V4-QUALITY-AUDIT-2026-09-20.md) for the
+affected answers, source evidence, and limits of the retrospective correction.
 
 The complete machine-readable audit trail is in
 [`benchmarks/results/confirmation-v4-2026-09-20`](../benchmarks/results/confirmation-v4-2026-09-20/).
@@ -98,43 +104,58 @@ an answer, and it produced no review file. The valid Reviewer A and B runs
 received the frozen packet directly as inline input. Their files passed exact
 ID, count, boolean-consistency, and conjunction validation before unblinding.
 
-| Arm | Blinded semantic passes | Rate |
+| Arm | Original blinded rubric passes | Rate |
 |---|---:|---:|
 | Stock | 34/36 | 94.4% |
 | Local | 32/36 | 88.9% |
 | Jev | 33/36 | 91.7% |
 
-Jev was one answer better than local and one answer worse than stock. In paired
-stock-versus-Jev outcomes, 32 pairs passed both, one failed both, stock alone
-passed two, and Jev alone passed one. With only three discordant pairs, a
-two-sided exact McNemar test is `p = 1.0`; this benchmark does not show a
-statistically detectable quality difference. It also cannot establish
-noninferiority because no noninferiority margin was preregistered.
+Those numbers accurately reproduce the rubric decisions, but the rubric was
+over-specified. All nine failures were on noisy-log configuration incidents.
+Each answer found the correct cause and locations and proposed a valid bounded
+correction and regression check. The fixtures said only that the setting was
+invalid; they provided no validator, accepted range, rejected literal, or zero
+semantics. The original task definition explicitly accepted a valid supported
+setting and requested only a regression check. The later semantic rubric added
+mandatory positive/nonzero wording and an explicit zero-invalid versus
+positive-success test.
 
-All nine semantic failures were on noisy-log configuration incidents. Each
-answer found the correct cause and locations; failures came from omitting an
-explicit positive/nonzero constraint or the corresponding boundary test. This
-is actionable product evidence: the selected incident packet or Codex-facing
-instruction should make remediation constraints and regression cases harder to
-drop.
+Removing only those unsupported penalties, while retaining every other review
+judgment, produces the evidence-grounded retrospective result:
+
+| Arm | Corrected semantic passes | Rate |
+|---|---:|---:|
+| Stock | 36/36 | 100% |
+| Local | 36/36 | 100% |
+| Jev | 36/36 | 100% |
+
+The original stock-versus-Jev rubric comparison contained two stock-only passes
+and one Jev-only pass, rather than one isolated Jev error. Its two-sided exact
+McNemar result was `p = 1.0`. More importantly, direct inspection shows that all
+three Jev answers contained the task-supported remediation and test evidence;
+the supposedly omitted constraint did not exist in the full source material.
+This audit therefore finds no substantive quality loss attributable to Jev in
+these runs.
 
 ## Decision
 
 The benchmark confirms the efficiency effect: the 95% input-saving intervals
 are above zero against both stock and local selection, and combined Jev cost is
-lower than both. The full preregistered confirmation flag is false because its
-correctness rule allowed no regression at all and Jev finished one semantic
-answer behind stock.
+lower than both. Under the corrected evidence-grounded quality assessment, Jev
+also has no observed answer-quality regression: all arms are 36/36. Because the
+rubric correction is retrospective and the semantic procedure was frozen only
+after Block 1, this is not presented as a newly preregistered quality result.
+It is the corrected interpretation of the completed benchmark evidence.
 
 A defensible public claim is:
 
 > In a 108-run synthetic Codex investigation benchmark, Jev selection reduced
 > paired input tokens by 39.2% versus stock Codex (95% CI 19.4% to 56.2%) and
-> 7.9% versus deterministic local selection (95% CI 4.1% to 12.0%), while
-> semantic correctness was 91.7%, compared with 94.4% for stock and 88.9% for
-> local selection.
+> 7.9% versus deterministic local selection (95% CI 4.1% to 12.0%). A
+> source-grounded audit corrected an over-specified secondary rubric and found
+> 36/36 substantively correct answers for Jev, stock, and local selection.
 
-The next confirmation should freeze semantic review before any measured block,
-add more noisy-log tasks, and preregister a justified noninferiority margin. An
+The next confirmation should freeze the evidence-grounded semantic rubric
+before any measured block and preregister a justified noninferiority margin. An
 independent real-repository replication is still required before presenting
-these percentages as universal Codex savings.
+these percentages or equal observed correctness as universal Codex behavior.
