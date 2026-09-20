@@ -1,11 +1,11 @@
 import assert from 'node:assert/strict';
-import { mkdtemp, rm } from 'node:fs/promises';
+import { mkdtemp, rm, stat } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import test from 'node:test';
 import { readLargeTextEvidence, searchWorkspaceEvidence } from '../src/evidence-service.mjs';
 import { ARMS, REPETITIONS, TASKS, createFixtures, gradeAnswer, makePlan, promptLeaksOracle } from './confirmation-v1-tasks.mjs';
-import { BLOCK_RUNS, TOTAL_RUNS, codexArgs, evidenceSupportsFrozenFacts, mockJev, pairedBootstrap, parseEvents, promptFor, taskInput, toolPolicy } from './confirmation-v1.mjs';
+import { BLOCK_RUNS, TOTAL_RUNS, codexArgs, createExecutionRoot, evidenceSupportsFrozenFacts, mockJev, pairedBootstrap, parseEvents, promptFor, taskInput, toolPolicy } from './confirmation-v1.mjs';
 
 test('confirmation plan has twelve holdouts, three categories each, and 108 balanced runs', () => {
   assert.equal(TASKS.length, 12);
@@ -107,4 +107,15 @@ test('paired bootstrap reports positive and negative task-level effects correctl
   const loss = pairedBootstrap([{ stock: 100, jev: 120 }, { stock: 200, jev: 230 }, { stock: 80, jev: 90 }], 2_000);
   assert.ok(loss.estimatePercent < 0);
   assert.ok(loss.upper95Percent < 0);
+});
+
+test('preparation creates the required execution root before a measured block', async () => {
+  const root = await mkdtemp(join(tmpdir(), 'jev-confirmation-layout-'));
+  try {
+    await createExecutionRoot(root);
+    assert.equal((await stat(join(root, 'executions'))).isDirectory(), true);
+    await assert.rejects(createExecutionRoot(root), /EEXIST/);
+  } finally {
+    await rm(root, { recursive: true, force: true });
+  }
 });

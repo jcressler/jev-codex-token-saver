@@ -189,6 +189,10 @@ export function makeMonitor(arm) {
   };
 }
 
+async function createExecutionRoot(runDir) {
+  await mkdir(join(runDir, 'executions'), { recursive: false });
+}
+
 async function prepare(runDir, codexBinary) {
   if (!codexBinary) throw new Error('--codex-binary is required');
   const gitHead = assertCleanGit();
@@ -196,6 +200,7 @@ async function prepare(runDir, codexBinary) {
   const version = spawnSync(binary, ['--version'], { cwd: repoRoot, encoding: 'utf8', windowsHide: true });
   if (version.status !== 0 || version.stdout.trim() !== CODEX_VERSION) throw new Error(`expected ${CODEX_VERSION}, got ${version.stdout.trim() || version.stderr.trim()}`);
   await mkdir(runDir, { recursive: false });
+  await createExecutionRoot(runDir);
   const fixturesRoot = join(runDir, 'fixtures');
   const fixtureHashes = await createFixtures(fixturesRoot);
   await atomicJson(join(runDir, 'schema.json'), OUTPUT_SCHEMA);
@@ -413,4 +418,4 @@ async function main() {
 
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) main().catch(error => { process.stderr.write(`${error.stack ?? error}\n`); process.exitCode = 1; });
 
-export { BLOCK_RUNS, BLOCK_BUDGET, CODEX_VERSION, MODEL, TOTAL_RUNS, blockBudgetExceeded, evidenceSupportsFrozenFacts, mockJev, taskInput };
+export { BLOCK_RUNS, BLOCK_BUDGET, CODEX_VERSION, MODEL, TOTAL_RUNS, blockBudgetExceeded, createExecutionRoot, evidenceSupportsFrozenFacts, mockJev, taskInput };
