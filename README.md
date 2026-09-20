@@ -136,10 +136,13 @@ promising two-task result, not a universal savings claim. The next
 [controlled evaluation protocol](docs/NEXT-EVALUATION.md) calls for repetitions
 before generalizing the percentage.
 
-The prospective [confirmation evaluation](docs/CONFIRMATION-V1.md) freezes 12
-new tasks, three repetitions, randomized task blocks, rotated arm order,
-task-level confidence intervals, correctness gates, and combined-cost gates.
-Its measured blocks have not been launched.
+The first confirmation block was [invalidated after seven launches](docs/CONFIRMATION-V1-INVALID-2026-09-19.md)
+when a brittle deterministic grader rejected a correct paraphrase. Its first two
+complete task comparisons remain descriptive only. The prospective
+[confirmation v2 evaluation](docs/CONFIRMATION-V2.md) replaces the three exposed
+tasks and records correctness as an outcome instead of treating it as an
+execution failure. It retains the 12-task, three-repetition, rotated-arm design,
+task-level confidence intervals, and combined-cost gates.
 
 ## Troubleshoot or remove
 

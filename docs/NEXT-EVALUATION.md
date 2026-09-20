@@ -1,9 +1,10 @@
 # Frozen next controlled evaluation
 
 Status: corrected pilot completed and passed; full repeated evaluation not
-launched. See the [invalid pilot audit](GATEWAY-PILOT-2026-09-19.md) and the
-[corrected result](GATEWAY-PILOT-CORRECTED-2026-09-19.md). The implemented
-12-task successor is the [confirmation v1 protocol](CONFIRMATION-V1.md).
+launched. See the [invalid pilot audit](GATEWAY-PILOT-2026-09-19.md), the
+[corrected result](GATEWAY-PILOT-CORRECTED-2026-09-19.md), and the
+[invalid confirmation v1 block](CONFIRMATION-V1-INVALID-2026-09-19.md). The
+implemented successor is the [confirmation v2 protocol](CONFIRMATION-V2.md).
 
 The next benchmark compares three arms on the same larger investigation tasks:
 
@@ -36,7 +37,8 @@ least 20% versus stock with no correctness regression. Report total cost using
 the actual Codex and Jev prices in effect on the run date. Local and Jev arms must
 use the same candidate construction and response caps. Any auth failure,
 configuration drift, fixture drift, hidden retry, or missing usage field
-invalidates that run rather than being imputed.
+invalidates that run rather than being imputed. A correctness miss is recorded
+as a measured result and does not abort the remaining executions.
 
 Run a two-task pilot first. Inspect the recorded commands and event logs before
 authorizing the full matrix. Do not reuse profiles or launch duplicate batches.
