@@ -2984,7 +2984,7 @@ var require_compile = __commonJS({
       const schOrFunc = root.refs[ref];
       if (schOrFunc)
         return schOrFunc;
-      let _sch = resolve3.call(this, root, ref);
+      let _sch = resolve4.call(this, root, ref);
       if (_sch === void 0) {
         const schema = (_a3 = root.localRefs) === null || _a3 === void 0 ? void 0 : _a3[ref];
         const { schemaId } = this.opts;
@@ -3011,7 +3011,7 @@ var require_compile = __commonJS({
     function sameSchemaEnv(s1, s2) {
       return s1.schema === s2.schema && s1.root === s2.root && s1.baseId === s2.baseId;
     }
-    function resolve3(root, ref) {
+    function resolve4(root, ref) {
       let sch;
       while (typeof (sch = this.refs[ref]) == "string")
         ref = sch;
@@ -3841,7 +3841,7 @@ var require_fast_uri = __commonJS({
       }
       return uri;
     }
-    function resolve3(baseURI, relativeURI, options) {
+    function resolve4(baseURI, relativeURI, options) {
       const schemelessOptions = options ? Object.assign({ scheme: "null" }, options) : { scheme: "null" };
       const {
         parsed: baseParsed,
@@ -4210,7 +4210,7 @@ var require_fast_uri = __commonJS({
     var fastUri = {
       SCHEMES,
       normalize,
-      resolve: resolve3,
+      resolve: resolve4,
       resolveComponent,
       equal,
       serialize,
@@ -7198,6 +7198,11 @@ var require_dist = __commonJS({
     exports.default = formatsPlugin;
   }
 });
+
+// src/mcp-server.mjs
+import { randomUUID as randomUUID2 } from "node:crypto";
+import { mkdir, writeFile } from "node:fs/promises";
+import { resolve as resolve3 } from "node:path";
 
 // node_modules/zod/v3/helpers/util.js
 var util;
@@ -15857,7 +15862,7 @@ var recursive = /* @__PURE__ */ new WeakMap();
 var NONE = 0;
 var ASSUMED = 1;
 var PROVEN = 2;
-function isRecursive(inst, stack, resolve3) {
+function isRecursive(inst, stack, resolve4) {
   const cached2 = recursive.get(inst);
   if (cached2 !== void 0)
     return cached2 ? PROVEN : NONE;
@@ -15867,7 +15872,7 @@ function isRecursive(inst, stack, resolve3) {
   let result = NONE;
   const check2 = (child) => {
     if (result !== PROVEN && child?._zod) {
-      const answer = isRecursive(child, stack, resolve3);
+      const answer = isRecursive(child, stack, resolve4);
       if (answer > result)
         result = answer;
     }
@@ -15878,7 +15883,7 @@ function isRecursive(inst, stack, resolve3) {
       const desc = Object.getOwnPropertyDescriptor(sh, key);
       if (spread && !desc.enumerable)
         continue;
-      const child = desc.get ? ASSUMED : desc.value?._zod ? isRecursive(desc.value, stack, resolve3) : NONE;
+      const child = desc.get ? ASSUMED : desc.value?._zod ? isRecursive(desc.value, stack, resolve4) : NONE;
       if (child > answer)
         answer = child;
     }
@@ -15942,7 +15947,7 @@ function isRecursive(inst, stack, resolve3) {
       break;
     // `$ZodLazy` caches its inner on the def, so a resolved edge is followed exactly
     case "lazy": {
-      const inner = def._cachedInner ?? (resolve3 ? inst._zod.innerType : void 0);
+      const inner = def._cachedInner ?? (resolve4 ? inst._zod.innerType : void 0);
       merge2(inner ? isRecursive(inner, stack, false) : ASSUMED);
       break;
     }
@@ -34350,7 +34355,7 @@ var Protocol = class {
           return;
         }
         const pollInterval = task2.pollInterval ?? this._options?.defaultTaskPollInterval ?? 1e3;
-        await new Promise((resolve3) => setTimeout(resolve3, pollInterval));
+        await new Promise((resolve4) => setTimeout(resolve4, pollInterval));
         options?.signal?.throwIfAborted();
       }
     } catch (error62) {
@@ -34367,7 +34372,7 @@ var Protocol = class {
    */
   request(request, resultSchema, options) {
     const { relatedRequestId, resumptionToken, onresumptiontoken, task, relatedTask } = options ?? {};
-    return new Promise((resolve3, reject) => {
+    return new Promise((resolve4, reject) => {
       const earlyReject = (error62) => {
         reject(error62);
       };
@@ -34445,7 +34450,7 @@ var Protocol = class {
           if (!parseResult.success) {
             reject(parseResult.error);
           } else {
-            resolve3(parseResult.data);
+            resolve4(parseResult.data);
           }
         } catch (error62) {
           reject(error62);
@@ -34706,12 +34711,12 @@ var Protocol = class {
       }
     } catch {
     }
-    return new Promise((resolve3, reject) => {
+    return new Promise((resolve4, reject) => {
       if (signal.aborted) {
         reject(new McpError(ErrorCode.InvalidRequest, "Request cancelled"));
         return;
       }
-      const timeoutId = setTimeout(resolve3, interval);
+      const timeoutId = setTimeout(resolve4, interval);
       signal.addEventListener("abort", () => {
         clearTimeout(timeoutId);
         reject(new McpError(ErrorCode.InvalidRequest, "Request cancelled"));
@@ -35802,7 +35807,7 @@ var McpServer = class {
     let task = createTaskResult.task;
     const pollInterval = task.pollInterval ?? 5e3;
     while (task.status !== "completed" && task.status !== "failed" && task.status !== "cancelled") {
-      await new Promise((resolve3) => setTimeout(resolve3, pollInterval));
+      await new Promise((resolve4) => setTimeout(resolve4, pollInterval));
       const updatedTask = await extra.taskStore.getTask(taskId);
       if (!updatedTask) {
         throw new McpError(ErrorCode.InternalError, `Task ${taskId} not found during polling`);
@@ -36466,12 +36471,12 @@ var StdioServerTransport = class {
     this.onclose?.();
   }
   send(message) {
-    return new Promise((resolve3) => {
+    return new Promise((resolve4) => {
       const json2 = serializeMessage(message);
       if (this._stdout.write(json2)) {
-        resolve3();
+        resolve4();
       } else {
-        this._stdout.once("drain", resolve3);
+        this._stdout.once("drain", resolve4);
       }
     });
   }
@@ -37295,6 +37300,36 @@ function errorResult(error62) {
   const message = error62 instanceof Error ? error62.message : "Unexpected evidence tool failure";
   return { isError: true, content: [{ type: "text", text: message }] };
 }
+async function measuredResult(input2, operation) {
+  const diagnosticsDirectory = process.env.JEV_CODEX_DIAGNOSTICS_DIR?.trim();
+  const exposeDiagnostics = input2.includeDiagnostics === true;
+  const value = await operation({
+    ...input2,
+    includeDiagnostics: exposeDiagnostics || Boolean(diagnosticsDirectory)
+  });
+  if (diagnosticsDirectory) {
+    const directory = resolve3(diagnosticsDirectory);
+    await mkdir(directory, { recursive: true });
+    const record2 = {
+      recordedAt: (/* @__PURE__ */ new Date()).toISOString(),
+      mode: value.mode,
+      warnings: value.warnings,
+      metrics: value.metrics,
+      diagnostics: value.diagnostics
+    };
+    await writeFile(
+      resolve3(directory, `${Date.now()}-${randomUUID2()}.json`),
+      `${JSON.stringify(record2, null, 2)}
+`,
+      { encoding: "utf8", flag: "wx" }
+    );
+  }
+  if (!exposeDiagnostics && value.diagnostics) {
+    const { diagnostics: _diagnostics, ...compactValue } = value;
+    return toolResult(compactValue);
+  }
+  return toolResult(value);
+}
 var server = new McpServer(
   { name: "jev-codex-token-saver", version: "0.3.0" },
   { instructions: "For one investigation, make one search or large-text call. Obey all schema caps. Do not reformulate or retry if Jev returns no evidence or a tool rejects input; report that result. Use read_selected_evidence for wider context from a selected path." }
@@ -37315,7 +37350,7 @@ server.registerTool("search_workspace_evidence", {
   annotations: { readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false }
 }, async (input2) => {
   try {
-    return toolResult(await searchWorkspaceEvidence(input2));
+    return await measuredResult(input2, searchWorkspaceEvidence);
   } catch (error62) {
     return errorResult(error62);
   }
@@ -37335,7 +37370,7 @@ server.registerTool("read_large_text_evidence", {
   annotations: { readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false }
 }, async (input2) => {
   try {
-    return toolResult(await readLargeTextEvidence(input2));
+    return await measuredResult(input2, readLargeTextEvidence);
   } catch (error62) {
     return errorResult(error62);
   }

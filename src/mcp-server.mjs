@@ -1,4 +1,7 @@
 #!/usr/bin/env node
+import { randomUUID } from 'node:crypto';
+import { mkdir, writeFile } from 'node:fs/promises';
+import { resolve } from 'node:path';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import { z } from 'zod';
@@ -18,6 +21,38 @@ function toolResult(value) {
 function errorResult(error) {
   const message = error instanceof Error ? error.message : 'Unexpected evidence tool failure';
   return { isError: true, content: [{ type: 'text', text: message }] };
+}
+
+async function measuredResult(input, operation) {
+  const diagnosticsDirectory = process.env.JEV_CODEX_DIAGNOSTICS_DIR?.trim();
+  const exposeDiagnostics = input.includeDiagnostics === true;
+  const value = await operation({
+    ...input,
+    includeDiagnostics: exposeDiagnostics || Boolean(diagnosticsDirectory),
+  });
+
+  if (diagnosticsDirectory) {
+    const directory = resolve(diagnosticsDirectory);
+    await mkdir(directory, { recursive: true });
+    const record = {
+      recordedAt: new Date().toISOString(),
+      mode: value.mode,
+      warnings: value.warnings,
+      metrics: value.metrics,
+      diagnostics: value.diagnostics,
+    };
+    await writeFile(
+      resolve(directory, `${Date.now()}-${randomUUID()}.json`),
+      `${JSON.stringify(record, null, 2)}\n`,
+      { encoding: 'utf8', flag: 'wx' },
+    );
+  }
+
+  if (!exposeDiagnostics && value.diagnostics) {
+    const { diagnostics: _diagnostics, ...compactValue } = value;
+    return toolResult(compactValue);
+  }
+  return toolResult(value);
 }
 
 const server = new McpServer(
@@ -40,7 +75,7 @@ server.registerTool('search_workspace_evidence', {
   },
   annotations: { readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false },
 }, async (input) => {
-  try { return toolResult(await searchWorkspaceEvidence(input)); } catch (error) { return errorResult(error); }
+  try { return await measuredResult(input, searchWorkspaceEvidence); } catch (error) { return errorResult(error); }
 });
 
 server.registerTool('read_large_text_evidence', {
@@ -57,7 +92,7 @@ server.registerTool('read_large_text_evidence', {
   },
   annotations: { readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false },
 }, async (input) => {
-  try { return toolResult(await readLargeTextEvidence(input)); } catch (error) { return errorResult(error); }
+  try { return await measuredResult(input, readLargeTextEvidence); } catch (error) { return errorResult(error); }
 });
 
 server.registerTool('read_selected_evidence', {

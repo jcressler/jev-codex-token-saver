@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "status": "invalid",
+  "criterionEvaluable": false,
+  "model": "gpt-5.6-sol",
+  "reasoningEffort": "high",
+  "codexCli": "0.155.1",
+  "plannedRuns": 6,
+  "validRecordedRuns": 5,
+  "invalidRuns": 1,
+  "retries": 0,
+  "invalidReasons": [
+    "The frozen task requirements disclosed oracle facts, so correct answers did not prove retrieval.",
+    "The stock arm used the Windows read-only sandbox with approval_policy=never; its read commands were blocked by policy.",
+    "The second stock run timed out after 300184 ms, emitted no turn.completed usage, and logged 2366 apply_patch verification failures."
+  ],
+  "runs": [
+    { "task": "checkout-log-incident", "arm": "stock", "validRecord": true, "inputTokens": 109323, "cachedInputTokens": 90752, "outputTokens": 1868, "elapsedMs": 56802, "correctByLeakyGrader": true },
+    { "task": "checkout-log-incident", "arm": "local", "validRecord": true, "inputTokens": 74633, "cachedInputTokens": 49920, "outputTokens": 735, "elapsedMs": 21989, "correctByLeakyGrader": true },
+    { "task": "checkout-log-incident", "arm": "jev", "validRecord": true, "inputTokens": 57053, "cachedInputTokens": 54016, "outputTokens": 760, "elapsedMs": 24767, "correctByLeakyGrader": true, "jevInputTokens": 14988, "jevOutputTokens": 1404, "jevLatencyMs": 749 },
+    { "task": "tenant-cache-leak", "arm": "local", "validRecord": true, "inputTokens": 58484, "cachedInputTokens": 41984, "outputTokens": 707, "elapsedMs": 24211, "correctByLeakyGrader": true },
+    { "task": "tenant-cache-leak", "arm": "jev", "validRecord": true, "inputTokens": 58488, "cachedInputTokens": 41984, "outputTokens": 819, "elapsedMs": 26230, "correctByLeakyGrader": true, "jevInputTokens": 7313, "jevOutputTokens": 1404, "jevLatencyMs": 566 },
+    { "task": "tenant-cache-leak", "arm": "stock", "validRecord": false, "timedOut": true, "elapsedMs": 300184, "usage": null, "applyPatchVerificationFailures": 2366 }
+  ],
+  "descriptiveOnly": {
+    "jevVersusLocalAcrossTwoTasks": {
+      "codexInputTokenReductionPercent": 13.2034,
+      "codexOutputTokenChangePercent": 9.5007,
+      "elapsedTimeChangePercent": 10.3831,
+      "apiEquivalentCostReductionPercentIncludingJev": 35.3099
+    },
+    "jevSelector": {
+      "requests": 2,
+      "model": "jev-1.13.0",
+      "inputTokens": 22301,
+      "outputTokens": 2808,
+      "latencyMs": 1315,
+      "costUsd": 0.000936642
+    }
+  },
+  "pricing": {
+    "codexApiEquivalent": { "inputUsdPerMillion": 4, "cachedInputUsdPerMillion": 0.4, "outputUsdPerMillion": 20, "source": "https://developers.openai.com/api/docs/models/gpt-5.6-sol" },
+    "jev": { "inputUsdPerMillion": 0.042, "outputUsdPerMillion": 0, "source": "https://typesafe.ai/blog/introducing-system-one-models-and-jev" }
+  }
+}

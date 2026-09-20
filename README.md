@@ -127,8 +127,11 @@ response fallback, workspace and sensitive-path exclusions, plugin config, MCP
 discovery, and a real stdio tool call.
 
 The [architecture notes](docs/ARCHITECTURE.md) describe the trust boundary and
-selection flow. The [next controlled evaluation](docs/NEXT-EVALUATION.md) is
-frozen but intentionally not launched.
+selection flow. The first six-run gateway pilot was
+[invalidated and audited](docs/GATEWAY-PILOT-2026-09-19.md); its descriptive
+numbers are published, but they are not presented as proof. The corrected
+[controlled evaluation protocol](docs/NEXT-EVALUATION.md) retains the same
+20% no-regression success criterion.
 
 ## Troubleshoot or remove
 

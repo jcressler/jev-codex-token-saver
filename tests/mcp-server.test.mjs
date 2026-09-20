@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
-import { readFile } from 'node:fs/promises';
+import { mkdtemp, readFile, readdir, rm } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import test from 'node:test';
@@ -18,11 +19,15 @@ test('plugin config declares the local server and inherits only the Jev key', as
 });
 
 test('stdio MCP server discovers all tools and executes a real tool call', async () => {
+  const diagnosticsDirectory = await mkdtemp(join(tmpdir(), 'jev-mcp-diagnostics-'));
   const transport = new StdioClientTransport({
     command: process.execPath,
     args: ['./dist/server.mjs'],
     cwd: repoRoot,
-    env: { PATH: process.env.PATH ?? '' },
+    env: {
+      PATH: process.env.PATH ?? '',
+      JEV_CODEX_DIAGNOSTICS_DIR: diagnosticsDirectory,
+    },
     stderr: 'pipe',
   });
   const client = new Client({ name: 'jev-token-saver-test', version: '1.0.0' });
@@ -41,6 +46,7 @@ test('stdio MCP server discovers all tools and executes a real tool call', async
     });
     assert.equal(called.isError, undefined);
     assert.equal(called.structuredContent.mode, 'bypass');
+    assert.equal(called.structuredContent.diagnostics, undefined);
     assert.ok(called.structuredContent.evidence.length > 0);
     assert.equal(typeof called.structuredContent.sessionId, 'string');
     const selected = called.structuredContent.evidence[0];
@@ -56,7 +62,13 @@ test('stdio MCP server discovers all tools and executes a real tool call', async
     assert.equal(followUp.isError, undefined);
     assert.equal(followUp.structuredContent.path, selected.path);
     assert.deepEqual(followUp.structuredContent.lines, { start: 1, end: 5 });
+    const diagnosticFiles = await readdir(diagnosticsDirectory);
+    assert.equal(diagnosticFiles.length, 1);
+    const diagnostic = JSON.parse(await readFile(join(diagnosticsDirectory, diagnosticFiles[0]), 'utf8'));
+    assert.equal(diagnostic.mode, 'bypass');
+    assert.equal(typeof diagnostic.metrics.candidatesConsidered, 'number');
   } finally {
     await client.close();
+    await rm(diagnosticsDirectory, { recursive: true, force: true });
   }
 });

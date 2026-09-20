@@ -1,6 +1,7 @@
 # Frozen next controlled evaluation
 
-Status: prepared, not launched.
+Status: corrected after an invalid pilot; not relaunched. See the
+[pilot audit](GATEWAY-PILOT-2026-09-19.md).
 
 The next benchmark compares three arms on the same larger investigation tasks:
 
@@ -14,6 +15,10 @@ The fixture and expected-answer oracle are frozen before any arm runs. Each arm
 uses Sol High, the same reasoning effort, a fresh authenticated Codex task, the
 same task prompt, and the same execution timeout. Arm labels remain hidden from
 the correctness grader.
+
+Task requirements describe only the categories of facts to retrieve. They must
+not contain oracle values. The stock command path is preflighted under its actual
+execution policy, and any tool-router error invalidates the run immediately.
 
 Record for every run:
 
