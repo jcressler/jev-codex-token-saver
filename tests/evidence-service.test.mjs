@@ -93,6 +93,188 @@ test('eligible noisy large text uses Jev and returns the lower-noise causal bloc
   }
 });
 
+test('a targeted second Jev pass can recover an initially omitted source in its own session', async () => {
+  const root = await tempWorkspace('jev-recovery-');
+  let requests = 0;
+  try {
+    await Promise.all([
+      writeFile(join(root, 'src', 'startup.ts'), [
+        'export function startInventory(config) {',
+        '  return createInventoryPool(config.poolSize);',
+        '}',
+        '// inventory pool startup validation configuration',
+        ...Array.from({ length: 80 }, (_, index) => `// inventory pool startup trace ${index}`),
+      ].join('\n')),
+      writeFile(join(root, 'src', 'pool-policy.ts'), [
+        'export function createInventoryPool(poolSize) {',
+        '  validatePoolSize(poolSize);',
+        '  return connectPool(poolSize);',
+        '}',
+        'export function validatePoolSize(value) {',
+        '  if (!Number.isInteger(value)) throw new PoolConfigurationError();',
+        '}',
+        '// inventory pool startup validation configuration',
+        ...Array.from({ length: 80 }, (_, index) => `// pool size validation note ${index}`),
+      ].join('\n')),
+      ...Array.from({ length: 8 }, (_, fileIndex) => writeFile(
+        join(root, 'src', `pool-notes-${fileIndex}.txt`),
+        Array.from({ length: 90 }, (_, lineIndex) =>
+          `inventory pool startup validation configuration note file=${fileIndex} line=${lineIndex} ` +
+          'historical diagnostic context contains no validator implementation or accepted-value contract').join('\n'),
+      )),
+    ]);
+
+    const ask = async (state) => {
+      requests += 1;
+      const answers = {};
+      state.candidates.forEach((candidate, index) => {
+        const select = requests === 1
+          ? candidate.path === 'src/startup.ts'
+          : candidate.path === 'src/pool-policy.ts';
+        answers[`relevance_${index}`] = { noul: select ? 0.99 : 0.1 };
+        state.requirements.forEach((_requirement, requirementIndex) => {
+          answers[`requirement_${requirementIndex}_${index}`] = { noul: select ? 0.98 : 0.08 };
+        });
+      });
+      return { model: 'synthetic-jev', answers, usage: { input_tokens: 500, output_tokens: 20 } };
+    };
+
+    const initial = await searchWorkspaceEvidence({
+      workspaceRoot: root,
+      query: 'inventory pool startup configuration',
+      requirements: ['find the startup call'],
+      resultLimit: 1,
+    }, { ask });
+    assert.equal(initial.mode, 'jev');
+    assert.equal(initial.metrics.jevRequests, 1);
+    assert.equal(initial.evidence[0].path, 'src/startup.ts');
+    await assert.rejects(
+      readSelectedEvidence({ sessionId: initial.sessionId, path: 'src/pool-policy.ts', complete: true }),
+      /not selected/,
+    );
+
+    const recovery = await searchWorkspaceEvidence({
+      workspaceRoot: root,
+      query: 'pool size validation policy',
+      requirements: ['find the validator implementation'],
+      resultLimit: 1,
+    }, { ask });
+    assert.equal(recovery.mode, 'jev');
+    assert.equal(recovery.metrics.jevRequests, 1);
+    assert.equal(requests, 2);
+    assert.equal(recovery.evidence[0].path, 'src/pool-policy.ts');
+    assert.notEqual(recovery.sessionId, initial.sessionId);
+
+    const exact = await readSelectedEvidence({
+      sessionId: recovery.sessionId,
+      path: 'src/pool-policy.ts',
+      startLine: 1,
+      endLine: 8,
+    });
+    assert.match(exact.content, /validatePoolSize/);
+    assert.match(exact.content, /PoolConfigurationError/);
+  } finally {
+    await rm(root, { recursive: true, force: true });
+  }
+});
+
+test('two bounded Jev passes can remain unresolved without exposing weak candidates', async () => {
+  const root = await tempWorkspace('jev-recovery-empty-');
+  let requests = 0;
+  try {
+    await Promise.all(Array.from({ length: 8 }, (_, fileIndex) => writeFile(
+      join(root, 'src', `unknown-${fileIndex}.txt`),
+      Array.from({ length: 100 }, (_, lineIndex) =>
+        `inventory pool validation unknown file=${fileIndex} line=${lineIndex} ` +
+        'historical diagnostic context contains no accepted value contract or validator source').join('\n'),
+    )));
+    const ask = async (state) => {
+      requests += 1;
+      const answers = {};
+      state.candidates.forEach((_candidate, index) => {
+        answers[`relevance_${index}`] = { noul: 0.1 };
+        state.requirements.forEach((_requirement, requirementIndex) => {
+          answers[`requirement_${requirementIndex}_${index}`] = { noul: 0.1 };
+        });
+      });
+      return { model: 'synthetic-jev', answers, usage: { input_tokens: 400, output_tokens: 20 } };
+    };
+
+    for (const query of ['inventory pool validation', 'missing validator contract']) {
+      const result = await searchWorkspaceEvidence({
+        workspaceRoot: root,
+        query,
+        requirements: ['find the accepted value contract'],
+      }, { ask });
+      assert.equal(result.mode, 'jev');
+      assert.equal(result.metrics.jevRequests, 1);
+      assert.deepEqual(result.evidence, []);
+    }
+    assert.equal(requests, 2);
+  } finally {
+    await rm(root, { recursive: true, force: true });
+  }
+});
+
+test('an empty initial Jev result can recover evidence with a changed missing-fact query', async () => {
+  const root = await tempWorkspace('jev-recovery-from-empty-');
+  let requests = 0;
+  try {
+    const lines = Array.from({ length: 1_200 }, (_, index) =>
+      `inventory startup evidence pool validator contract historical note item=${index}`);
+    lines.splice(730, 0,
+      'The accepted pool-size contract is implemented by validatePoolSize.',
+      'validatePoolSize rejects values that are not integers before pool startup.');
+    await writeFile(join(root, 'inventory.log'), lines.join('\n'));
+
+    const ask = async (state) => {
+      requests += 1;
+      const answers = {};
+      state.candidates.forEach((candidate, index) => {
+        const select = requests === 2 && candidate.excerpt.includes('accepted pool-size contract');
+        answers[`relevance_${index}`] = { noul: select ? 0.99 : 0.1 };
+        state.requirements.forEach((_requirement, requirementIndex) => {
+          answers[`requirement_${requirementIndex}_${index}`] = { noul: select ? 0.98 : 0.08 };
+        });
+      });
+      return { model: 'synthetic-jev', answers, usage: { input_tokens: 450, output_tokens: 20 } };
+    };
+
+    const initial = await readLargeTextEvidence({
+      workspaceRoot: root,
+      path: 'inventory.log',
+      query: 'inventory startup evidence',
+      requirements: ['find the direct failure'],
+      resultLimit: 2,
+    }, { ask });
+    assert.equal(initial.mode, 'jev');
+    assert.deepEqual(initial.evidence, []);
+
+    const recovery = await readLargeTextEvidence({
+      workspaceRoot: root,
+      path: 'inventory.log',
+      query: 'pool validator contract',
+      requirements: ['find the accepted value contract'],
+      resultLimit: 2,
+    }, { ask });
+    assert.equal(recovery.mode, 'jev');
+    assert.equal(requests, 2);
+    assert.equal(recovery.evidence.some((item) => item.excerpt.includes('accepted pool-size contract')), true);
+    assert.notEqual(recovery.sessionId, initial.sessionId);
+
+    const selected = recovery.evidence.find((item) => item.excerpt.includes('accepted pool-size contract'));
+    const exact = await readSelectedEvidence({
+      sessionId: recovery.sessionId,
+      path: selected.path,
+      startLine: selected.lines.start,
+      endLine: selected.lines.end,
+    });
+    assert.match(exact.content, /validatePoolSize/);
+  } finally {
+    await rm(root, { recursive: true, force: true });
+  }
+});
+
 test('critical errors and their stack traces survive selection', async () => {
   const root = await tempWorkspace('jev-critical-');
   try {

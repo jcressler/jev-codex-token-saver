@@ -33,7 +33,7 @@ test('stdio MCP server discovers all tools and executes a real tool call', async
   const client = new Client({ name: 'jev-token-saver-test', version: '1.0.0' });
   try {
     await client.connect(transport);
-    assert.match(client.getInstructions(), /Do not reformulate or retry/);
+    assert.match(client.getInstructions(), /at most one targeted recovery selection/);
     const listed = await client.listTools();
     assert.deepEqual(listed.tools.map((tool) => tool.name).sort(), [
       'read_large_text_evidence',

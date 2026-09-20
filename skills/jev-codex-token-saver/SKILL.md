@@ -20,14 +20,27 @@ small packets report `bypass`, and unavailable or invalid Jev responses report
 
 Use `read_selected_evidence` with the returned session ID for a wider bounded
 line range or a complete selected small file. The end line is capped safely at
-EOF and the range limit. Do this before edits or consequential claims when the
-selected excerpt does not provide enough context. The follow-up tool can only
-read paths selected in that session.
+EOF and the range limit. Do this before another selection when a selected source
+can supply the missing context. The follow-up tool can only read paths selected
+in that session.
 
-Make at most one search or large-text call for an investigation. Do not
-reformulate or retry when Jev returns no evidence or the tool rejects an input;
-report that result. After a successful selection, use only
-`read_selected_evidence` for additional context.
+Start with one search or large-text selection pass. When its selected evidence
+is sufficient, answer without another pass. When it is empty, contradictory,
+materially truncated, or missing a fact required for the answer, state the exact
+missing fact and what clue from the first pass supports another lookup. Make at
+most one targeted recovery selection with a changed query, requirements, or
+target file. Use `search_workspace_evidence` for additional sources or
+`read_large_text_evidence` for another known large file. The recovery result has
+its own session ID for exact follow-up reads.
+
+Do not repeat the same selection request, inflate every cap, or make more than
+two selection passes for one investigation. If the first pass reports that Jev
+failed and deterministic local fallback was used, do not make another Jev
+attempt. Work from the returned fallback evidence and report any unresolved
+gap. If one informed recovery pass still cannot establish the required fact,
+continue with ordinary authorized investigation only when necessary, explain
+the unresolved gap first, and keep that route exceptional. Never infer a fact
+merely because selection did not return it.
 
 Treat `candidateLimit`, `resultLimit`, file-size limits, and scan limits as safety
 caps rather than quotas. Do not inflate a request to reach a cap. Keep

@@ -15,6 +15,7 @@ Codex question
     -> Jev typed evidence selection
     -> a few exact excerpts returned to Codex
     -> optional exact follow-up read
+    -> one targeted Jev recovery pass if a required fact is still missing
 ```
 
 This is not a replacement for native Codex compaction. It does not rewrite
@@ -36,6 +37,14 @@ Small candidate packets bypass Jev. Eligible large packets use Jev when
 `TYPESAFE_API_KEY` is available. Authentication, network, malformed-response, or
 timeout failures make one attempt and then return a clearly labeled local
 fallback. No retry loop is hidden from the user.
+
+When selected evidence is incomplete, Codex can identify the missing fact and
+make one more targeted Jev-assisted selection with a changed question,
+requirements, or known large file. The second pass remains subject to the same
+path and size protections and returns its own session for bounded follow-up
+reads. A sufficient first pass makes no recovery request; a failed Jev attempt
+is not retried. These investigation-wide limits are agent guidance rather than
+cross-call enforcement inside the MCP server.
 
 ## Install
 
@@ -139,8 +148,10 @@ before generalizing the percentage.
 Confirmation v1 was [invalidated by a brittle grader](docs/CONFIRMATION-V1-INVALID-2026-09-19.md),
 V2 by an [overly tight stock safety cap](docs/CONFIRMATION-V2-INVALID-2026-09-19.md),
 and V3 by a [selected read past EOF](docs/CONFIRMATION-V3-INVALID-2026-09-19.md).
-Each remains public and immutable. Plugin 0.3.1 safely caps selected ranges at
-EOF. [Confirmation v4](docs/CONFIRMATION-V4.md) replaced every exposed task and
+Each remains public and immutable. Plugin 0.3.1 safely capped selected ranges at
+EOF. Version 0.3.2 adds one informed Jev recovery pass when required evidence is
+missing; the published v4 savings numbers predate that recovery behavior.
+[Confirmation v4](docs/CONFIRMATION-V4.md) replaced every exposed task and
 retained the 12-task, three-repetition, rotated-arm design, task-level confidence
 intervals, correctness outcomes, and combined-cost gates. Its
 [final 108-run result](docs/CONFIRMATION-V4-FINAL-2026-09-20.md) found a 39.2%

@@ -37333,12 +37333,12 @@ async function measuredResult(input2, operation) {
   return toolResult(value);
 }
 var server = new McpServer(
-  { name: "jev-codex-token-saver", version: "0.3.0" },
-  { instructions: "For one investigation, make one search or large-text call. Obey all schema caps. Do not reformulate or retry if Jev returns no evidence or a tool rejects input; report that result. Use read_selected_evidence for wider context from a selected path." }
+  { name: "jev-codex-token-saver", version: "0.3.2" },
+  { instructions: "Start an investigation with one search or large-text selection pass, then use read_selected_evidence when a selected source can supply missing context. If required evidence is empty, contradictory, materially truncated, or incomplete, identify the exact missing fact and make at most one targeted recovery selection with a changed query, requirements, or target file. Do not repeat a request or inflate caps. If the first pass reports Jev failure and local fallback, do not make another Jev attempt. After one informed recovery pass, report unresolved evidence or use ordinary authorized investigation only when necessary." }
 );
 server.registerTool("search_workspace_evidence", {
   title: "Search workspace evidence with Jev",
-  description: "Searches a local workspace inside one tool call, uses Jev for eligible large candidate packets when TYPESAFE_API_KEY is configured, and returns only selected exact excerpts. Small packets bypass Jev; failures use a visible deterministic fallback.",
+  description: "Searches a local workspace inside one tool call, uses Jev for eligible large candidate packets when TYPESAFE_API_KEY is configured, and returns only selected exact excerpts. It can be used once more with a targeted missing-fact query for bounded recovery. Small packets bypass Jev; failures use a visible deterministic fallback.",
   inputSchema: {
     workspaceRoot: external_exports.string().min(1).describe("Absolute root of the authorized workspace to search."),
     query: external_exports.string().min(1).max(2e3).describe("Concrete investigation question."),
@@ -37359,7 +37359,7 @@ server.registerTool("search_workspace_evidence", {
 });
 server.registerTool("read_large_text_evidence", {
   title: "Read relevant evidence from a large text file",
-  description: "Reads and groups a large local text or log file inside one tool call, preserves critical error and stack-trace blocks, uses Jev for eligible large candidate packets, and returns bounded exact line ranges.",
+  description: "Reads and groups a large local text or log file inside one tool call, preserves critical error and stack-trace blocks, uses Jev for eligible large candidate packets, and returns bounded exact line ranges. It can target one additional known large file during informed recovery.",
   inputSchema: {
     workspaceRoot: external_exports.string().min(1).describe("Absolute root of the authorized workspace."),
     path: external_exports.string().min(1).describe("Workspace-relative text or log path."),

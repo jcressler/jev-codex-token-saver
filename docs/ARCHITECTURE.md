@@ -18,6 +18,9 @@ tool argument or response field.
    metrics. Raw scores are included only when diagnostics are requested.
 7. A short-lived session permits exact follow-up retrieval only for selected
    paths under the same canonical workspace root.
+8. If a required fact remains missing, Codex may make one informed recovery
+   selection with a narrower question, new requirements, or another known large
+   file. That pass creates a separate session and retains all normal caps.
 
 Jev is a selector, not a generator or authorization boundary. A probability
 threshold is a conservative prototype policy and must be calibrated on labeled
@@ -42,6 +45,29 @@ Eligible calls attempt Jev once. A missing key makes zero paid requests. An API,
 authentication, timeout, or malformed-answer failure makes no retry and returns
 deterministic local evidence with `mode: local-fallback` and a warning. Small
 packets use `mode: bypass`; this is normal operation, not a fallback.
+
+## Informed recovery
+
+The initial selection remains the normal path. Codex first expands a selected
+source with `read_selected_evidence` when that can resolve the gap without a new
+selection. A second selection is reserved for an explicit missing fact and must
+change the query, requirements, or target file based on evidence from the first
+pass. It is another bounded tool call: new candidates are gathered locally,
+eligible packets make at most one Jev request, and only selected exact excerpts
+enter Codex context.
+
+The two-pass investigation limit is guidance supplied by the plugin skill and
+MCP server instructions; the MCP process does not maintain cross-call counters.
+Each call independently reports its mode and Jev request count. If the first
+call reports Jev failure and local fallback, the guidance prohibits a second Jev
+attempt. Ordinary authorized investigation remains available after one informed
+recovery pass when the task cannot otherwise be completed, but it is a last
+resort rather than the default recovery route.
+
+Recovery does not widen access. Sensitive-path exclusions, canonical workspace
+checks, symlink rejection, file and packet caps, and session-scoped follow-up
+reads apply unchanged. Failure to select evidence is never proof that the fact
+does not exist.
 
 ## Scope
 

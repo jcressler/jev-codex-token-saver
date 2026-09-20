@@ -1,6 +1,6 @@
 {
   "name": "jev-codex-token-saver",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Bounded Jev evidence selection for token-efficient Codex investigations.",
   "type": "module",
   "license": "MIT",
