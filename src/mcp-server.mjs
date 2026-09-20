@@ -96,8 +96,8 @@ server.registerTool('read_large_text_evidence', {
 });
 
 server.registerTool('read_selected_evidence', {
-  title: 'Read an exact selected source range',
-  description: 'Retrieves an exact bounded line range, or a complete small selected file, from a prior evidence session. It cannot read unselected paths or leave that session workspace.',
+  title: 'Read a bounded selected source range',
+  description: 'Retrieves a bounded line range, capped at the selected file end and the range limit, or a complete small selected file, from a prior evidence session. It cannot read unselected paths or leave that session workspace.',
   inputSchema: {
     sessionId: z.string().uuid().describe('Session identifier returned by a search or large-text tool.'),
     path: z.string().min(1).describe('A path selected by that session.'),

@@ -28,8 +28,8 @@ would otherwise be large.
   returns selected file excerpts.
 - `read_large_text_evidence`: groups a large text or log file, keeps error and
   stack-trace blocks intact, and returns selected line ranges.
-- `read_selected_evidence`: retrieves an exact wider range or complete selected
-  small file from the same bounded session.
+- `read_selected_evidence`: retrieves a wider bounded range or complete selected
+  small file from the same session; ranges stop safely at EOF.
 - A focused skill that tells Codex when to use those tools.
 
 Small candidate packets bypass Jev. Eligible large packets use Jev when
@@ -136,15 +136,14 @@ promising two-task result, not a universal savings claim. The next
 [controlled evaluation protocol](docs/NEXT-EVALUATION.md) calls for repetitions
 before generalizing the percentage.
 
-Confirmation v1 was [invalidated after seven launches](docs/CONFIRMATION-V1-INVALID-2026-09-19.md)
-when a brittle deterministic grader rejected a correct paraphrase. V2 was
-[invalidated after one launch](docs/CONFIRMATION-V2-INVALID-2026-09-19.md) when
-its ten-call stock safety cap proved too tight. The prospective
-[confirmation v3 evaluation](docs/CONFIRMATION-V3.md) replaces every exposed
-task, records correctness as an outcome, and permits up to 30 natural stock
-search calls while assisted arms remain fixed at two gateway calls. It retains
-the 12-task, three-repetition, rotated-arm design, task-level confidence
-intervals, and combined-cost gates.
+Confirmation v1 was [invalidated by a brittle grader](docs/CONFIRMATION-V1-INVALID-2026-09-19.md),
+V2 by an [overly tight stock safety cap](docs/CONFIRMATION-V2-INVALID-2026-09-19.md),
+and V3 by a [selected read past EOF](docs/CONFIRMATION-V3-INVALID-2026-09-19.md).
+Each remains public and immutable. Plugin 0.3.1 safely caps selected ranges at
+EOF. The prospective [confirmation v4 evaluation](docs/CONFIRMATION-V4.md)
+replaces every exposed task and retains the 12-task, three-repetition,
+rotated-arm design, task-level confidence intervals, correctness outcomes, and
+combined-cost gates.
 
 ## Troubleshoot or remove
 

@@ -47,6 +47,14 @@ test('small workspace search bypasses Jev and supports exact follow-up retrieval
     assert.equal(exact.lines.start, 2);
     assert.match(exact.content, /^2: .*missing checkout api key/m);
     assert.doesNotMatch(exact.content, /^1:/m);
+
+    const throughEof = await readSelectedEvidence({ sessionId: result.sessionId, path: 'src/checkout.ts', startLine: 2, endLine: 20 });
+    assert.deepEqual(throughEof.lines, { start: 2, end: 4 });
+    assert.match(throughEof.content, /^4: }$/m);
+    await assert.rejects(
+      readSelectedEvidence({ sessionId: result.sessionId, path: 'src/checkout.ts', startLine: 3, endLine: 2 }),
+      /greater than or equal to startLine/,
+    );
   } finally {
     await rm(root, { recursive: true, force: true });
   }

@@ -18,10 +18,11 @@ candidate packets use Jev automatically when `TYPESAFE_API_KEY` is configured;
 small packets report `bypass`, and unavailable or invalid Jev responses report
 `local-fallback`.
 
-Use `read_selected_evidence` with the returned session ID for a wider exact line
-range or a complete selected small file. Do this before edits or consequential
-claims when the selected excerpt does not provide enough context. The follow-up
-tool can only read paths selected in that session.
+Use `read_selected_evidence` with the returned session ID for a wider bounded
+line range or a complete selected small file. The end line is capped safely at
+EOF and the range limit. Do this before edits or consequential claims when the
+selected excerpt does not provide enough context. The follow-up tool can only
+read paths selected in that session.
 
 Make at most one search or large-text call for an investigation. Do not
 reformulate or retry when Jev returns no evidence or the tool rejects an input;

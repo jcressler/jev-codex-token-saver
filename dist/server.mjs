@@ -37272,7 +37272,9 @@ async function readSelectedEvidence(input2) {
     return { sessionId: input2.sessionId, path: file2.relativePath, lines: { start: 1, end: lines.length }, content: renderLines(lines, 1, lines.length) };
   }
   const startLine = boundedInteger2(input2.startLine, 1, 1, Math.max(1, lines.length), "startLine");
-  const endLine = boundedInteger2(input2.endLine, Math.min(lines.length, startLine + 119), startLine, Math.min(lines.length, startLine + MAX_RANGE_LINES - 1), "endLine");
+  const requestedEndLine = input2.endLine === void 0 ? startLine + 119 : Number(input2.endLine);
+  if (!Number.isSafeInteger(requestedEndLine) || requestedEndLine < startLine) throw new Error(`endLine must be an integer greater than or equal to startLine (${startLine})`);
+  const endLine = Math.min(requestedEndLine, lines.length, startLine + MAX_RANGE_LINES - 1);
   const content = renderLines(lines, startLine, endLine);
   if (content.length > MAX_RANGE_CHARS) throw new Error(`requested range exceeds ${MAX_RANGE_CHARS} characters; request fewer lines`);
   return { sessionId: input2.sessionId, path: file2.relativePath, lines: { start: startLine, end: endLine }, content };
@@ -37376,8 +37378,8 @@ server.registerTool("read_large_text_evidence", {
   }
 });
 server.registerTool("read_selected_evidence", {
-  title: "Read an exact selected source range",
-  description: "Retrieves an exact bounded line range, or a complete small selected file, from a prior evidence session. It cannot read unselected paths or leave that session workspace.",
+  title: "Read a bounded selected source range",
+  description: "Retrieves a bounded line range, capped at the selected file end and the range limit, or a complete small selected file, from a prior evidence session. It cannot read unselected paths or leave that session workspace.",
   inputSchema: {
     sessionId: external_exports.string().uuid().describe("Session identifier returned by a search or large-text tool."),
     path: external_exports.string().min(1).describe("A path selected by that session."),

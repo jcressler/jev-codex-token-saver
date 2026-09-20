@@ -311,7 +311,9 @@ export async function readSelectedEvidence(input) {
     return { sessionId: input.sessionId, path: file.relativePath, lines: { start: 1, end: lines.length }, content: renderLines(lines, 1, lines.length) };
   }
   const startLine = boundedInteger(input.startLine, 1, 1, Math.max(1, lines.length), 'startLine');
-  const endLine = boundedInteger(input.endLine, Math.min(lines.length, startLine + 119), startLine, Math.min(lines.length, startLine + MAX_RANGE_LINES - 1), 'endLine');
+  const requestedEndLine = input.endLine === undefined ? startLine + 119 : Number(input.endLine);
+  if (!Number.isSafeInteger(requestedEndLine) || requestedEndLine < startLine) throw new Error(`endLine must be an integer greater than or equal to startLine (${startLine})`);
+  const endLine = Math.min(requestedEndLine, lines.length, startLine + MAX_RANGE_LINES - 1);
   const content = renderLines(lines, startLine, endLine);
   if (content.length > MAX_RANGE_CHARS) throw new Error(`requested range exceeds ${MAX_RANGE_CHARS} characters; request fewer lines`);
   return { sessionId: input.sessionId, path: file.relativePath, lines: { start: startLine, end: endLine }, content };
