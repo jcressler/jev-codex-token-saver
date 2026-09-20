@@ -136,13 +136,15 @@ promising two-task result, not a universal savings claim. The next
 [controlled evaluation protocol](docs/NEXT-EVALUATION.md) calls for repetitions
 before generalizing the percentage.
 
-The first confirmation block was [invalidated after seven launches](docs/CONFIRMATION-V1-INVALID-2026-09-19.md)
-when a brittle deterministic grader rejected a correct paraphrase. Its first two
-complete task comparisons remain descriptive only. The prospective
-[confirmation v2 evaluation](docs/CONFIRMATION-V2.md) replaces the three exposed
-tasks and records correctness as an outcome instead of treating it as an
-execution failure. It retains the 12-task, three-repetition, rotated-arm design,
-task-level confidence intervals, and combined-cost gates.
+Confirmation v1 was [invalidated after seven launches](docs/CONFIRMATION-V1-INVALID-2026-09-19.md)
+when a brittle deterministic grader rejected a correct paraphrase. V2 was
+[invalidated after one launch](docs/CONFIRMATION-V2-INVALID-2026-09-19.md) when
+its ten-call stock safety cap proved too tight. The prospective
+[confirmation v3 evaluation](docs/CONFIRMATION-V3.md) replaces every exposed
+task, records correctness as an outcome, and permits up to 30 natural stock
+search calls while assisted arms remain fixed at two gateway calls. It retains
+the 12-task, three-repetition, rotated-arm design, task-level confidence
+intervals, and combined-cost gates.
 
 ## Troubleshoot or remove
 

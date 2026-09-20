@@ -34,14 +34,16 @@
     "test": "node --test",
     "demo": "node examples/large-output-demo.mjs",
     "smoke:live": "node scripts/live-smoke.mjs",
-    "check": "npm run build && node --check scripts/investigate.mjs && node --check src/investigator.mjs && node --check src/evidence-service.mjs && node --check src/mcp-server.mjs && node --check dist/server.mjs && node --check benchmarks/paired-pilot.mjs && node --check benchmarks/evaluation-v2.mjs && node --check benchmarks/quality-review.mjs && node --check benchmarks/installed-workflow-pilot.mjs && node --check benchmarks/controlled-workflow.mjs && node --check benchmarks/behavioral-validation.mjs && node --check benchmarks/gateway-pilot.mjs && node --check benchmarks/confirmation-v1-tasks.mjs && node --check benchmarks/confirmation-v1.mjs && node --check benchmarks/confirmation-v2-tasks.mjs && node --check benchmarks/confirmation-v2.mjs && npm test",
+    "check": "npm run build && node --check scripts/investigate.mjs && node --check src/investigator.mjs && node --check src/evidence-service.mjs && node --check src/mcp-server.mjs && node --check dist/server.mjs && node --check benchmarks/paired-pilot.mjs && node --check benchmarks/evaluation-v2.mjs && node --check benchmarks/quality-review.mjs && node --check benchmarks/installed-workflow-pilot.mjs && node --check benchmarks/controlled-workflow.mjs && node --check benchmarks/behavioral-validation.mjs && node --check benchmarks/gateway-pilot.mjs && node --check benchmarks/confirmation-v1-tasks.mjs && node --check benchmarks/confirmation-v1.mjs && node --check benchmarks/confirmation-v2-tasks.mjs && node --check benchmarks/confirmation-v2.mjs && node --check benchmarks/confirmation-v3-tasks.mjs && node --check benchmarks/confirmation-v3.mjs && npm test",
     "pilot:paired": "node benchmarks/paired-pilot.mjs",
     "eval:v2:prepare": "node benchmarks/evaluation-v2.mjs --prepare",
     "pilot:gateway:prepare": "node benchmarks/gateway-pilot.mjs --prepare",
     "confirm:v1:prepare": "node benchmarks/confirmation-v1.mjs --prepare",
     "confirm:v1:rehearse": "node benchmarks/confirmation-v1.mjs --rehearse",
     "confirm:v2:prepare": "node benchmarks/confirmation-v2.mjs --prepare",
-    "confirm:v2:rehearse": "node benchmarks/confirmation-v2.mjs --rehearse"
+    "confirm:v2:rehearse": "node benchmarks/confirmation-v2.mjs --rehearse",
+    "confirm:v3:prepare": "node benchmarks/confirmation-v3.mjs --prepare",
+    "confirm:v3:rehearse": "node benchmarks/confirmation-v3.mjs --rehearse"
   },
   "devDependencies": {
     "@modelcontextprotocol/sdk": "^1.30.0",

@@ -3,8 +3,9 @@
 Status: corrected pilot completed and passed; full repeated evaluation not
 launched. See the [invalid pilot audit](GATEWAY-PILOT-2026-09-19.md), the
 [corrected result](GATEWAY-PILOT-CORRECTED-2026-09-19.md), and the
-[invalid confirmation v1 block](CONFIRMATION-V1-INVALID-2026-09-19.md). The
-implemented successor is the [confirmation v2 protocol](CONFIRMATION-V2.md).
+[invalid confirmation v1 block](CONFIRMATION-V1-INVALID-2026-09-19.md). The v2
+block also [stopped on an overly tight stock safety cap](CONFIRMATION-V2-INVALID-2026-09-19.md).
+The implemented successor is the [confirmation v3 protocol](CONFIRMATION-V3.md).
 
 The next benchmark compares three arms on the same larger investigation tasks:
 
