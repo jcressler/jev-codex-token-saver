@@ -4,8 +4,9 @@ An experimental Codex plugin that reduces broad investigation output before it
 enters the model context.
 
 The prototype searches an authorized workspace locally, builds a bounded set of
-exact excerpts, and optionally makes one Jev request to score which excerpts
-answer the query and its requirements. Codex receives only the selected evidence.
+exact excerpts, follows a few local imports from strong candidates, and optionally
+makes one Jev request to score which excerpts answer the query and its requirements.
+Codex receives only the selected evidence.
 It does not rewrite conversation history or replace native Codex compaction.
 
 ## Why this design
@@ -60,9 +61,25 @@ excerpts to TypeSafe. It defaults to the pinned evaluation model
 `jev-1.13.0`. An invalid response, timeout, or request failure returns the local
 ordering with `mode: "local-fallback"`.
 
+Normal output is deliberately compact: mode, exact source locations, excerpts,
+and essential warnings. Write the complete query, Jev scores, skip counters, and
+telemetry to a separate file only when evaluating or debugging:
+
+```sh
+node scripts/investigate.mjs \
+  --root /path/to/project \
+  --query "why checkout initialization fails" \
+  --jev --allow-network \
+  --diagnostics ./jev-diagnostics.json
+```
+
+`--full` preserves the earlier verbose stdout format for direct debugging.
+
 ## Current safeguards and limits
 
 - One Jev request, at most 20 candidate files, and a 48 KiB request cap.
+- At most 4 imported local files are added by reference expansion by default;
+  the total candidate cap still applies.
 - At most 8 returned evidence excerpts.
 - No symlink traversal.
 - Common generated/dependency directories are skipped.
@@ -108,5 +125,15 @@ The completed [evaluation v2 result](benchmarks/results/EVALUATION-V2-2026-09-19
 ran all 12 frozen Sol High executions. Jev had the lowest aggregate Codex input,
 output, tool use, elapsed time, and API-equivalent cost after its selector cost;
 the report preserves the grader correction and the limits of the small sample.
+
+The offline quality checks now include the previously rejected correct Jev
+paraphrase, plausible wrong answers, executable reproductions of both fixture
+defects, and a label-free review packet. Scores within one rubric item of passing
+are marked for review instead of being treated as definitive automatic failures.
+
+The [installed workflow pilot](benchmarks/INSTALLED-WORKFLOW-PILOT.md) measures
+the whole Codex path, including skill discovery and the live Jev invocation. It
+uses a pinned Codex binary, strict single-launch artifacts, per-run budgets, and
+rejects `local-fallback` instead of mislabeling it as Jev.
 
 MIT licensed. Independent community project; not affiliated with OpenAI or TypeSafe.

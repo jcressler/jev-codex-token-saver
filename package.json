@@ -1,6 +1,6 @@
 {
   "name": "jev-codex-token-saver",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Bounded Jev evidence selection for token-efficient Codex investigations.",
   "type": "module",
   "license": "MIT",
@@ -28,7 +28,7 @@
   ],
   "scripts": {
     "test": "node --test",
-    "check": "node --check scripts/investigate.mjs && node --check src/investigator.mjs && node --check benchmarks/paired-pilot.mjs && node --check benchmarks/evaluation-v2.mjs && npm test",
+    "check": "node --check scripts/investigate.mjs && node --check src/investigator.mjs && node --check benchmarks/paired-pilot.mjs && node --check benchmarks/evaluation-v2.mjs && node --check benchmarks/quality-review.mjs && node --check benchmarks/installed-workflow-pilot.mjs && npm test",
     "pilot:paired": "node benchmarks/paired-pilot.mjs",
     "eval:v2:prepare": "node benchmarks/evaluation-v2.mjs --prepare"
   }

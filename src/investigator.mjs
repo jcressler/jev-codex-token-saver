@@ -1,5 +1,5 @@
 import { opendir, readFile, stat } from 'node:fs/promises';
-import { extname, relative, resolve, sep } from 'node:path';
+import { extname, posix, relative, resolve, sep } from 'node:path';
 
 export const DEFAULT_JEV_MODEL = 'jev-1.13.0';
 export const SYSTEM_ONE_URL = 'https://api.typesafe.ai/v1/systemone';
@@ -8,6 +8,7 @@ const REQUEST_LIMIT_BYTES = 48 * 1024;
 const DEFAULTS = Object.freeze({
   candidateLimit: 12,
   resultLimit: 4,
+  referenceLimit: 4,
   maxFiles: 5_000,
   maxFileBytes: 1_000_000,
   maxScanBytes: 64 * 1024 * 1024,
@@ -44,6 +45,7 @@ function normalizeOptions(options = {}) {
   return {
     candidateLimit: boundedInteger(options.candidateLimit, DEFAULTS.candidateLimit, 1, 20, 'candidateLimit'),
     resultLimit: boundedInteger(options.resultLimit, DEFAULTS.resultLimit, 1, 8, 'resultLimit'),
+    referenceLimit: boundedInteger(options.referenceLimit, DEFAULTS.referenceLimit, 0, 8, 'referenceLimit'),
     maxFiles: boundedInteger(options.maxFiles, DEFAULTS.maxFiles, 1, 20_000, 'maxFiles'),
     maxFileBytes: boundedInteger(options.maxFileBytes, DEFAULTS.maxFileBytes, 1_024, 4_000_000, 'maxFileBytes'),
     maxScanBytes: boundedInteger(options.maxScanBytes, DEFAULTS.maxScanBytes, 1_024, 256 * 1024 * 1024, 'maxScanBytes'),
@@ -146,6 +148,77 @@ function candidateFromText(path, text, query, requirements, options) {
   };
 }
 
+function localReferences(text) {
+  const references = [];
+  const seen = new Set();
+  const patterns = [
+    /import\s+(?:type\s+)?(?:([^\r\n]*?)\s+from\s+)?['"](\.{1,2}\/[^'"]+)['"]/g,
+    /export\s+(?:type\s+)?(?:([^\r\n]*?)\s+from\s+)['"](\.{1,2}\/[^'"]+)['"]/g,
+    /require\(\s*['"](\.{1,2}\/[^'"]+)['"]\s*\)/g,
+  ];
+  for (const [patternIndex, pattern] of patterns.entries()) {
+    for (const match of text.matchAll(pattern)) {
+      const specifier = patternIndex === 2 ? match[1] : match[2];
+      if (!specifier || seen.has(specifier)) continue;
+      seen.add(specifier);
+      const clause = patternIndex === 2 ? '' : (match[1] ?? '');
+      const symbols = (clause.match(/[A-Za-z_$][\w$]*/g) ?? [])
+        .filter(symbol => !['as', 'default', 'type'].includes(symbol))
+        .slice(0, 12);
+      references.push({ specifier, symbols });
+    }
+  }
+  return references;
+}
+
+function resolveReferencePath(sourcePath, specifier, filePaths) {
+  const bare = posix.normalize(posix.join(posix.dirname(sourcePath), specifier));
+  const attempts = [bare];
+  if (!posix.extname(bare)) {
+    for (const extension of ['.mjs', '.js', '.ts', '.tsx', '.jsx', '.cjs', '.json']) attempts.push(`${bare}${extension}`);
+    for (const extension of ['.mjs', '.js', '.ts', '.tsx', '.jsx', '.cjs']) attempts.push(`${bare}/index${extension}`);
+  }
+  return attempts.find(path => filePaths.has(path));
+}
+
+function referenceCandidate(record, symbols, sourceCandidate, options) {
+  const symbolQuery = symbols.join(' ');
+  const matched = symbolQuery && candidateFromText(record.path, record.text, symbolQuery, [], options);
+  if (matched) return { ...matched, selectionReason: `referenced by ${sourceCandidate.path}` };
+  const lines = record.text.split(/\r?\n/);
+  const end = Math.min(lines.length, options.contextLines * 2 + 3);
+  return {
+    path: record.path,
+    lines: { start: 1, end: Math.max(1, end) },
+    excerpt: lines.slice(0, end).map((line, index) => `${index + 1}: ${line}`).join('\n').slice(0, options.maxExcerptChars),
+    matchedTerms: [],
+    localScore: Math.max(0, sourceCandidate.localScore - 1),
+    selectionReason: `referenced by ${sourceCandidate.path}`,
+  };
+}
+
+function expandReferencedCandidates(lexicalCandidates, records, options) {
+  if (!options.referenceLimit || !lexicalCandidates.length) return [];
+  const recordsByPath = new Map(records.map(record => [record.path, record]));
+  const filePaths = new Set(recordsByPath.keys());
+  const lexicalByPath = new Map(lexicalCandidates.map(candidate => [candidate.path, candidate]));
+  const selectedPaths = new Set(lexicalCandidates.slice(0, options.candidateLimit).map(candidate => candidate.path));
+  const expanded = [];
+  for (const source of lexicalCandidates.slice(0, Math.min(6, options.candidateLimit))) {
+    const record = recordsByPath.get(source.path);
+    if (!record) continue;
+    for (const reference of localReferences(record.text)) {
+      const path = resolveReferencePath(source.path, reference.specifier, filePaths);
+      if (!path || selectedPaths.has(path)) continue;
+      const target = lexicalByPath.get(path) ?? referenceCandidate(recordsByPath.get(path), reference.symbols, source, options);
+      expanded.push({ ...target, selectionReason: `referenced by ${source.path}` });
+      selectedPaths.add(path);
+      if (expanded.length >= options.referenceLimit) return expanded;
+    }
+  }
+  return expanded;
+}
+
 async function* walk(root, metrics, options, directory = root) {
   if (metrics.filesVisited >= options.maxFiles || metrics.bytesScanned >= options.maxScanBytes) return;
   const handle = await opendir(directory);
@@ -195,12 +268,16 @@ export async function searchWorkspace(rootPath, query, requirements = [], rawOpt
     skippedSymlinks: 0,
     skippedByLimit: 0,
     scanTruncated: false,
+    referencedCandidatesAdded: 0,
   };
   const candidates = [];
+  const records = [];
   for await (const file of walk(root, metrics, options)) {
     const bytes = await readFile(file.absolute);
     if (bytes.subarray(0, 8_192).includes(0)) continue;
-    const candidate = candidateFromText(file.path, bytes.toString('utf8'), query.trim(), requirements, options);
+    const text = bytes.toString('utf8');
+    records.push({ path: file.path, text });
+    const candidate = candidateFromText(file.path, text, query.trim(), requirements, options);
     if (candidate) {
       metrics.filesMatched += 1;
       candidates.push(candidate);
@@ -208,7 +285,21 @@ export async function searchWorkspace(rootPath, query, requirements = [], rawOpt
   }
   metrics.scanTruncated = metrics.filesVisited >= options.maxFiles || metrics.bytesScanned >= options.maxScanBytes;
   candidates.sort((a, b) => b.localScore - a.localScore || a.path.localeCompare(b.path));
-  return { root, candidates: candidates.slice(0, options.candidateLimit), metrics, options };
+  const expanded = expandReferencedCandidates(candidates, records, options);
+  const selected = candidates.slice(0, options.candidateLimit);
+  for (const candidate of expanded) {
+    const sourcePath = candidate.selectionReason?.replace(/^referenced by /, '');
+    if (!selected.some(item => item.path === sourcePath)) continue;
+    if (selected.length >= options.candidateLimit) {
+      const removable = selected.findLastIndex(item => item.path !== sourcePath && !item.selectionReason);
+      if (removable === -1) continue;
+      selected.splice(removable, 1);
+    }
+    selected.push(candidate);
+  }
+  metrics.referencedCandidatesAdded = selected.filter(candidate => candidate.selectionReason).length;
+  selected.sort((a, b) => b.localScore - a.localScore || a.path.localeCompare(b.path));
+  return { root, candidates: selected, metrics, options };
 }
 
 function requestBytes(state, questions) {
@@ -417,5 +508,16 @@ export async function investigate({ root, query, requirements = [], useJev = fal
     ...(ranking.model ? { jevModel: ranking.model } : {}),
     ...(ranking.fallbackReason ? { warning: ranking.fallbackReason } : {}),
     measurementNote: 'Reduction compares bounded candidate and returned evidence packets. It is not an end-to-end Codex token measurement.',
+  };
+}
+
+export function compactInvestigation(result) {
+  const warnings = [];
+  if (result.warning) warnings.push(`Jev unavailable; deterministic local fallback used: ${result.warning}`);
+  if (result.metrics?.scanTruncated) warnings.push('Workspace scan reached a configured file or byte limit; missing evidence is not proof of absence.');
+  return {
+    mode: result.mode,
+    evidence: (result.evidence ?? []).map(({ path, lines, excerpt }) => ({ path, lines, excerpt })),
+    ...(warnings.length ? { warnings } : {}),
   };
 }

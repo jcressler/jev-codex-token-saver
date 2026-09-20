@@ -3,7 +3,7 @@ import { mkdtemp, mkdir, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import test from 'node:test';
-import { buildJevRankingRequest, investigate, rankWithJev, searchWorkspace } from '../src/investigator.mjs';
+import { buildJevRankingRequest, compactInvestigation, investigate, rankWithJev, searchWorkspace } from '../src/investigator.mjs';
 
 async function fixture() {
   const root = await mkdtemp(join(tmpdir(), 'jev-token-saver-'));
@@ -29,6 +29,22 @@ test('search stays local, bounded, and excludes sensitive or generated files', a
     assert.equal(result.candidates.some((candidate) => candidate.excerpt.includes('PRIVATE_VALUE')), false);
     assert.equal(result.candidates.some((candidate) => candidate.excerpt.includes('PRIVATE_DEPENDENCY')), false);
     assert.equal(result.metrics.skippedSensitive, 1);
+  } finally {
+    await rm(root, { recursive: true, force: true });
+  }
+});
+
+test('search includes a bounded local file referenced by a strong lexical candidate', async () => {
+  const root = await mkdtemp(join(tmpdir(), 'jev-token-saver-reference-'));
+  try {
+    await mkdir(join(root, 'src'));
+    await writeFile(join(root, 'src', 'catalog.mjs'), "import { readPrice } from './cache.mjs';\nexport const catalog = tenant => readPrice(tenant);\n");
+    await writeFile(join(root, 'src', 'cache.mjs'), 'const values = new Map();\nexport function readPrice(id) { return values.get(id); }\n');
+    await writeFile(join(root, 'notes.md'), 'catalog tenant pricing catalog tenant pricing\n');
+    const result = await searchWorkspace(root, 'catalog tenant pricing', [], { candidateLimit: 2, resultLimit: 2, referenceLimit: 1 });
+    assert.equal(result.candidates.some(candidate => candidate.path === 'src/cache.mjs'), true);
+    assert.equal(result.metrics.referencedCandidatesAdded, 1);
+    assert.equal(result.candidates.length, 2);
   } finally {
     await rm(root, { recursive: true, force: true });
   }
@@ -82,6 +98,20 @@ test('investigation reports packet reduction without calling it Codex savings', 
   } finally {
     await rm(root, { recursive: true, force: true });
   }
+});
+
+test('compact investigation keeps evidence and essential warnings while omitting diagnostics', () => {
+  const compact = compactInvestigation({
+    mode: 'local-fallback', query: 'repeated query', root: 'C:/private/root', jevModel: 'jev-1.13.0',
+    evidence: [{ path: 'src/a.mjs', lines: { start: 2, end: 3 }, excerpt: '2: evidence', jevRelevance: 0.9 }],
+    metrics: { scanTruncated: true, elapsedMs: 25, jevUsage: { input_tokens: 20 } }, warning: 'synthetic outage',
+  });
+  assert.deepEqual(compact.evidence, [{ path: 'src/a.mjs', lines: { start: 2, end: 3 }, excerpt: '2: evidence' }]);
+  assert.equal('query' in compact, false);
+  assert.equal('metrics' in compact, false);
+  assert.equal('jevRelevance' in compact.evidence[0], false);
+  assert.match(compact.warnings.join(' '), /local fallback/);
+  assert.match(compact.warnings.join(' '), /scan reached/);
 });
 
 test('Jev failure falls back to deterministic evidence and is visible', async () => {

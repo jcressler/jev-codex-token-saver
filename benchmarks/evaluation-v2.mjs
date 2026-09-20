@@ -88,7 +88,13 @@ export function gradeAnswer(task, answer) {
     facts[fact.id] = passed;
     if (passed) score += fact.weight;
   }
-  return { score, passed: score >= task.rubric.passingScore, facts };
+  const passed = score >= task.rubric.passingScore;
+  return {
+    score,
+    passed,
+    reviewRequired: !passed && score >= Math.max(0, task.rubric.passingScore - 2),
+    facts,
+  };
 }
 
 export function buildPrompt(task, packet) {

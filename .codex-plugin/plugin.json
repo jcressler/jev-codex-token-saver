@@ -1,6 +1,6 @@
 {
   "name": "jev-codex-token-saver",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Use bounded Jev evidence selection to keep broad local search results out of Codex context.",
   "author": {
     "name": "James Cressler",
@@ -8,12 +8,18 @@
   },
   "repository": "https://github.com/jcressler/jev-codex-token-saver",
   "license": "MIT",
-  "keywords": ["codex", "jev", "context", "token-efficiency", "retrieval"],
+  "keywords": [
+    "codex",
+    "jev",
+    "context",
+    "token-efficiency",
+    "retrieval"
+  ],
   "skills": "./skills/",
   "interface": {
     "displayName": "Jev Codex Token Saver",
     "shortDescription": "Return focused evidence from broad local searches",
-    "longDescription": "An experimental Codex workflow that searches locally, sends a bounded candidate set to Jev for typed relevance scoring, and returns only selected exact excerpts with reduction telemetry.",
+    "longDescription": "An experimental Codex workflow that searches locally, expands bounded references, sends a bounded candidate set to Jev for typed relevance scoring, and returns only selected exact excerpts. Detailed telemetry is optional.",
     "developerName": "James Cressler",
     "category": "Productivity",
     "capabilities": [],

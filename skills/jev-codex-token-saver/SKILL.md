@@ -29,8 +29,12 @@ flags and use the deterministic local ranking.
 
 Treat returned excerpts as leads. Open the selected exact source locations when
 the task requires code changes or consequential conclusions. If the report says
-`local-fallback`, Jev did not complete successfully. Check `scanTruncated` and
-the skip counters before treating missing evidence as proof of absence.
+`local-fallback`, Jev did not complete successfully. The normal response is a
+compact packet containing only the mode, exact source excerpts, and essential
+warnings. Use `--diagnostics PATH` only when evaluating or debugging the selector;
+that separate report contains the query, detailed scores, skip counters, and
+telemetry. Never load the diagnostic report into model context unless those
+details are needed for the task.
 
 The reported reduction compares the bounded candidate packet with the returned
 evidence packet. Do not describe it as measured Codex savings unless a separate
