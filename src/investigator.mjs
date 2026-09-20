@@ -5,6 +5,8 @@ export const DEFAULT_JEV_MODEL = 'jev-1.13.0';
 export const SYSTEM_ONE_URL = 'https://api.typesafe.ai/v1/systemone';
 
 const REQUEST_LIMIT_BYTES = 48 * 1024;
+// Explicit conservative policy for the prototype. This is not calibrated.
+const MIN_USEFUL_PROBABILITY = 0.5;
 const DEFAULTS = Object.freeze({
   candidateLimit: 12,
   resultLimit: 4,
@@ -356,16 +358,32 @@ function probability(answers, key) {
 function selectByCoverage(scored, requirementCount, limit) {
   const selected = [];
   const used = new Set();
-  for (let requirementIndex = 0; requirementIndex < requirementCount && selected.length < limit; requirementIndex += 1) {
-    const best = [...scored]
-      .filter((item) => !used.has(item.index))
-      .sort((a, b) => b.requirementSupport[requirementIndex] - a.requirementSupport[requirementIndex] || b.relevance - a.relevance || a.index - b.index)[0];
-    if (best && best.requirementSupport[requirementIndex] >= 0.5) {
-      selected.push(best);
-      used.add(best.index);
-    }
+  const coveredRequirements = new Set();
+  const useful = scored.filter((item) => item.relevance >= MIN_USEFUL_PROBABILITY &&
+    (requirementCount === 0 || item.requirementSupport.some(score => score >= MIN_USEFUL_PROBABILITY)));
+
+  while (selected.length < limit) {
+    const withNovelCoverage = useful
+      .filter(item => !used.has(item.index))
+      .map(item => ({
+        item,
+        novelCoverage: item.requirementSupport.reduce((count, score, requirementIndex) =>
+          count + (!coveredRequirements.has(requirementIndex) && score >= MIN_USEFUL_PROBABILITY ? 1 : 0), 0),
+      }))
+      .filter(({ novelCoverage }) => novelCoverage > 0)
+      .sort((a, b) => b.novelCoverage - a.novelCoverage || b.item.relevance - a.item.relevance || a.item.index - b.item.index);
+    const best = withNovelCoverage[0]?.item;
+    if (!best) break;
+    selected.push(best);
+    used.add(best.index);
+    best.requirementSupport.forEach((score, requirementIndex) => {
+      if (score >= MIN_USEFUL_PROBABILITY) coveredRequirements.add(requirementIndex);
+    });
   }
-  for (const item of [...scored].sort((a, b) => b.relevance - a.relevance || a.index - b.index)) {
+
+  // Preserve relevant evidence that complements the requirement coverage when
+  // there is room, while never padding with weak or unsupported candidates.
+  for (const item of useful.sort((a, b) => b.relevance - a.relevance || a.index - b.index)) {
     if (selected.length >= limit) break;
     if (!used.has(item.index)) {
       selected.push(item);
@@ -392,7 +410,14 @@ export async function rankWithJev(query, requirements, candidates, options = {})
     if (!response.ok) throw new Error(`Jev request failed (${response.status})`);
     let parsed;
     try { parsed = JSON.parse(text); } catch { throw new Error('Jev returned malformed JSON'); }
-    if (!parsed || typeof parsed !== 'object' || !parsed.answers || typeof parsed.answers !== 'object') {
+    if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) throw new Error('Jev response is malformed');
+    if (typeof parsed.model !== 'string' || !parsed.model.trim()) throw new Error('Jev response is missing model');
+    if (!parsed.usage || typeof parsed.usage !== 'object' || Array.isArray(parsed.usage) ||
+        !Number.isSafeInteger(parsed.usage.input_tokens) || parsed.usage.input_tokens < 0 ||
+        !Number.isSafeInteger(parsed.usage.output_tokens) || parsed.usage.output_tokens < 0) {
+      throw new Error('Jev response is missing valid usage');
+    }
+    if (!parsed.answers || typeof parsed.answers !== 'object' || Array.isArray(parsed.answers)) {
       throw new Error('Jev response is missing answers');
     }
     return parsed;

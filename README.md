@@ -9,6 +9,12 @@ makes one Jev request to score which excerpts answer the query and its requireme
 Codex receives only the selected evidence.
 It does not rewrite conversation history or replace native Codex compaction.
 
+Jev selection returns **up to** the requested result limit. A candidate must have
+relevance of at least 0.5 and, when requirements are supplied, support of at least
+0.5 for one requirement. Selection prioritizes requirements not already covered,
+then useful remaining evidence. It can return no excerpts. These are declared
+prototype cutoffs, not calibrated accuracy guarantees.
+
 ## Why this design
 
 Large search results, logs, and repeated file reads can consume more Codex input
@@ -92,6 +98,17 @@ redactor. Use Jev mode only for content authorized for transfer.
 
 ## Validate
 
+The [controlled workflow protocol](benchmarks/CONTROLLED-WORKFLOW.md) measures
+ordinary Codex, local selection, and Jev selection with the selector invoked
+inside each assisted turn. It validates executable fixes and regression tests;
+the older keyword graders are not used for its quality verdicts.
+
+The [six-run controlled result](benchmarks/results/CONTROLLED-WORKFLOW-2026-09-19.md)
+passed all executable quality checks. Jev used 37.2% less Codex input than local
+selection, but 0.23% more than stock; its API-equivalent cost was 13.9% below
+local and 0.95% above stock, and it took 21.0% longer than stock. These are
+observations on two small known fixtures, not a general savings estimate.
+
 ```sh
 npm test
 npm run check
@@ -126,10 +143,12 @@ ran all 12 frozen Sol High executions. Jev had the lowest aggregate Codex input,
 output, tool use, elapsed time, and API-equivalent cost after its selector cost;
 the report preserves the grader correction and the limits of the small sample.
 
-The offline quality checks now include the previously rejected correct Jev
-paraphrase, plausible wrong answers, executable reproductions of both fixture
-defects, and a label-free review packet. Scores within one rubric item of passing
-are marked for review instead of being treated as definitive automatic failures.
+The historical keyword graders are not reliable quality judges: they can reject
+correct paraphrases and accept answers that negate the expected facts. Their
+reports remain preserved, including the disclosed semantic correction. The
+controlled workflow instead validates proposed code changes against existing
+tests, a submitted regression that fails before the fix, and independent behavior
+checks. It does not use those keyword scores.
 
 The [installed workflow pilot](benchmarks/INSTALLED-WORKFLOW-PILOT.md) measures
 the whole Codex path, including skill discovery and the live Jev invocation. It
@@ -139,7 +158,10 @@ rejects `local-fallback` instead of mislabeling it as Jev.
 Its first [completed result](benchmarks/results/INSTALLED-WORKFLOW-PILOT-2026-09-19.md)
 found higher total Codex tokens, tool use, and elapsed time for Jev on one small
 task, alongside lower uncached input and 9.1% lower API-equivalent cost including
-the selector. A broader follow-up stopped at its fixed stock-arm budget gate, so
-no unsupported comparison was made.
+the selector. That run forced skill use for a known-file task the skill recommends
+skipping, spent two extra calls recovering from an incorrect skill path, and
+returned low-scoring filler excerpts. It measures that specific flawed workflow,
+not Jev's general effectiveness. A broader follow-up stopped after its stock arm
+crossed the budget gate and has no Jev counterpart.
 
 MIT licensed. Independent community project; not affiliated with OpenAI or TypeSafe.

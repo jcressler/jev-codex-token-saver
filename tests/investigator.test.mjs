@@ -77,6 +77,65 @@ test('Jev typed scores can select a lower lexical candidate', async () => {
   assert.deepEqual(ranked.usage, { input_tokens: 100, output_tokens: 8 });
 });
 
+test('coverage selection keeps one all-requirements candidate and a useful relevant complement', async () => {
+  const candidates = [
+    { path: 'a.ts', lines: { start: 1, end: 1 }, excerpt: 'covers both requirements', matchedTerms: [], localScore: 1 },
+    { path: 'b.ts', lines: { start: 1, end: 1 }, excerpt: 'weak repeated evidence', matchedTerms: [], localScore: 100 },
+    { path: 'c.ts', lines: { start: 1, end: 1 }, excerpt: 'relevant complementary evidence', matchedTerms: [], localScore: 2 },
+  ];
+  const ranked = await rankWithJev('investigate the failure', ['cause', 'fallback'], candidates, {
+    resultLimit: 2,
+    ask: async () => ({
+      answers: {
+        relevance_0: { noul: 0.82 }, relevance_1: { noul: 0.31 }, relevance_2: { noul: 0.97 },
+        requirement_0_0: { noul: 0.91 }, requirement_1_0: { noul: 0.88 },
+        requirement_0_1: { noul: 0.49 }, requirement_1_1: { noul: 0.42 },
+        requirement_0_2: { noul: 0.72 }, requirement_1_2: { noul: 0.49 },
+      },
+    }),
+  });
+  assert.deepEqual(ranked.selected.map(item => item.candidate.path), ['a.ts', 'c.ts']);
+});
+
+test('Jev selection abstains when no candidate meets the declared usefulness threshold', async () => {
+  const ranked = await rankWithJev('investigate the failure', ['cause'], [
+    { path: 'weak.ts', lines: { start: 1, end: 1 }, excerpt: 'weak evidence', matchedTerms: [], localScore: 1 },
+  ], {
+    resultLimit: 3,
+    ask: async () => ({
+      answers: { relevance_0: { noul: 0.49 }, requirement_0_0: { noul: 0.99 } },
+    }),
+  });
+  assert.deepEqual(ranked.selected, []);
+});
+
+test('HTTP Jev responses require returned model and usage metadata', async () => {
+  const originalFetch = globalThis.fetch;
+  const candidate = { path: 'a.ts', lines: { start: 1, end: 1 }, excerpt: 'evidence', matchedTerms: [], localScore: 1 };
+  const answers = { relevance_0: { noul: 0.9 } };
+  try {
+    globalThis.fetch = async () => new Response(JSON.stringify({
+      model: 'jev-1.13.0', answers, usage: { input_tokens: 12, output_tokens: 3 },
+    }), { status: 200, headers: { 'content-type': 'application/json' } });
+    const ranked = await rankWithJev('query', [], [candidate], { apiKey: 'offline-test-key' });
+    assert.equal(ranked.model, 'jev-1.13.0');
+    assert.deepEqual(ranked.usage, { input_tokens: 12, output_tokens: 3 });
+
+    for (const responseBody of [
+      { answers, usage: { input_tokens: 12, output_tokens: 3 } },
+      { model: 'jev-1.13.0', answers },
+    ]) {
+      globalThis.fetch = async () => new Response(JSON.stringify(responseBody), { status: 200 });
+      await assert.rejects(
+        rankWithJev('query', [], [candidate], { apiKey: 'offline-test-key' }),
+        /Jev response is missing (model|valid usage)/,
+      );
+    }
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
 test('ranking request is bounded below 48 KiB', () => {
   const candidates = Array.from({ length: 20 }, (_, index) => ({
     path: `src/file-${index}.ts`,

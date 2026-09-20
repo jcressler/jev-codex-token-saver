@@ -28,7 +28,7 @@
   ],
   "scripts": {
     "test": "node --test",
-    "check": "node --check scripts/investigate.mjs && node --check src/investigator.mjs && node --check benchmarks/paired-pilot.mjs && node --check benchmarks/evaluation-v2.mjs && node --check benchmarks/quality-review.mjs && node --check benchmarks/installed-workflow-pilot.mjs && npm test",
+    "check": "node --check scripts/investigate.mjs && node --check src/investigator.mjs && node --check benchmarks/paired-pilot.mjs && node --check benchmarks/evaluation-v2.mjs && node --check benchmarks/quality-review.mjs && node --check benchmarks/installed-workflow-pilot.mjs && node --check benchmarks/controlled-workflow.mjs && node --check benchmarks/behavioral-validation.mjs && npm test",
     "pilot:paired": "node benchmarks/paired-pilot.mjs",
     "eval:v2:prepare": "node benchmarks/evaluation-v2.mjs --prepare"
   }
