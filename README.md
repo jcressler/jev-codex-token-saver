@@ -61,10 +61,47 @@ codex plugin marketplace add https://github.com/jcressler/jev-codex-token-saver
 codex plugin add jev-codex-token-saver@jev-codex-token-saver
 ```
 
-Set `TYPESAFE_API_KEY` in the environment that launches Codex. Do not put the
-key in plugin files, prompts, command arguments, or Git. On Windows, one option is
-to add it through **System Properties -> Environment Variables**, then fully
-restart Codex so the bundled MCP process inherits it.
+### Save your API key once
+
+The plugin reads `TYPESAFE_API_KEY` from the environment that launches Codex.
+Save it persistently so it is available in future tasks and after restarts.
+Copying a key to the clipboard does not configure the plugin, and setting
+`$env:TYPESAFE_API_KEY` in one PowerShell session does not save it for future
+Codex launches.
+
+On Windows:
+
+1. Open Start and search for **Edit environment variables for your account**.
+2. Under **User variables**, choose **New** (or **Edit** if it already exists).
+   Set the variable name to `TYPESAFE_API_KEY` and the value to your raw TypeSafe
+   API key, without quotes or a `Bearer ` prefix.
+3. Save with **OK** and close the settings dialogs. This user setting survives
+   computer restarts and plugin updates; you only need to change it when your
+   key changes.
+4. Let running tasks finish, then **fully quit and reopen Codex** from the Start
+   menu. For the CLI, close and reopen your terminal before launching Codex.
+   Opening another task in the already-running app does not refresh its inherited
+   environment.
+
+To confirm that Windows has saved the variable without displaying the key, run
+this in PowerShell:
+
+```powershell
+-not [string]::IsNullOrWhiteSpace([Environment]::GetEnvironmentVariable('TYPESAFE_API_KEY', 'User'))
+```
+
+`True` confirms that a value is saved; it does not validate the key or prove the
+currently running plugin has received it. Check actual Jev use as described below.
+
+On other operating systems, persist the same variable in the environment that
+launches Codex, then fully restart Codex. A variable set only in a terminal does
+not configure a separately launched desktop app.
+
+Keep the key outside plugin files, prompts, command arguments, and Git. The
+plugin already forwards this named environment variable to its MCP server; no
+key needs to be added to `.mcp.json`.
+
+### Confirm installation and Jev use
 
 Start a new Codex task after installation or upgrade. Confirm discovery with:
 
@@ -73,7 +110,15 @@ codex plugin list
 codex mcp list
 ```
 
-The MCP list should include `jev_token_saver`.
+The MCP list should include `jev_token_saver`. Discovery alone does not confirm
+that your API key is available or that Jev has been used.
+
+On an eligible large investigation, inspect the tool result for `mode: "jev"`
+and `metrics.jevRequests: 1`. Together these confirm that Jev supplied the
+selection. You do not need to enable diagnostics to see these fields. A small
+packet may correctly return `bypass` without testing the key; `local-fallback`
+means the plugin used its local selector, so inspect its warning before
+attributing that result to Jev.
 
 ## Use
 
@@ -171,9 +216,23 @@ mapping, and hashes are public under
 
 If `jev_token_saver` is missing, confirm the plugin is enabled, run
 `codex plugin marketplace upgrade jev-codex-token-saver`, reinstall the plugin,
-and start a new task. If calls show `local-fallback`, ensure the key exists in the
-Codex process environment and inspect the returned warning. `bypass` is expected
-for small results.
+and start a new task.
+
+If calls show `local-fallback`, inspect the returned warning:
+
+- **`TYPESAFE_API_KEY is not configured`**: follow [Save your API key
+  once](#save-your-api-key-once), then fully quit and reopen Codex. A saved Windows
+  user variable is not automatically added to an already-running Codex or MCP
+  process.
+- **Authentication failure / HTTP 401**: check that you saved the raw, valid
+  TypeSafe API key. After correcting or rotating it, restart Codex again.
+- **Network, timeout, or response errors**: the plugin returns local evidence
+  after one attempted Jev request. Check the reported error before trying a new
+  investigation; the plugin does not automatically retry the failed request.
+
+`bypass` is expected for small results and does not indicate an authentication
+problem. Successful Jev selection reports `mode: "jev"`; a reduction reported
+by `local-fallback` is a local-selection result.
 
 Remove the plugin and its marketplace with:
 
